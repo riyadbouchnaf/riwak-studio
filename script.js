@@ -1,6 +1,42 @@
 /* ============ RIWAK STUDIO : les scripts du site ============
+   0. Les écrans réduits (ordinateur, téléphone, avant / après).
+   0 bis. Le curseur avant / après.
    1. La fenêtre des exemples (onglets, exploration, ordinateur / téléphone).
    2. Le formulaire de contact (pour l'instant, il N'ENVOIE RIEN). */
+
+/* ---------- 0. Les écrans réduits ----------
+   Chaque « .ecran » affiche un site dans sa taille d'origine (par exemple 1440 pixels de large),
+   puis on le réduit pour qu'il rentre dans le cadre. La réduction = largeur du cadre ÷ largeur d'origine. */
+
+const ecrans = document.querySelectorAll('.ecran[data-largeur]');
+
+function ajusterEcran(ecran) {
+  const largeurOrigine = Number(ecran.dataset.largeur);
+  const echelle = ecran.clientWidth / largeurOrigine;
+  // On envoie la valeur au fichier style.css, qui s'en sert dans « transform: scale(...) »
+  ecran.style.setProperty('--echelle', echelle);
+}
+
+// ResizeObserver surveille la taille des cadres : si la fenêtre change de taille,
+// la réduction est recalculée automatiquement
+const surveillant = new ResizeObserver(function (changements) {
+  changements.forEach(function (changement) {
+    ajusterEcran(changement.target);
+  });
+});
+ecrans.forEach(function (ecran) {
+  ajusterEcran(ecran);
+  surveillant.observe(ecran);
+});
+
+/* ---------- 0 bis. Le curseur avant / après ---------- */
+const comparateur = document.querySelector('.comparateur');
+const curseur = document.querySelector('.comparateur-curseur');
+
+// À chaque mouvement du curseur, on déplace la séparation (--position, de 0 % à 100 %)
+curseur.addEventListener('input', function () {
+  comparateur.style.setProperty('--position', curseur.value + '%');
+});
 
 /* ---------- 1. La fenêtre des exemples ---------- */
 

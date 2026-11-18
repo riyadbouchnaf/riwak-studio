@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>BOULANGERIE FERRAND - Bienvenue !!!</title>
+<!-- Page volontairement datée : c'est l'« avant » de la démonstration de refonte.
+     Pas de balise viewport, une largeur fixe, des polices système : comme un site de 2011. -->
+<style>
+  body {
+    margin: 0;
+    background-color: #e8dfb8;
+    background-image: repeating-linear-gradient(45deg, rgba(160, 120, 40, .12) 0 2px, transparent 2px 12px);
+    font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", cursive;
+    color: #333;
+  }
+  .page { width: 960px; margin: 0 auto; background: #fffbe9; border-left: 4px double #8b5a2b; border-right: 4px double #8b5a2b; min-height: 800px; }
+  .bandeau {
+    background: linear-gradient(#3b6fd1, #1b3f8f);
+    color: #ffff66; text-align: center; padding: 22px 0 18px;
+    border-bottom: 5px ridge #c9a227;
+  }
+  .bandeau h1 { margin: 0; font-family: "Times New Roman", Times, serif; font-size: 40px; text-shadow: 3px 3px 0 #000; letter-spacing: 1px; }
+  .bandeau p { margin: 6px 0 0; color: #fff; font-size: 15px; }
+  .menu { background: #c9a227; text-align: center; padding: 7px 0; font-family: Arial, sans-serif; font-size: 14px; }
+  .menu a { color: #0000ee; font-weight: bold; }
+  .contenu { padding: 16px 30px; text-align: center; font-size: 15px; }
+  .contenu h2 { color: #b30000; font-family: "Times New Roman", serif; font-size: 26px; margin: 10px 0; text-decoration: underline; }
+  .colonnes { display: table; width: 100%; margin-top: 10px; }
+  .col { display: table-cell; vertical-align: top; padding: 6px; }
+  .photo { width: 300px; height: 200px; margin: 0 auto; border: 3px outset #999; background: #ddd; display: table-cell; vertical-align: middle; text-align: center; color: #777; font-family: Arial, sans-serif; font-size: 13px; }
+  table.horaires { border: 2px solid #000; border-collapse: collapse; margin: 6px auto; font-family: "Times New Roman", serif; font-size: 14px; background: #fff; }
+  table.horaires td { border: 1px solid #000; padding: 3px 10px; }
+  .clignote { color: #ff0000; font-weight: bold; font-size: 18px; }
+  .compteur { display: inline-block; background: #000; color: #00ff00; font-family: "Courier New", monospace; padding: 2px 6px; letter-spacing: 2px; }
+  .bouton-vieux { display: inline-block; margin-top: 8px; padding: 5px 14px; background: linear-gradient(#ffffff, #c8c8c8); border: 2px outset #aaa; font-family: Arial, sans-serif; font-size: 13px; color: #000; }
+  .bas { text-align: center; font-family: Arial, sans-serif; font-size: 11px; color: #666; padding: 14px 0 24px; border-top: 1px dashed #8b5a2b; margin: 14px 30px 0; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="bandeau">
+    <h1>~ BOULANGERIE FERRAND ~</h1>
+    <p>Pain * Viennoiseries * Pâtisseries * Traiteur</p>
+  </div>
+  <div class="menu">
+    <a href="#">Accueil</a> | <a href="#">Nos produits</a> | <a href="#">Galerie photos</a> | <a href="#">Livre d'or</a> | <a href="#">Liens</a> | <a href="#">Contact</a>
+  </div>
+  <div class="contenu">
+    <h2>Bienvenue sur notre site internet !!!</h2>
+    <p class="clignote">*** NOUVEAU : la galette des rois est arrivée !!! ***</p>
+    <p>La Boulangerie Ferrand vous accueille depuis 1987 dans une ambiance familiale et chaleureuse.<br>
+      Venez découvrir nos nombreux produits fabriqués avec amour par notre équipe.<br>
+      N'hésitez pas à laisser un message dans notre livre d'or !!</p>
+    <div class="colonnes">
+      <div class="col">
+        <div class="photo">[ image : vitrine.jpg ]<br>(image introuvable)</div>
+      </div>
+      <div class="col">
+        <b><u>NOS HORAIRES :</u></b>
+        <table class="horaires">
+          <tr><td>Lundi</td><td>FERME</td></tr>
+          <tr><td>Mardi au Vendredi</td><td>6h30-13h / 15h30-19h30</td></tr>
+          <tr><td>Samedi</td><td>6h30-13h / 15h30-19h</td></tr>
+          <tr><td>Dimanche</td><td>7h-12h30</td></tr>
+        </table>
+        <span class="bouton-vieux">Cliquez ici pour nous contacter</span>
+      </div>
+    </div>
+    <p>Vous êtes le <span class="compteur">004521</span> ème visiteur !! Merci de votre visite !!</p>
+  </div>
+  <div class="bas">
+    Dernière mise à jour : 12/03/2011 — Site optimisé pour Internet Explorer 8 en 1024x768<br>
+    © Boulangerie Ferrand — Tous droits réservés — Webmaster : contactez-nous
+  </div>
+</div>
+</body>
+</html>

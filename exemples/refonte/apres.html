@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boulangerie Ferrand | Pain au levain, cuit sur place</title>
+<!-- L'« après » de la démonstration de refonte : le même commerce, avec un site actuel.
+     Boulangerie fictive, créée pour cette démonstration. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nuit: #16263d;      /* bleu de la devanture */
+    --croute: #d99a2b;    /* doré de la croûte */
+    --farine: #ffffff;
+    --pierre: #5b6472;
+    --trait: #e4e1da;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Manrope", "Segoe UI", sans-serif; color: var(--nuit); background: var(--farine); }
+
+  .entete { display: flex; justify-content: space-between; align-items: center; padding: 22px 56px; border-bottom: 1px solid var(--trait); }
+  .logo { font: 400 26px "Young Serif", Georgia, serif; }
+  .menu { display: flex; align-items: center; gap: 34px; font-size: 16px; font-weight: 600; }
+  .menu span { color: var(--pierre); }
+  .appeler { background: var(--nuit); color: #fff; padding: 11px 20px; border-radius: 999px; font-size: 15px; }
+
+  .accroche { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 520px; }
+  .accroche-texte { padding: 70px 56px 40px; }
+  .lieu { color: var(--croute); font-weight: 700; font-size: 16px; margin-bottom: 18px; }
+  h1 { font: 400 66px/1.02 "Young Serif", Georgia, serif; letter-spacing: -0.02em; max-width: 11ch; }
+  .accroche-texte p.intro { font-size: 19px; line-height: 1.5; color: var(--pierre); max-width: 34ch; margin-top: 22px; }
+  .actions { display: flex; gap: 14px; margin-top: 30px; }
+  .btn { padding: 15px 24px; border-radius: 999px; font-weight: 700; font-size: 16px; }
+  .btn-plein { background: var(--croute); color: var(--nuit); }
+  .btn-ligne { border: 2px solid var(--nuit); }
+
+  .vitrine { background: var(--nuit); display: grid; place-items: center; position: relative; overflow: hidden; }
+  .vitrine::before { content: ""; position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(217, 154, 43, .28), transparent 65%); }
+  .vitrine svg { position: relative; width: 82%; }
+
+  .infos { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--trait); }
+  .infos div { padding: 24px 56px; border-right: 1px solid var(--trait); }
+  .infos div:last-child { border-right: 0; }
+  .infos span { display: block; font-size: 14px; color: var(--pierre); margin-bottom: 4px; }
+  .infos strong { font-size: 18px; }
+  .ouvert { color: #2f7d4f; }
+</style>
+</head>
+<body>
+  <header class="entete">
+    <div class="logo">Boulangerie Ferrand</div>
+    <nav class="menu"><span>Nos pains</span><span>Horaires</span><span>Accès</span><span class="appeler">Appeler</span></nav>
+  </header>
+
+  <section class="accroche">
+    <div class="accroche-texte">
+      <p class="lieu">Boulangerie artisanale, place de la Halle</p>
+      <h1>Le pain du matin, cuit sur place.</h1>
+      <p class="intro">Levain naturel, farines de la région, première fournée dès 6 h 30.</p>
+      <div class="actions">
+        <span class="btn btn-plein">Voir les horaires</span>
+        <span class="btn btn-ligne">05 36 49 00 58</span>
+      </div>
+    </div>
+
+    <div class="vitrine" aria-hidden="true">
+      <!-- Une miche et une baguette dessinées en SVG -->
+      <svg viewBox="0 0 400 300">
+        <defs>
+          <linearGradient id="croute" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f0b955"/>
+            <stop offset="1" stop-color="#a8641c"/>
+          </linearGradient>
+        </defs>
+        <rect x="40" y="70" width="320" height="46" rx="23" transform="rotate(-16 200 93)" fill="url(#croute)"/>
+        <g stroke="#ffe1a3" stroke-width="5" stroke-linecap="round" opacity=".85" transform="rotate(-16 200 93)">
+          <line x1="90" y1="86" x2="120" y2="100"/><line x1="150" y1="86" x2="180" y2="100"/>
+          <line x1="210" y1="86" x2="240" y2="100"/><line x1="270" y1="86" x2="300" y2="100"/>
+        </g>
+        <ellipse cx="205" cy="200" rx="150" ry="78" fill="url(#croute)"/>
+        <g stroke="#ffe1a3" stroke-width="7" stroke-linecap="round" fill="none" opacity=".9">
+          <path d="M125 225 l40 -55"/><path d="M185 240 l40 -70"/><path d="M245 230 l40 -60"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="infos">
+    <div><span>Aujourd'hui</span><strong class="ouvert">Ouvert, 6 h 30 – 19 h 30</strong></div>
+    <div><span>Adresse</span><strong>4 place de la Halle</strong></div>
+    <div><span>Commandes</span><strong>Pains spéciaux sur réservation</strong></div>
+  </section>
+</body>
+</html>

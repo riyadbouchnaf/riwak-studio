@@ -20,6 +20,7 @@
 <header class="entete">
   <a href="#haut" class="logo">Riwak Studio</a>
   <nav class="menu" aria-label="Navigation principale">
+    <a href="#refonte">Avant / après</a>
     <a href="#exemples">Exemples</a>
     <a href="#offre">Offre</a>
     <a href="#methode">Méthode</a>
@@ -29,14 +30,60 @@
 
 <main id="haut">
 
-  <!-- ============ ACCROCHE ============ -->
+  <!-- ============ ACCROCHE : le texte à gauche, deux vrais sites dans un ordinateur et un téléphone ============ -->
   <section class="accroche">
-    <h1>Un site clair pour votre commerce.</h1>
-    <p class="accroche-texte">Je crée des sites vitrines pour les commerçants et artisans, partout en France. À partir de 300&nbsp;€, et vous ne payez que si le site vous plaît.</p>
-    <div class="accroche-boutons">
-      <a href="#contact" class="bouton">Demander un devis gratuit</a>
-      <a href="#exemples" class="lien">Voir les exemples</a>
+    <div class="accroche-gauche">
+      <h1>Un site clair pour votre commerce.</h1>
+      <p class="accroche-texte">Je crée des sites vitrines pour les commerçants et artisans, partout en France. À partir de 300&nbsp;€, et vous ne payez que si le site vous plaît.</p>
+      <div class="accroche-boutons">
+        <a href="#contact" class="bouton">Demander un devis gratuit</a>
+        <a href="#exemples" class="lien">Voir les exemples</a>
+      </div>
     </div>
+
+    <!-- Les écrans affichent les vrais sites d'exemple, réduits.
+         data-largeur et data-hauteur = la taille d'origine du site ; script.js calcule la réduction. -->
+    <figure class="scene">
+      <div class="portable">
+        <div class="portable-cadre">
+          <div class="ecran ecran-portable" data-largeur="1440" data-hauteur="900">
+            <iframe src="exemples/atelier-solane/index.html" title="Site Atelier Solane" tabindex="-1" aria-hidden="true"></iframe>
+          </div>
+        </div>
+        <div class="portable-base"></div>
+      </div>
+      <div class="mobile">
+        <div class="ecran ecran-mobile" data-largeur="390" data-hauteur="844">
+          <iframe src="exemples/figue/index.html" title="Site Figue" tabindex="-1" aria-hidden="true"></iframe>
+        </div>
+      </div>
+      <figcaption class="scene-legende">Atelier Solane et Figue, deux sites de démonstration réalisés par Riwak Studio.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ AVANT / APRÈS : le même commerce, l'ancien site et le nouveau ============ -->
+  <section class="refonte" id="refonte">
+    <div class="refonte-tete">
+      <h2 class="titre">Avant, après.</h2>
+      <p>Le même commerce, avec un site daté puis avec le site que je lui créerais. Faites glisser le curseur pour comparer.</p>
+    </div>
+
+    <!-- --position = où se trouve la séparation, de 0 % à 100 %. script.js la met à jour quand on bouge le curseur. -->
+    <div class="comparateur" style="--position: 50%">
+      <div class="ecran comparateur-ecran" data-largeur="1280" data-hauteur="800">
+        <iframe src="exemples/refonte/avant.html" title="Ancien site" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+      </div>
+      <div class="ecran comparateur-ecran comparateur-apres" data-largeur="1280" data-hauteur="800">
+        <iframe src="exemples/refonte/apres.html" title="Nouveau site" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+      </div>
+      <span class="etiquette etiquette-avant">Avant</span>
+      <span class="etiquette etiquette-apres">Après</span>
+      <!-- Le vrai curseur est invisible et couvre toute l'image : on peut cliquer ou glisser n'importe où,
+           et il marche aussi au clavier avec les flèches -->
+      <input class="comparateur-curseur" type="range" min="0" max="100" value="50" aria-label="Comparer l'ancien site et le nouveau">
+      <span class="poignee" aria-hidden="true"></span>
+    </div>
+    <p class="refonte-note">Boulangerie Ferrand : commerce fictif, créé pour cette démonstration.</p>
   </section>
 
   <!-- ============ EXEMPLES : les trois sites, visibles sans quitter la page ============ -->
