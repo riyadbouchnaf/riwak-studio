@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAME — Salon de coiffure</title>
+<meta name="description" content="LAME, salon de coiffure et barbier. Coupe, barbe, couleur et soin, sur rendez-vous.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- CHARGEMENT -->
+<div class="loader" aria-hidden="true">
+  <span class="loader-word">LAME</span>
+  <span class="loader-count">0</span>
+  <span class="loader-bar"></span>
+</div>
+
+<!-- CURSEUR -->
+<div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+
+<!-- NAVIGATION -->
+<header class="nav">
+  <a href="#intro" class="nav-logo">LAME</a>
+  <nav>
+    <a href="#intro" class="nav-link active">Intro</a>
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#salon" class="nav-link">Salon</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+</header>
+<div class="side-label" aria-hidden="true">LAME — SALON N°1 — DEPUIS 2026</div>
+<div class="scroll-bar" aria-hidden="true"></div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="intro">
+  <canvas id="hair" aria-hidden="true"></canvas>
+
+  <div class="hero-top">
+    <p class="tagline" data-split>Fait pour les têtes, pensé pour le style.</p>
+    <h1 class="wordmark" data-split="chars">LAME</h1>
+  </div>
+
+  <div class="hero-object" aria-hidden="true">
+    <div class="float"><div class="js-scissors tilt-mouse"></div></div>
+  </div>
+
+  <div class="hero-card reveal">
+    <h2>Salon de coiffure &amp; barbier. Le geste juste, rien de plus.</h2>
+    <hr class="dash">
+    <p class="small">Sur rendez-vous — du mardi au samedi</p>
+    <a href="#contact" class="btn-ghost magnetic" data-cursor="Go"><span class="roll" data-t="Réserver">Réserver</span></a>
+  </div>
+
+  <figure class="hero-photo"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&q=75&w=1000" alt="Client installé dans le fauteuil du barbier"></figure>
+
+  <div class="scroll-hint" aria-hidden="true"><span></span>Défiler</div>
+</section>
+
+<!-- MARQUEE -->
+<section class="marquee" aria-hidden="true">
+  <div class="marquee-row" data-dir="-1"><div class="marquee-inner"></div></div>
+  <div class="marquee-row outline" data-dir="1"><div class="marquee-inner"></div></div>
+</section>
+
+<!-- RÉVÉLATION : OBJET CENTRAL -->
+<section class="stage" id="atelier">
+  <div class="stage-sticky">
+    <div class="stage-col stage-left">
+      <h2 class="sp active" data-i="0" data-split>N'est pas juste une coupe.</h2>
+      <h2 class="sp" data-i="1" data-split>Chaque mèche a sa place.</h2>
+      <h2 class="sp" data-i="2" data-split>Le fil du rasoir, à l'ancienne.</h2>
+    </div>
+
+    <div class="stage-center" aria-hidden="true">
+      <div class="stage-obj">
+        <div class="obj active js-scissors" data-i="0"></div>
+        <div class="obj" data-i="1">
+          <svg viewBox="0 0 400 200" class="comb">
+            <rect x="20" y="52" width="360" height="42" rx="10"/>
+            <g class="teeth"></g>
+          </svg>
+        </div>
+        <div class="obj" data-i="2">
+          <svg viewBox="0 0 400 200" class="razor">
+            <path class="fill" d="M36 62 L246 54 Q262 54 262 70 L262 112 L36 112 Z"/>
+            <rect class="line" x="236" y="88" width="156" height="30" rx="15" transform="rotate(16 250 100)"/>
+            <circle class="pin" cx="252" cy="101" r="5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stage-count"><span class="stage-num">01</span><i></i><span>03</span></div>
+    </div>
+
+    <div class="stage-col stage-right">
+      <p class="sp body-copy active" data-i="0" data-split>Des ciseaux forgés, une main sûre. On prend le temps d'écouter avant de couper, pour que la coupe vous ressemble.</p>
+      <p class="sp body-copy" data-i="1" data-split>Dégradé net, contours précis, finitions au peigne. Le détail fait toute la différence, alors on ne le néglige jamais.</p>
+      <p class="sp body-copy" data-i="2" data-split>Serviette chaude, mousse au blaireau, lame droite. Un rituel qui transforme le rasage en vrai moment de calme.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-head">
+    <span class="label reveal">(01) — Services</span>
+    <h2 class="display" data-split>La carte du salon.</h2>
+  </div>
+  <ul class="svc-list">
+    <li class="svc reveal" data-cursor="45 min"><span class="svc-n">01</span><span class="svc-name">Coupe signature</span><span class="svc-desc">Shampoing, coupe, coiffage</span><span class="svc-price">35 €</span><span class="svc-arrow">↗</span></li>
+    <li class="svc reveal" data-cursor="30 min"><span class="svc-n">02</span><span class="svc-name">Dégradé &amp; contours</span><span class="svc-desc">Tondeuse, finitions lame</span><span class="svc-price">28 €</span><span class="svc-arrow">↗</span></li>
+    <li class="svc reveal" data-cursor="25 min"><span class="svc-n">03</span><span class="svc-name">Taille de barbe</span><span class="svc-desc">Dessin, taille, huile</span><span class="svc-price">20 €</span><span class="svc-arrow">↗</span></li>
+    <li class="svc reveal" data-cursor="35 min"><span class="svc-n">04</span><span class="svc-name">Rasage à l'ancienne</span><span class="svc-desc">Serviette chaude, lame droite</span><span class="svc-price">30 €</span><span class="svc-arrow">↗</span></li>
+    <li class="svc reveal" data-cursor="90 min"><span class="svc-n">05</span><span class="svc-name">Couleur &amp; reflets</span><span class="svc-desc">Diagnostic, couleur, soin</span><span class="svc-price">60 €</span><span class="svc-arrow">↗</span></li>
+    <li class="svc reveal" data-cursor="20 min"><span class="svc-n">06</span><span class="svc-name">Soin profond</span><span class="svc-desc">Masque, massage du cuir chevelu</span><span class="svc-price">25 €</span><span class="svc-arrow">↗</span></li>
+  </ul>
+</section>
+
+<!-- GALERIE HORIZONTALE -->
+<section class="gallery" id="galerie">
+  <div class="gallery-sticky">
+    <div class="gallery-track">
+      <div class="gallery-intro">
+        <span class="label">(02) — Looks</span>
+        <h2 class="display" data-split>Six gestes, six styles.</h2>
+        <p class="small">Continuez à défiler →</p>
+      </div>
+      <article class="card tilt" data-cursor="01"><div class="card-art"><img loading="lazy" src="https://images.unsplash.com/photo-1647140655214-e4a2d914971f?auto=format&fit=crop&q=75&w=700" alt="Coupe aux ciseaux"></div><footer><span>Look 01</span><span>Aux ciseaux</span></footer></article>
+      <article class="card tilt" data-cursor="02"><div class="card-art"><img loading="lazy" src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&q=75&w=700" alt="Barbier séchant les cheveux d'un client"></div><footer><span>Look 02</span><span>Brushing</span></footer></article>
+      <article class="card tilt" data-cursor="03"><div class="card-art"><img loading="lazy" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&q=75&w=700" alt="Barbier travaillant au rasoir droit"></div><footer><span>Look 03</span><span>Rasoir droit</span></footer></article>
+      <article class="card tilt" data-cursor="04"><div class="card-art"><img loading="lazy" src="https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?auto=format&fit=crop&q=75&w=700" alt="Coupe à la tondeuse"></div><footer><span>Look 04</span><span>Tondeuse</span></footer></article>
+      <article class="card tilt" data-cursor="05"><div class="card-art"><img loading="lazy" src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?auto=format&fit=crop&q=75&w=700" alt="Barbier en chemise blanche coupant les cheveux"></div><footer><span>Look 05</span><span>Finitions</span></footer></article>
+      <article class="card tilt" data-cursor="06"><div class="card-art"><img loading="lazy" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&q=75&w=700" alt="Tondeuses, ciseaux et peigne"></div><footer><span>Look 06</span><span>Les outils</span></footer></article>
+    </div>
+  </div>
+</section>
+
+<!-- CHIFFRES -->
+<section class="stats">
+  <div class="stat reveal"><span class="stat-n" data-count="12">0</span><span class="label">Années de métier</span></div>
+  <div class="stat reveal"><span class="stat-n" data-count="8400">0</span><span class="label">Coupes réalisées</span></div>
+  <div class="stat reveal"><span class="stat-n" data-count="3">0</span><span class="label">Fauteuils, pas un de plus</span></div>
+  <div class="stat reveal"><span class="stat-n" data-count="98" data-suffix="%">0</span><span class="label">Clients qui reviennent</span></div>
+</section>
+
+<!-- CITATION -->
+<section class="quote">
+  <span class="label reveal">(03) — Parole de client</span>
+  <p class="quote-text" data-scrub>On entre pour une coupe, on ressort avec une allure. Je n'ai jamais été aussi bien écouté dans un salon, et ça se voit dans le miroir.</p>
+  <p class="quote-by reveal">— Karim, client depuis 2024</p>
+</section>
+
+<!-- SALON : RÉVÉLATION CIRCULAIRE -->
+<section class="salon" id="salon">
+  <div class="salon-sticky">
+    <div class="salon-dark"><img class="salon-bg" loading="lazy" src="https://images.unsplash.com/photo-1536520002442-39764a41e987?auto=format&fit=crop&q=75&w=1800" alt="Intérieur du salon, lampes suspendues"><h2 class="display giant">Entrez.</h2></div>
+    <div class="salon-light">
+      <div class="salon-grid">
+        <div>
+          <span class="label">(04) — Le salon</span>
+          <h2 class="display">Ouvert, calme, précis.</h2>
+          <p class="body-copy">Trois fauteuils, un café, de la bonne musique. Ici on ne vous presse pas : chaque rendez-vous a son temps.</p>
+        </div>
+        <ul class="hours">
+          <li><span>Lundi</span><span>Fermé</span></li>
+          <li><span>Mardi — Vendredi</span><span>9h30 — 19h30</span></li>
+          <li><span>Samedi</span><span>9h00 — 18h00</span></li>
+          <li><span>Dimanche</span><span>Fermé</span></li>
+          <li><span>Adresse</span><span>12 rue des Artisans, Paris 11</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-head">
+    <span class="label reveal">(05) — Réservation</span>
+    <h2 class="display" data-split>Prenez votre place.</h2>
+  </div>
+  <form class="booking reveal" novalidate>
+    <label><span>Nom</span><input type="text" name="nom" autocomplete="name" required></label>
+    <label><span>Téléphone</span><input type="tel" name="tel" autocomplete="tel" required></label>
+    <label><span>Service</span>
+      <select name="service">
+        <option>Coupe signature</option><option>Dégradé &amp; contours</option><option>Taille de barbe</option>
+        <option>Rasage à l'ancienne</option><option>Couleur &amp; reflets</option><option>Soin profond</option>
+      </select>
+    </label>
+    <label><span>Date souhaitée</span><input type="date" name="date"></label>
+    <div class="booking-foot">
+      <button type="submit" class="btn-pill magnetic" data-cursor="Go"><span class="roll" data-t="Envoyer la demande">Envoyer la demande</span></button>
+      <p class="form-msg" role="status"></p>
+    </div>
+  </form>
+  <div class="contact-links reveal">
+    <a class="ulink" href="tel:+33123456789">01 23 45 67 89</a>
+    <a class="ulink" href="mailto:bonjour@lame-salon.fr">bonjour@lame-salon.fr</a>
+    <a class="ulink" href="#">Instagram</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <hr class="dash">
+  <div class="footer-row">
+    <span>© 2026 LAME</span>
+    <span class="credit">Projet de réalisation de site web — Photos : Unsplash</span>
+    <a href="#intro" class="ulink">Haut de page ↑</a>
+  </div>
+  <div class="footer-word" data-split="chars" aria-hidden="true">LAME</div>
+  <p class="legal">* Salon, tarifs et coordonnées fictifs.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

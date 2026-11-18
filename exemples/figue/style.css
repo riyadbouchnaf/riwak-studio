@@ -1,0 +1,217 @@
+/* ============ FIGUE : feuille de style ============ */
+
+/* ---- 1. Les réglages généraux ----
+   Change une valeur ici et elle change partout dans le site. */
+:root {
+  --nuit: #170f19;         /* fond de la page : un noir tiré vers la prune */
+  --prune: #241728;        /* fond des sections un peu plus claires */
+  --trait: #4a364e;        /* lignes fines */
+  --os: #f3e7da;           /* texte principal, blanc cassé */
+  --sourdine: #bcaab3;     /* texte secondaire */
+  --chair: #f08c9a;        /* rose de la chair de figue : boutons, prix, liens */
+  --chair-claire: #f7aab4; /* rose au survol */
+
+  --titres: "Fraunces", Georgia, "Times New Roman", serif;
+  --texte: "Figtree", "Segoe UI", system-ui, sans-serif;
+
+  --marge: clamp(20px, 5vw, 72px);   /* marge sur les côtés */
+  --largeur: 1160px;                 /* largeur maximale du contenu */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--nuit);
+  color: var(--os);
+  font-family: var(--texte);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { font-family: var(--titres); font-weight: 400; line-height: 1; letter-spacing: -0.02em; }
+ul { list-style: none; }
+a { color: inherit; }
+::selection { background: var(--chair); color: var(--nuit); }
+
+/* Contour visible quand on navigue au clavier */
+:focus-visible { outline: 3px solid var(--chair); outline-offset: 3px; border-radius: 4px; }
+
+/* ---- 2. Bandeau de démonstration ---- */
+.bandeau { background: var(--os); color: var(--nuit); font-size: 14px; font-weight: 500; text-align: center; padding: 8px var(--marge); }
+
+/* ---- 3. Boutons et liens ---- */
+.bouton {
+  display: inline-block;
+  background: var(--chair);
+  color: var(--nuit);
+  font: 600 17px var(--texte);
+  text-decoration: none;
+  padding: 15px 28px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.bouton:hover { background: var(--chair-claire); transform: translateY(-2px); }
+.bouton-petit { font-size: 15px; padding: 9px 20px; }
+
+.lien { color: var(--chair); font-weight: 600; text-underline-offset: 5px; white-space: nowrap; }
+.lien:hover { color: var(--chair-claire); }
+
+/* ---- 4. En-tête ---- */
+.entete {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 14px var(--marge);
+  background: rgba(23, 15, 25, .82);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--trait);
+}
+.logo { font: 500 26px/1 var(--titres); text-decoration: none; letter-spacing: -0.02em; }
+.menu { display: flex; align-items: center; gap: clamp(14px, 3vw, 34px); font-size: 16px; }
+.menu a:not(.bouton) { text-decoration: none; color: var(--sourdine); transition: color .2s; }
+.menu a:not(.bouton):hover { color: var(--os); }
+
+/* ---- 5. Accroche ---- */
+.accroche {
+  position: relative;
+  min-height: min(88vh, 860px);
+  display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 24px;
+  max-width: calc(var(--largeur) + 2 * var(--marge));
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) var(--marge);
+}
+.accroche-texte { position: relative; z-index: 2; animation: montee 1s cubic-bezier(.2, .8, .2, 1) both; }
+.accroche-lieu { font-size: 18px; color: var(--sourdine); margin-bottom: 8px; }
+.accroche h1 {
+  font-size: clamp(120px, 25vw, 380px);
+  line-height: .82;
+  letter-spacing: -0.05em;
+  margin-left: -.05em;
+}
+.accroche-phrase { font: 400 clamp(21px, 2.4vw, 30px)/1.25 var(--titres); max-width: 20ch; margin-top: clamp(20px, 3vw, 36px); }
+.accroche-boutons { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 32px; }
+
+/* La figue : grande, penchée, elle tourne doucement quand on fait défiler la page */
+.accroche-figue { position: relative; z-index: 1; display: grid; place-items: center; animation: entree-figue 1.4s cubic-bezier(.2, .8, .2, 1) both; }
+.figue {
+  width: min(100%, 460px);
+  transform: rotate(calc(-16deg + var(--tour, 0deg)));   /* --tour est modifié par script.js */
+  filter: drop-shadow(0 50px 60px rgba(0, 0, 0, .55));
+}
+/* Le halo rose derrière la figue */
+.accroche-figue::before {
+  content: ""; position: absolute; width: 120%; aspect-ratio: 1; z-index: -1;
+  background: radial-gradient(circle, rgba(240, 140, 154, .2), transparent 62%);
+}
+
+/* ---- 6. Les blocs de contenu ---- */
+.bloc { padding: clamp(72px, 10vw, 136px) var(--marge); }
+.bloc > * { max-width: var(--largeur); margin-left: auto; margin-right: auto; }
+.bloc-releve { background: var(--prune); }
+
+.titre { font-size: clamp(36px, 5.4vw, 72px); }
+.texte { font-size: 19px; color: var(--sourdine); max-width: 46ch; }
+.titre + .texte { margin-top: 20px; }
+.grand-texte { font: 400 clamp(26px, 4vw, 52px)/1.16 var(--titres); letter-spacing: -0.015em; padding-right: 34%; }
+
+/* Deux colonnes côte à côte */
+.deux { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+
+/* ---- 7. La carte ---- */
+.carte-tete { display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 16px 32px; margin-bottom: clamp(36px, 5vw, 64px); }
+.carte-menu { font-size: 18px; color: var(--chair); font-weight: 500; }
+
+.carte { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(32px, 4vw, 64px); }
+.carte h3 { font-size: 30px; padding-bottom: 16px; border-bottom: 1px solid var(--os); }
+.plats li {
+  display: grid; grid-template-columns: 1fr auto; gap: 4px 16px;
+  padding: 20px 0;
+  border-bottom: 1px dashed var(--trait);
+  transition: padding .3s;
+}
+.plats li:hover { padding-left: 10px; }
+.plat-nom { font: 500 21px/1.2 var(--titres); }
+.plat-prix { font-weight: 600; color: var(--chair); white-space: nowrap; }
+.plat-detail { grid-column: 1 / -1; color: var(--sourdine); font-size: 16px; }
+
+/* ---- 8. Le lieu ---- */
+.chiffres { margin-top: 36px; border-top: 1px solid var(--os); }
+.chiffres div { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px dashed var(--trait); }
+.chiffres dt { color: var(--sourdine); }
+.chiffres dd { font-weight: 500; }
+
+/* ---- 9. Horaires ---- */
+.horaires { border-top: 1px solid var(--os); }
+.horaires li { display: flex; justify-content: space-between; gap: 24px; padding: 18px 0; border-bottom: 1px dashed var(--trait); font-size: 18px; }
+.horaires li span:first-child { color: var(--sourdine); }
+.horaires li span:last-child { text-align: right; font-weight: 500; }
+
+/* ---- 10. Formulaire de réservation ---- */
+.formulaire { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 18px; }
+.champ-large { grid-column: 1 / -1; }
+.formulaire label { display: grid; gap: 8px; font-size: 15px; font-weight: 500; color: var(--sourdine); }
+.formulaire input, .formulaire select {
+  font: 500 18px var(--texte); color: var(--os);
+  padding: 13px 14px;
+  background: var(--prune);
+  border: 1px solid var(--trait); border-radius: 10px;
+  width: 100%;
+  color-scheme: dark;      /* pour que le calendrier et les listes soient sombres aussi */
+}
+.formulaire input:focus, .formulaire select:focus { outline: 0; border-color: var(--chair); box-shadow: 0 0 0 3px rgba(240, 140, 154, .25); }
+.formulaire .bouton { justify-self: start; }
+.formulaire-message { font-size: 15px; min-height: 1.5em; color: var(--os); }
+.formulaire-message.erreur { color: #ffb4a8; }
+
+/* ---- 11. Pied de page ---- */
+.pied {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px;
+  padding: 28px var(--marge);
+  font-size: 15px; color: var(--sourdine);
+  border-top: 1px solid var(--trait);
+}
+
+/* ---- 12. Barre de réservation sur téléphone ---- */
+.barre-reserver { display: none; }
+
+/* ---- 13. Les deux animations d'arrivée (une seule fois, au chargement) ---- */
+@keyframes montee {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes entree-figue {
+  from { opacity: 0; transform: translateY(60px) rotate(-30deg) scale(.8); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---- 14. Téléphone et petite tablette ---- */
+@media (max-width: 860px) {
+  .menu a:not(.bouton) { display: none; }
+  .accroche { grid-template-columns: 1fr; min-height: 0; }
+  .accroche-figue { order: -1; justify-items: end; margin-bottom: -16px; }
+  .figue { width: 56%; }
+  .deux, .carte { grid-template-columns: 1fr; }
+  .grand-texte { padding-right: 0; }
+  .chiffres div { grid-template-columns: 100px 1fr; }
+
+  /* La barre de réservation reste collée en bas de l'écran */
+  .barre-reserver {
+    display: block;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    background: var(--chair); color: var(--nuit);
+    font-size: 18px; font-weight: 600; text-align: center; text-decoration: none;
+    padding: 16px;
+  }
+  .pied { padding-bottom: 92px; }   /* pour que la barre ne cache pas le pied de page */
+}
+
+/* ---- 15. Pour les personnes qui désactivent les animations ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .accroche-texte, .accroche-figue { animation: none; }
+  .bouton, .plats li, .menu a { transition: none; }
+}

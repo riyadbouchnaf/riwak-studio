@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Riwak Studio | Sites vitrines pour commerces et artisans</title>
+  <meta name="description" content="Riwak Studio crée des sites vitrines pour les commerçants et artisans, partout en France. À partir de 300 €, et vous ne payez que si le site vous plaît.">
+
+  <!-- Polices : Bricolage Grotesque pour les titres, Instrument Sans pour le texte -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- La feuille de style : toutes les couleurs, tailles et espacements sont dans ce fichier -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ EN-TÊTE ============ -->
+<header class="entete">
+  <a href="#haut" class="logo">Riwak Studio</a>
+  <nav class="menu" aria-label="Navigation principale">
+    <a href="#exemples">Exemples</a>
+    <a href="#offre">Offre</a>
+    <a href="#methode">Méthode</a>
+    <a href="#contact" class="bouton bouton-petit">Demander un devis</a>
+  </nav>
+</header>
+
+<main id="haut">
+
+  <!-- ============ ACCROCHE ============ -->
+  <section class="accroche">
+    <h1>Un site clair pour votre commerce.</h1>
+    <p class="accroche-texte">Je crée des sites vitrines pour les commerçants et artisans, partout en France. À partir de 300&nbsp;€, et vous ne payez que si le site vous plaît.</p>
+    <div class="accroche-boutons">
+      <a href="#contact" class="bouton">Demander un devis gratuit</a>
+      <a href="#exemples" class="lien">Voir les exemples</a>
+    </div>
+  </section>
+
+  <!-- ============ EXEMPLES : les trois sites, visibles sans quitter la page ============ -->
+  <section class="exemples" id="exemples">
+    <h2 class="titre">Trois sites à essayer, ici même.</h2>
+    <p class="exemples-intro">Ce sont des concepts de démonstration : les commerces n'existent pas. Ils montrent ce que je peux réaliser pour le vôtre.</p>
+
+    <div class="exemples-commandes">
+      <!-- Les trois onglets. Le contenu de chaque exemple est décrit dans script.js -->
+      <div class="onglets" role="tablist" aria-label="Choisir un exemple">
+        <button class="onglet actif" role="tab" aria-selected="true" data-exemple="0">LAME <span>Barbier</span></button>
+        <button class="onglet" role="tab" aria-selected="false" data-exemple="1">Atelier Solane <span>Architecte</span></button>
+        <button class="onglet" role="tab" aria-selected="false" data-exemple="2">Figue <span>Restaurant</span></button>
+      </div>
+      <!-- Pour voir le site comme sur un ordinateur ou comme sur un téléphone -->
+      <div class="appareils" role="group" aria-label="Taille de l'aperçu">
+        <button class="appareil actif" data-appareil="ordinateur" aria-pressed="true">Ordinateur</button>
+        <button class="appareil" data-appareil="telephone" aria-pressed="false">Téléphone</button>
+      </div>
+    </div>
+
+    <div class="fenetre">
+      <div class="fenetre-barre">
+        <span class="fenetre-points" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="fenetre-nom">LAME</span>
+        <button class="fenetre-quitter" hidden>Quitter le site</button>
+      </div>
+      <div class="fenetre-ecran">
+        <!-- Le site d'exemple s'affiche dans ce cadre (une « iframe » = une page dans la page) -->
+        <iframe class="fenetre-site" title="Aperçu du site LAME" loading="lazy" src="exemples/lame/index.html"></iframe>
+        <!-- Ce bouton recouvre le site : tant qu'on n'a pas cliqué dessus, la molette fait défiler
+             la page Riwak Studio et pas le site d'exemple -->
+        <button class="fenetre-voile"><span>Explorer ce site</span></button>
+      </div>
+    </div>
+
+    <div class="exemple-legende">
+      <p class="exemple-description">Un site d'image, avec des animations travaillées, pour un salon qui veut marquer les esprits.</p>
+      <a href="exemples/lame/index.html" class="lien exemple-lien" target="_blank" rel="noopener">Ouvrir en grand dans un nouvel onglet</a>
+    </div>
+  </section>
+
+  <!-- ============ POURQUOI UN SITE DE QUALITÉ ============ -->
+  <section class="bloc bloc-teinte" id="pourquoi">
+    <h2 class="titre">Pourquoi un site soigné compte pour votre commerce</h2>
+    <div class="quatre">
+      <div>
+        <h3>On vous cherche avant de venir</h3>
+        <p>Avant de pousser une porte, beaucoup de clients regardent en ligne : horaires, tarifs, photos. Sans site, ou avec un site daté, une partie d'entre eux va voir ailleurs.</p>
+      </div>
+      <div>
+        <h3>Il donne la première impression</h3>
+        <p>Un site ancien ou illisible sur téléphone laisse penser que le commerce est négligé, même quand le travail est excellent.</p>
+      </div>
+      <div>
+        <h3>Il travaille quand vous êtes fermé</h3>
+        <p>Le soir ou le dimanche, il répond aux questions simples et reçoit les demandes à votre place.</p>
+      </div>
+      <div>
+        <h3>Il vous aide à être trouvé</h3>
+        <p>Un site clair, qui nomme votre métier et votre ville, aide les moteurs de recherche à vous proposer aux personnes du quartier.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CE QUE VOUS OBTENEZ ============ -->
+  <section class="bloc">
+    <h2 class="titre">Ce que vos clients cherchent, tout de suite.</h2>
+    <div class="trois">
+      <div>
+        <h3>Lisible sur téléphone</h3>
+        <p>La plupart de vos clients vous cherchent depuis leur téléphone. Le site est pensé d'abord pour ce petit écran.</p>
+      </div>
+      <div>
+        <h3>L'essentiel en cinq secondes</h3>
+        <p>Horaires, tarifs, adresse, téléphone : ce sont les premières choses que l'on voit, sans avoir à chercher.</p>
+      </div>
+      <div>
+        <h3>Le site vous appartient</h3>
+        <p>Nom de domaine, hébergement et comptes sont à votre nom. Aucun abonnement obligatoire chez moi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OFFRE ============ -->
+  <section class="bloc bloc-teinte" id="offre">
+    <div class="offre">
+      <div class="offre-prix">
+        <h2 class="titre">Site vitrine</h2>
+        <p class="prix">à partir de <strong>300&nbsp;€</strong></p>
+        <p class="note">Offre de lancement, réservée à mes premiers clients.</p>
+      </div>
+      <div class="offre-detail">
+        <ul class="liste">
+          <li>Une page complète : présentation, prestations et tarifs, photos, horaires, accès</li>
+          <li>Affichage adapté au téléphone, à la tablette et à l'ordinateur</li>
+          <li>Formulaire de contact, ou lien vers votre outil de réservation</li>
+          <li>Mise en ligne du site</li>
+          <li>Corrections pendant 30 jours après la mise en ligne</li>
+        </ul>
+        <p class="note">Paiement une fois le site validé, avant sa mise en ligne. Le nom de domaine et l'hébergement restent à votre nom et à votre charge.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GARANTIE ============ -->
+  <section class="garantie">
+    <h2>Vous ne payez que si le site vous plaît.</h2>
+    <p>Je crée d'abord une première version de votre site et je vous la montre. Si elle ne vous convient pas, vous ne la prenez pas et vous ne payez rien : zéro euro, sans avoir à vous justifier.</p>
+  </section>
+
+  <!-- ============ MÉTHODE ============ -->
+  <section class="bloc" id="methode">
+    <h2 class="titre">Comment ça se passe</h2>
+    <ol class="etapes">
+      <li>
+        <h3>Vous remplissez le formulaire</h3>
+        <p>Décrivez votre commerce en quelques lignes. Je vous recontacte sous 48&nbsp;heures, par e-mail ou par message.</p>
+      </li>
+      <li>
+        <h3>Je crée une première version</h3>
+        <p>Vous découvrez à quoi ressemblera votre site, avec vos textes et vos photos, sans rien avoir payé.</p>
+      </li>
+      <li>
+        <h3>Vous décidez</h3>
+        <p>Le site vous plaît : on ajuste les détails, vous réglez, et je le mets en ligne. Il ne vous plaît pas : on s'arrête là, sans frais.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ QUESTIONS FRÉQUENTES ============
+       « details » et « summary » sont deux balises HTML qui créent un bloc
+       qui s'ouvre et se ferme au clic, sans aucun JavaScript. -->
+  <section class="bloc bloc-etroit" id="questions">
+    <h2 class="titre">Questions fréquentes</h2>
+    <div class="questions">
+      <details>
+        <summary>Combien de temps faut-il pour avoir mon site ?</summary>
+        <p>Comptez deux à trois semaines entre votre demande et la mise en ligne. Le délai dépend surtout du moment où je reçois vos textes et vos photos.</p>
+      </details>
+      <details>
+        <summary>Qui fournit les textes et les photos ?</summary>
+        <p>Vous m'envoyez ce que vous avez : photos, horaires, tarifs, quelques lignes sur votre activité. Je rédige et je mets en forme. Des photos prises au téléphone, bien cadrées, suffisent souvent.</p>
+      </details>
+      <details>
+        <summary>Combien coûtent le nom de domaine et l'hébergement ?</summary>
+        <p>Ils ne sont pas compris dans le prix du site et restent à votre nom. Pour un site vitrine, le total est modeste. Je vous indique le montant exact avant de commencer, pour que vous n'ayez aucune surprise.</p>
+      </details>
+      <details>
+        <summary>Et si je veux modifier le site plus tard ?</summary>
+        <p>Les corrections sont comprises pendant 30 jours après la mise en ligne. Ensuite, chaque modification se fait sur devis, sans abonnement.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ QUI SUIS-JE ============ -->
+  <section class="bloc bloc-etroit" id="qui">
+    <h2 class="titre">Qui suis-je</h2>
+    <p>Je prépare mon entrée en BTS informatique et je lance Riwak Studio en parallèle. Tout se fait à distance, par e-mail ou par message, où que vous soyez en France.</p>
+    <p>Je débute, et je préfère le dire : c'est la raison de mes tarifs. En échange, je prends le temps de bien faire, je réponds vite, et vous n'avez qu'un seul interlocuteur du début à la fin.</p>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="bloc bloc-teinte" id="contact">
+    <div class="contact">
+      <div>
+        <h2 class="titre">Parlons de votre site</h2>
+        <p>Décrivez votre commerce en quelques mots. Je vous recontacte sous 48&nbsp;heures, et le devis est gratuit.</p>
+        <!-- Le lien « mailto: » ouvre la messagerie de la personne avec l'adresse déjà remplie -->
+        <p class="note">Vous préférez écrire directement ? <a href="mailto:riwakstudios@gmail.com" class="lien">riwakstudios@gmail.com</a></p>
+      </div>
+
+      <form class="formulaire" novalidate>
+        <label>Votre nom
+          <input type="text" name="nom" autocomplete="name" required>
+        </label>
+        <label>Nom de votre commerce
+          <input type="text" name="commerce" autocomplete="organization" required>
+        </label>
+        <label>E-mail ou téléphone
+          <input type="text" name="coordonnees" required>
+        </label>
+        <label>Votre demande
+          <textarea name="message" rows="4" placeholder="Votre activité, votre site actuel si vous en avez un…"></textarea>
+        </label>
+        <button type="submit" class="bouton">Envoyer ma demande</button>
+        <p class="note">Vos informations servent uniquement à vous répondre.</p>
+        <p class="formulaire-message" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ PIED DE PAGE ============ -->
+<footer class="pied">
+  <span>© 2026 Riwak Studio</span>
+  <a href="mentions-legales.html" class="lien">Mentions légales</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

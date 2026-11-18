@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atelier Solane | Architecte à Toulouse</title>
+  <meta name="description" content="Atelier Solane, architecte à Toulouse : maisons, extensions et surélévations. Site de démonstration.">
+
+  <!-- Police : Hanken Grotesk, pour les titres et le texte -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Bandeau qui prévient que l'agence n'existe pas -->
+<p class="bandeau">Site de démonstration : cette agence d'architecture est fictive.</p>
+
+<!-- ============ EN-TÊTE ============ -->
+<header class="entete">
+  <a href="#haut" class="logo">Atelier Solane</a>
+  <nav class="menu" aria-label="Navigation principale">
+    <a href="#projets">Projets</a>
+    <a href="#etapes">Étapes</a>
+    <a href="#honoraires">Honoraires</a>
+    <a href="#contact" class="bouton bouton-petit">Parler de votre projet</a>
+  </nav>
+</header>
+
+<main id="haut">
+
+  <!-- ============ ACCROCHE : une scène noire, un grand titre, la maquette ============ -->
+  <section class="scene">
+    <p class="scene-metier">Architecte à Toulouse</p>
+    <h1>La lumière d'abord.<br>Les murs ensuite.</h1>
+
+    <!-- La maquette est dessinée en SVG : chaque « polygon » est une face d'un volume.
+         Les trois groupes « etage » s'écartent quand on fait défiler la page (voir script.js). -->
+    <div class="scene-maquette">
+      <svg class="maquette" viewBox="130 60 480 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Maquette d'une maison à deux niveaux, fenêtres éclairées">
+        <defs>
+          <radialGradient id="lueur"><stop offset="0" stop-color="#f5b85a" stop-opacity=".28"/><stop offset="1" stop-color="#f5b85a" stop-opacity="0"/></radialGradient>
+        </defs>
+        <g class="maquette-sol"><polygon points="148.1,325.0 364.6,450.0 364.6,458.0 148.1,333.0" fill="#121110"/><polygon points="546.5,345.0 364.6,450.0 364.6,458.0 546.5,353.0" fill="#191817"/><polygon points="330.0,220.0 546.5,345.0 364.6,450.0 148.1,325.0" fill="#262422"/><polygon points="214.0,329.0 328.3,395.0 328.3,397.0 214.0,331.0" fill="#1e1c1a"/><polygon points="366.4,373.0 328.3,395.0 328.3,397.0 366.4,375.0" fill="#2a2825"/><polygon points="252.1,307.0 366.4,373.0 328.3,395.0 214.0,329.0" fill="#3a3733"/><ellipse cx="347" cy="335" rx="150" ry="62" fill="url(#lueur)"/></g>
+        <g class="etage etage-1"><polygon points="260.7,278.0 364.6,338.0 364.6,368.0 260.7,308.0" fill="#77726a"/><polygon points="433.9,298.0 364.6,338.0 364.6,368.0 433.9,328.0" fill="#b4aea3"/><polygon points="330.0,238.0 433.9,298.0 364.6,338.0 260.7,278.0" fill="#ece7dd"/><polygon class="vitre" points="267.6,286.0 316.1,314.0 316.1,336.0 267.6,308.0"/><polygon class="vitre porte" points="326.5,322.0 340.4,330.0 340.4,354.0 326.5,346.0"/><polygon class="vitre" points="425.3,309.0 375.0,338.0 375.0,356.0 425.3,327.0"/></g>
+        <g class="etage etage-2"><polygon points="319.6,248.0 420.1,306.0 420.1,334.0 319.6,276.0" fill="#8a857c"/><polygon points="482.4,270.0 420.1,306.0 420.1,334.0 482.4,298.0" fill="#c6c0b5"/><polygon points="382.0,212.0 482.4,270.0 420.1,306.0 319.6,248.0" fill="#f4f0e8"/><polygon class="vitre" points="328.3,259.0 409.7,306.0 409.7,322.0 328.3,275.0"/><polygon class="vitre" points="473.8,281.0 428.7,307.0 428.7,323.0 473.8,297.0"/></g>
+        <g class="etage etage-3"><polygon points="309.2,240.0 420.1,304.0 420.1,308.0 309.2,244.0" fill="#66625b"/><polygon points="492.8,262.0 420.1,304.0 420.1,308.0 492.8,266.0" fill="#9c968c"/><polygon points="382.0,198.0 492.8,262.0 420.1,304.0 309.2,240.0" fill="#d9d3c8"/></g>
+      </svg>
+    </div>
+
+    <div class="scene-bas">
+      <p class="scene-texte">Maisons, extensions et surélévations, dessinées à partir de la course du soleil sur votre terrain.</p>
+      <div class="scene-actions">
+        <a href="#contact" class="bouton">Parler de votre projet</a>
+        <a href="#projets" class="lien">Voir les projets</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LA DÉMARCHE ============ -->
+  <section class="chapitre">
+    <p class="chapitre-nom">La démarche</p>
+    <h2 class="geant">Une maison se dessine depuis l'intérieur.</h2>
+    <p class="chapitre-texte">Avant le premier trait, nous passons une journée sur votre terrain. <strong>Où le soleil se lève, où il se couche, ce que l'on voit de chaque pièce.</strong> Le plan vient après : il range les pièces là où la lumière les attend, puis les murs se referment autour.</p>
+  </section>
+
+  <!-- ============ PROJETS ============ -->
+  <section class="bloc bloc-anthracite" id="projets">
+    <div class="bloc-tete">
+      <h2 class="titre">Trois projets récents</h2>
+      <p class="bloc-note">Projets fictifs, dessinés pour cette démonstration.</p>
+    </div>
+
+    <div class="projets">
+      <article class="projet">
+        <!-- Façade dessinée au trait -->
+        <svg viewBox="0 0 320 200" class="projet-dessin" aria-hidden="true">
+          <line x1="10" y1="170" x2="310" y2="170"/>
+          <rect x="40" y="110" width="170" height="60"/>
+          <rect x="150" y="60" width="120" height="110"/>
+          <rect x="56" y="126" width="78" height="44" class="plein"/>
+          <rect x="168" y="78" width="84" height="30" class="plein"/>
+          <rect x="226" y="126" width="26" height="44"/>
+          <line x1="140" y1="56" x2="280" y2="56"/>
+        </svg>
+        <h3>Maison en L</h3>
+        <p class="projet-lieu">Balma, 2025</p>
+        <p class="projet-texte">Deux ailes autour d'un patio, pour que chaque pièce de vie reçoive le soleil du matin.</p>
+        <dl class="projet-chiffres"><div><dt>Surface</dt><dd>140 m²</dd></div><div><dt>Chantier</dt><dd>11 mois</dd></div></dl>
+      </article>
+
+      <article class="projet">
+        <svg viewBox="0 0 320 200" class="projet-dessin" aria-hidden="true">
+          <line x1="10" y1="170" x2="310" y2="170"/>
+          <polyline points="40,170 40,90 95,45 150,90 150,170"/>
+          <rect x="78" y="110" width="34" height="40"/>
+          <rect x="150" y="104" width="130" height="66"/>
+          <rect x="166" y="118" width="98" height="52" class="plein"/>
+          <line x1="150" y1="100" x2="288" y2="100"/>
+          <line x1="60" y1="96" x2="60" y2="170" class="fin"/><line x1="130" y1="96" x2="130" y2="170" class="fin"/>
+        </svg>
+        <h3>Extension en brique</h3>
+        <p class="projet-lieu">Toulouse, quartier du Busca, 2024</p>
+        <p class="projet-texte">Une cuisine ouverte sur le jardin, ajoutée à une toulousaine sans toucher à sa façade sur rue.</p>
+        <dl class="projet-chiffres"><div><dt>Surface</dt><dd>45 m²</dd></div><div><dt>Chantier</dt><dd>6 mois</dd></div></dl>
+      </article>
+
+      <article class="projet">
+        <svg viewBox="0 0 320 200" class="projet-dessin" aria-hidden="true">
+          <line x1="10" y1="170" x2="310" y2="170"/>
+          <rect x="80" y="96" width="160" height="74"/>
+          <rect x="70" y="40" width="180" height="56"/>
+          <rect x="88" y="52" width="144" height="32" class="plein"/>
+          <rect x="100" y="116" width="36" height="54"/><rect x="170" y="116" width="50" height="30"/>
+          <line x1="110" y1="40" x2="110" y2="52" class="fin"/><line x1="150" y1="40" x2="150" y2="52" class="fin"/><line x1="190" y1="40" x2="190" y2="52" class="fin"/><line x1="230" y1="40" x2="230" y2="52" class="fin"/>
+        </svg>
+        <h3>Surélévation en bois</h3>
+        <p class="projet-lieu">Toulouse, Saint-Cyprien, 2023</p>
+        <p class="projet-texte">Un étage posé sur une maison de ville : deux chambres et une terrasse, sans agrandir l'emprise au sol.</p>
+        <dl class="projet-chiffres"><div><dt>Surface</dt><dd>60 m²</dd></div><div><dt>Chantier</dt><dd>5 mois</dd></div></dl>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ LES ÉTAPES ============ -->
+  <section class="bloc" id="etapes">
+    <h2 class="titre">Du premier croquis à la remise des clés</h2>
+    <ol class="etapes">
+      <li>
+        <h3>Esquisse</h3>
+        <p>Visite du terrain, puis deux ou trois pistes dessinées et chiffrées. Vous choisissez une direction.</p>
+        <span class="duree">3 à 5 semaines</span>
+      </li>
+      <li>
+        <h3>Permis de construire</h3>
+        <p>Plans détaillés, dossier complet et dépôt en mairie. Nous suivons l'instruction jusqu'à l'accord.</p>
+        <span class="duree">3 à 4 mois</span>
+      </li>
+      <li>
+        <h3>Choix des entreprises</h3>
+        <p>Nous consultons des artisans de la région, comparons leurs devis et vous aidons à décider.</p>
+        <span class="duree">1 à 2 mois</span>
+      </li>
+      <li>
+        <h3>Chantier</h3>
+        <p>Une visite par semaine, un compte rendu écrit à chaque fois, jusqu'à la remise des clés.</p>
+        <span class="duree">5 à 12 mois</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ HONORAIRES : la page passe en clair pour la partie pratique ============ -->
+  <section class="bloc bloc-clair" id="honoraires">
+    <div class="bloc-tete">
+      <h2 class="titre">Des honoraires annoncés dès le départ</h2>
+      <p class="bloc-note">Le premier rendez-vous est offert.</p>
+    </div>
+    <div class="cartes">
+      <div class="carte">
+        <h3>Esquisse et faisabilité</h3>
+        <p class="carte-prix">900 €</p>
+        <p>Pour savoir ce que votre terrain ou votre maison permet, avant de vous engager.</p>
+      </div>
+      <div class="carte">
+        <h3>Permis de construire</h3>
+        <p class="carte-prix">à partir de 2 500 €</p>
+        <p>Les plans et le dossier, si vous menez ensuite le chantier vous-même.</p>
+      </div>
+      <div class="carte">
+        <h3>Mission complète</h3>
+        <p class="carte-prix">10 à 12 % des travaux</p>
+        <p>De l'esquisse à la remise des clés, avec le suivi du chantier chaque semaine.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="bloc bloc-clair bloc-contact" id="contact">
+    <div class="deux">
+      <div>
+        <h2 class="titre">Parlons de votre projet</h2>
+        <p class="texte">Décrivez votre terrain ou votre maison en quelques lignes. Nous vous répondons sous trois jours.</p>
+        <ul class="coordonnees">
+          <li><span>Adresse</span>14 rue des Tailleurs de pierre, 31000 Toulouse</li>
+          <li><span>Téléphone</span><a href="tel:+33536490041">05 36 49 00 41</a></li>
+          <li><span>Horaires</span>Du lundi au vendredi, 9 h à 18 h</li>
+        </ul>
+      </div>
+
+      <form class="formulaire" novalidate>
+        <label>Votre nom
+          <input type="text" name="nom" autocomplete="name" required>
+        </label>
+        <label>Votre e-mail
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+        <label>Votre projet
+          <select name="projet">
+            <option>Maison neuve</option>
+            <option>Extension</option>
+            <option>Surélévation</option>
+            <option>Rénovation</option>
+            <option>Autre</option>
+          </select>
+        </label>
+        <label>Quelques mots
+          <textarea name="message" rows="4" placeholder="Le lieu, la surface, votre calendrier…"></textarea>
+        </label>
+        <button type="submit" class="bouton">Envoyer ma demande</button>
+        <p class="formulaire-message" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ PIED DE PAGE ============ -->
+<footer class="pied">
+  <span>© 2026 Atelier Solane. Agence, projets, honoraires, adresse et numéro de téléphone fictifs.</span>
+  <span>Site réalisé par Riwak Studio</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

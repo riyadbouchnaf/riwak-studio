@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Figue | Table de saison à Toulouse</title>
+  <meta name="description" content="Figue, table de saison à Toulouse. Carte courte, produits du marché, le soir du mardi au samedi. Site de démonstration.">
+
+  <!-- Polices : Fraunces (titres, avec empattements) et Figtree (texte courant) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Bandeau qui prévient que le restaurant n'existe pas -->
+<p class="bandeau">Site de démonstration : ce restaurant est fictif.</p>
+
+<!-- ============ EN-TÊTE ============ -->
+<header class="entete">
+  <a href="#haut" class="logo">Figue</a>
+  <nav class="menu" aria-label="Navigation principale">
+    <a href="#carte">La carte</a>
+    <a href="#lieu">Le lieu</a>
+    <a href="#horaires">Horaires</a>
+    <a href="#reserver" class="bouton bouton-petit">Réserver</a>
+  </nav>
+</header>
+
+<main id="haut">
+
+  <!-- ============ ACCROCHE : le nom en très grand, et la figue ============ -->
+  <section class="accroche">
+    <div class="accroche-texte">
+      <p class="accroche-lieu">Table de saison, à Toulouse</p>
+      <h1>Figue</h1>
+      <p class="accroche-phrase">Une carte courte, cuisinée avec ce que le marché donne cette semaine.</p>
+      <div class="accroche-boutons">
+        <a href="#reserver" class="bouton">Réserver une table</a>
+        <a href="tel:+33536490027" class="lien">05 36 49 00 27</a>
+      </div>
+    </div>
+    <!-- L'image de la figue est dans le fichier figue.svg, à côté de celui-ci -->
+    <div class="accroche-figue" aria-hidden="true">
+      <img src="figue.svg" alt="" class="figue">
+    </div>
+  </section>
+
+  <!-- ============ PRÉSENTATION ============ -->
+  <section class="bloc">
+    <p class="grand-texte">Neuf plats, pas un de plus. La carte change chaque mois, parfois chaque semaine. Ce qui ne vient pas d'un producteur de la région n'entre pas en cuisine.</p>
+  </section>
+
+  <!-- ============ LA CARTE ============ -->
+  <section class="bloc bloc-releve" id="carte">
+    <div class="carte-tete">
+      <h2 class="titre">La carte de novembre</h2>
+      <p class="carte-menu">Menu du soir : entrée, plat et dessert, 38&nbsp;€</p>
+    </div>
+
+    <div class="carte">
+      <div>
+        <h3>Entrées</h3>
+        <ul class="plats">
+          <li><span class="plat-nom">Velouté de potimarron</span><span class="plat-prix">9 €</span><span class="plat-detail">Noisettes torréfiées, huile de courge</span></li>
+          <li><span class="plat-nom">Poireaux brûlés</span><span class="plat-prix">10 €</span><span class="plat-detail">Vinaigrette aux herbes, œuf mimosa</span></li>
+          <li><span class="plat-nom">Œuf parfait</span><span class="plat-prix">11 €</span><span class="plat-detail">Champignons de saison, pain grillé</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Plats</h3>
+        <ul class="plats">
+          <li><span class="plat-nom">Volaille fermière rôtie</span><span class="plat-prix">22 €</span><span class="plat-detail">Jus au thym, purée de pommes de terre</span></li>
+          <li><span class="plat-nom">Poisson du marché</span><span class="plat-prix">24 €</span><span class="plat-detail">Beurre blanc, chou braisé</span></li>
+          <li><span class="plat-nom">Courge rôtie</span><span class="plat-prix">19 €</span><span class="plat-detail">Lentilles vertes, yaourt aux herbes (végétarien)</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Desserts</h3>
+        <ul class="plats">
+          <li><span class="plat-nom">Figues rôties</span><span class="plat-prix">9 €</span><span class="plat-detail">Miel, crème crue</span></li>
+          <li><span class="plat-nom">Tarte au chocolat</span><span class="plat-prix">9 €</span><span class="plat-detail">Fleur de sel, crème fouettée</span></li>
+          <li><span class="plat-nom">Fromages affinés</span><span class="plat-prix">10 €</span><span class="plat-detail">Trois fromages, confiture de figues</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LE LIEU ============ -->
+  <section class="bloc" id="lieu">
+    <div class="deux">
+      <h2 class="titre">Une petite salle, une cuisine ouverte.</h2>
+      <div>
+        <p class="texte">On voit les cuisiniers travailler depuis toutes les tables. La salle est petite, alors on prend le temps avec chacun.</p>
+        <dl class="chiffres">
+          <div><dt>Couverts</dt><dd>26</dd></div>
+          <div><dt>Terrasse</dt><dd>12 places, aux beaux jours</dd></div>
+          <div><dt>Groupes</dt><dd>Jusqu'à 8 personnes, sur réservation</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HORAIRES ET ACCÈS ============ -->
+  <section class="bloc bloc-releve" id="horaires">
+    <div class="deux">
+      <h2 class="titre">Horaires et accès</h2>
+      <ul class="horaires">
+        <li><span>Mardi au samedi</span><span>19 h à 22 h 30</span></li>
+        <li><span>Dimanche et lundi</span><span>Fermé</span></li>
+        <li><span>Adresse</span><span>8 rue des Figuiers, 31000 Toulouse</span></li>
+        <li><span>Téléphone</span><span><a href="tel:+33536490027" class="lien">05 36 49 00 27</a></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ RÉSERVATION ============ -->
+  <section class="bloc" id="reserver">
+    <div class="deux">
+      <div>
+        <h2 class="titre">Réserver une table</h2>
+        <p class="texte">Choisissez une date et une heure. Nous vous rappelons pour confirmer.</p>
+      </div>
+
+      <form class="formulaire" novalidate>
+        <label class="champ-large">Votre nom
+          <input type="text" name="nom" autocomplete="name" required>
+        </label>
+        <label class="champ-large">Votre téléphone
+          <input type="tel" name="telephone" autocomplete="tel" required>
+        </label>
+        <label>Date
+          <input type="date" name="date" required>
+        </label>
+        <label>Heure
+          <select name="heure">
+            <option>19 h</option><option>19 h 30</option><option>20 h</option>
+            <option>20 h 30</option><option>21 h</option><option>21 h 30</option>
+          </select>
+        </label>
+        <label class="champ-large">Nombre de personnes
+          <select name="personnes">
+            <option>1</option><option selected>2</option><option>3</option><option>4</option>
+            <option>5</option><option>6</option><option>7</option><option>8</option>
+          </select>
+        </label>
+        <button type="submit" class="bouton champ-large">Demander cette table</button>
+        <p class="formulaire-message champ-large" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ PIED DE PAGE ============ -->
+<footer class="pied">
+  <span>© 2026 Figue. Restaurant, carte, adresse et numéro de téléphone fictifs.</span>
+  <span>Site réalisé par Riwak Studio</span>
+</footer>
+
+<!-- Barre de réservation collée en bas de l'écran, visible seulement sur téléphone -->
+<a href="#reserver" class="barre-reserver">Réserver une table</a>
+
+<script src="script.js"></script>
+</body>
+</html>
