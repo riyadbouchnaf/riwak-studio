@@ -256,7 +256,17 @@
         <p class="note">Vous préférez écrire directement ? <a href="mailto:riwakstudios@gmail.com" class="lien">riwakstudios@gmail.com</a></p>
       </div>
 
-      <form class="formulaire" novalidate>
+      <!-- Le formulaire envoie les demandes au service Web3Forms, qui les transfère par e-mail
+           à riwakstudios@gmail.com. L'envoi est fait par script.js (partie 2). -->
+      <form class="formulaire" action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <!-- La clé d'accès Web3Forms : elle dit à quelle adresse e-mail envoyer les demandes.
+             Elle peut être publique, ce n'est pas un mot de passe. -->
+        <input type="hidden" name="access_key" value="faf0bc2a-87b0-4a8e-ae54-42437f2df9a8">
+        <input type="hidden" name="subject" value="Nouvelle demande depuis le site Riwak Studio">
+        <input type="hidden" name="from_name" value="Site Riwak Studio">
+        <!-- Piège à robots : une case invisible. Un humain ne la coche jamais, un robot oui,
+             et Web3Forms ignore alors le message. -->
+        <input type="checkbox" name="botcheck" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label>Votre nom
           <input type="text" name="nom" autocomplete="name" required>
         </label>

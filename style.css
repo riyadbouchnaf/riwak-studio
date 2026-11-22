@@ -145,7 +145,7 @@ a { color: inherit; }
 .comparateur-apres { clip-path: inset(0 0 0 var(--position)); }
 
 .etiquette {
-  position: absolute; top: 16px; z-index: 2;
+  position: absolute; bottom: 16px; z-index: 2;
   font: 600 14px var(--texte);
   padding: 6px 14px; border-radius: 999px;
   pointer-events: none;
@@ -338,6 +338,10 @@ a { color: inherit; }
 .formulaire .bouton { justify-self: start; }
 .formulaire-message { font-size: 15px; min-height: 1.5em; }
 .formulaire-message.erreur { color: #b3261e; }
+
+/* Le piège à robots est caché aux visiteurs */
+.piege { position: absolute; left: -9999px; }
+.formulaire .bouton:disabled { opacity: .6; cursor: wait; }
 
 /* Texte à remplacer : surligné pour ne pas l'oublier */
 .a-remplir { background: #ffe66b; color: #17161c; padding: 1px 6px; border-radius: 4px; font-weight: 600; }

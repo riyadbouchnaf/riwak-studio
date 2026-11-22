@@ -2,7 +2,7 @@
    0. Les écrans réduits (ordinateur, téléphone, avant / après).
    0 bis. Le curseur avant / après.
    1. La fenêtre des exemples (onglets, exploration, ordinateur / téléphone).
-   2. Le formulaire de contact (pour l'instant, il N'ENVOIE RIEN). */
+   2. Le formulaire de contact (envoi par Web3Forms vers riwakstudios@gmail.com). */
 
 /* ---------- 0. Les écrans réduits ----------
    Chaque « .ecran » affiche un site dans sa taille d'origine (par exemple 1440 pixels de large),
@@ -133,14 +133,14 @@ appareils.forEach(function (bouton) {
 });
 
 /* ---------- 2. Le formulaire de contact ----------
-   IMPORTANT : pour l'instant, le formulaire N'ENVOIE RIEN.
-   Un site en HTML ne peut pas envoyer d'e-mail tout seul.
-   On le branchera sur un service d'envoi au moment de la mise en ligne. */
+   Les demandes sont envoyées au service Web3Forms, qui les transfère par e-mail
+   à riwakstudios@gmail.com. La page ne se recharge pas : on affiche un message à la place. */
 
 const formulaire = document.querySelector('.formulaire');
 const message = document.querySelector('.formulaire-message');
+const boutonEnvoyer = formulaire.querySelector('button[type="submit"]');
 
-formulaire.addEventListener('submit', function (evenement) {
+formulaire.addEventListener('submit', async function (evenement) {
   // Empêche la page de se recharger quand on envoie le formulaire
   evenement.preventDefault();
 
@@ -156,7 +156,40 @@ formulaire.addEventListener('submit', function (evenement) {
     return;
   }
 
-  // À FAIRE : remplacer ce message par le vrai envoi quand le formulaire sera branché
+  // On rassemble tous les champs du formulaire (y compris la clé d'accès cachée)
+  const donnees = Object.fromEntries(new FormData(formulaire));
+
+  // Si la personne a donné une adresse e-mail, on la transmet aussi dans « email » :
+  // ainsi, dans Gmail, le bouton « Répondre » écrira directement à cette personne.
+  if (coordonnees.includes('@')) {
+    donnees.email = coordonnees;
+  }
+
+  // Pendant l'envoi, on désactive le bouton pour éviter les doubles clics
+  boutonEnvoyer.disabled = true;
   message.classList.remove('erreur');
-  message.textContent = 'Formulaire pas encore branché : cette demande n\'a pas été envoyée.';
+  message.textContent = 'Envoi en cours…';
+
+  try {
+    // fetch = envoyer les données à Web3Forms sans quitter la page
+    const reponse = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(donnees)
+    });
+    const resultat = await reponse.json();
+
+    if (resultat.success) {
+      message.textContent = 'Merci, votre demande est bien partie. Je vous réponds sous 48 heures.';
+      formulaire.reset();
+    } else {
+      throw new Error(resultat.message);
+    }
+  } catch (erreur) {
+    // Si l'envoi échoue (pas de connexion, service indisponible…), on propose l'e-mail
+    message.textContent = 'L\'envoi n\'a pas fonctionné. Écrivez-moi directement à riwakstudios@gmail.com.';
+    message.classList.add('erreur');
+  }
+
+  boutonEnvoyer.disabled = false;
 });
