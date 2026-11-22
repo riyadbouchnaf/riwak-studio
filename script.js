@@ -1,4 +1,5 @@
 /* ============ RIWAK STUDIO : les scripts du site ============
+   Le bouton clair / sombre est tout en bas de ce fichier.
    0. Les écrans réduits (ordinateur, téléphone, avant / après).
    0 bis. Le curseur avant / après.
    1. La fenêtre des exemples (onglets, exploration, ordinateur / téléphone).
@@ -8,7 +9,7 @@
    Chaque « .ecran » affiche un site dans sa taille d'origine (par exemple 1440 pixels de large),
    puis on le réduit pour qu'il rentre dans le cadre. La réduction = largeur du cadre ÷ largeur d'origine. */
 
-const ecrans = document.querySelectorAll('.ecran[data-largeur]');
+const ecrans = document.querySelectorAll('.ecran[data-largeur]');  // vide sur la page des mentions légales
 
 function ajusterEcran(ecran) {
   const largeurOrigine = Number(ecran.dataset.largeur);
@@ -34,7 +35,7 @@ const comparateur = document.querySelector('.comparateur');
 const curseur = document.querySelector('.comparateur-curseur');
 
 // À chaque mouvement du curseur, on déplace la séparation (--position, de 0 % à 100 %)
-curseur.addEventListener('input', function () {
+if (curseur) curseur.addEventListener('input', function () {
   comparateur.style.setProperty('--position', curseur.value + '%');
 });
 
@@ -104,18 +105,18 @@ function quitterExploration() {
   boutonQuitter.hidden = true;
 }
 
-onglets.forEach(function (onglet) {
+onglets.forEach(function (onglet) {  // aucun onglet sur la page des mentions légales
   onglet.addEventListener('click', function () {
     afficherExemple(Number(onglet.dataset.exemple));
   });
 });
 
-voile.addEventListener('click', explorer);
-boutonQuitter.addEventListener('click', quitterExploration);
+if (voile) voile.addEventListener('click', explorer);
+if (boutonQuitter) boutonQuitter.addEventListener('click', quitterExploration);
 
 // La touche Échap quitte aussi l'exploration
 document.addEventListener('keydown', function (evenement) {
-  if (evenement.key === 'Escape') quitterExploration();
+  if (evenement.key === 'Escape' && fenetre) quitterExploration();
 });
 
 // Les boutons « Ordinateur » et « Téléphone » changent la largeur de la fenêtre
@@ -138,9 +139,9 @@ appareils.forEach(function (bouton) {
 
 const formulaire = document.querySelector('.formulaire');
 const message = document.querySelector('.formulaire-message');
-const boutonEnvoyer = formulaire.querySelector('button[type="submit"]');
+const boutonEnvoyer = formulaire ? formulaire.querySelector('button[type="submit"]') : null;
 
-formulaire.addEventListener('submit', async function (evenement) {
+if (formulaire) formulaire.addEventListener('submit', async function (evenement) {
   // Empêche la page de se recharger quand on envoie le formulaire
   evenement.preventDefault();
 
@@ -193,3 +194,34 @@ formulaire.addEventListener('submit', async function (evenement) {
 
   boutonEnvoyer.disabled = false;
 });
+
+/* ---------- 3. Le bouton clair / sombre ----------
+   Au premier passage, le site suit le réglage de l'appareil du visiteur.
+   S'il clique sur le bouton, son choix est gardé dans le navigateur (localStorage)
+   et appliqué à chaque visite, avant même l'affichage (voir le petit script dans <head>). */
+
+const boutonTheme = document.querySelector('.theme');
+const reglageSombre = window.matchMedia('(prefers-color-scheme: dark)');
+
+// Quel thème est affiché en ce moment ?
+function themeActuel() {
+  return document.documentElement.dataset.theme || (reglageSombre.matches ? 'sombre' : 'clair');
+}
+
+// Met à jour la description du bouton, lue par les lecteurs d'écran
+function mettreAJourBouton() {
+  boutonTheme.setAttribute('aria-label', themeActuel() === 'sombre' ? 'Passer en mode clair' : 'Passer en mode sombre');
+}
+
+if (boutonTheme) {
+  // Si aucun choix n'est enregistré, on indique quand même le thème affiché, pour la bonne icône
+  if (!document.documentElement.dataset.theme) document.documentElement.dataset.theme = themeActuel();
+  mettreAJourBouton();
+
+  boutonTheme.addEventListener('click', function () {
+    const nouveau = themeActuel() === 'sombre' ? 'clair' : 'sombre';
+    document.documentElement.dataset.theme = nouveau;
+    try { localStorage.setItem('theme', nouveau); } catch (e) {}   // si le navigateur refuse, tant pis : ça marche quand même pour cette visite
+    mettreAJourBouton();
+  });
+}
