@@ -5,47 +5,51 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Boulangerie Ferrand | Pain au levain, cuit sur place</title>
 <!-- L'« après » de la démonstration de refonte : le même commerce, avec un site actuel.
-     Boulangerie fictive, créée pour cette démonstration. -->
+     Boulangerie fictive, créée pour cette démonstration. Photos générées par IA. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Manrope:wght@400;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --nuit: #16263d;      /* bleu de la devanture */
-    --croute: #d99a2b;    /* doré de la croûte */
-    --farine: #ffffff;
-    --pierre: #5b6472;
-    --trait: #e4e1da;
+    --farine: #faf6ef;    /* fond : blanc farine */
+    --croute: #5a3519;    /* texte : brun de la croûte */
+    --dore: #c8862e;      /* accent : doré du pain cuit */
+    --mie: #8a6a4f;       /* texte secondaire */
+    --ardoise: #2b2724;   /* le tableau noir des pains du jour */
+    --craie: #f3eee6;     /* l'écriture à la craie */
+    --trait: #e8dccb;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: "Manrope", "Segoe UI", sans-serif; color: var(--nuit); background: var(--farine); }
+  body { font-family: "Manrope", "Segoe UI", sans-serif; color: var(--croute); background: var(--farine); }
 
-  .entete { display: flex; justify-content: space-between; align-items: center; padding: 22px 56px; border-bottom: 1px solid var(--trait); }
-  .logo { font: 400 26px "Young Serif", Georgia, serif; }
+  /* En-tête */
+  .entete { display: flex; justify-content: space-between; align-items: center; height: 76px; padding: 0 56px; border-bottom: 1px solid var(--trait); }
+  .logo { font: 400 27px "Young Serif", Georgia, serif; }
   .menu { display: flex; align-items: center; gap: 34px; font-size: 16px; font-weight: 600; }
-  .menu span { color: var(--pierre); }
-  .appeler { background: var(--nuit); color: #fff; padding: 11px 20px; border-radius: 999px; font-size: 15px; }
+  .menu span { color: var(--mie); }
+  .menu .appeler { background: var(--croute); color: var(--farine); padding: 11px 20px; border-radius: 999px; font-size: 15px; }
 
-  .accroche { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 520px; }
-  .accroche-texte { padding: 70px 56px 40px; }
-  .lieu { color: var(--croute); font-weight: 700; font-size: 16px; margin-bottom: 18px; }
-  h1 { font: 400 66px/1.02 "Young Serif", Georgia, serif; letter-spacing: -0.02em; max-width: 11ch; }
-  .accroche-texte p.intro { font-size: 19px; line-height: 1.5; color: var(--pierre); max-width: 34ch; margin-top: 22px; }
-  .actions { display: flex; gap: 14px; margin-top: 30px; }
-  .btn { padding: 15px 24px; border-radius: 999px; font-weight: 700; font-size: 16px; }
-  .btn-plein { background: var(--croute); color: var(--nuit); }
-  .btn-ligne { border: 2px solid var(--nuit); }
+  /* Accroche : le texte à gauche, la photo des pains à droite, jusqu'au bord */
+  .accroche { display: grid; grid-template-columns: 1fr 1.08fr; height: 470px; }
+  .accroche-texte { padding: 58px 48px 0 56px; }
+  .lieu { color: var(--dore); font-weight: 700; font-size: 16px; margin-bottom: 16px; }
+  h1 { font: 400 60px/1.03 "Young Serif", Georgia, serif; letter-spacing: -0.015em; max-width: 11ch; }
+  .intro { font-size: 19px; line-height: 1.5; color: var(--mie); max-width: 34ch; margin-top: 20px; }
+  .actions { display: flex; gap: 12px; margin-top: 28px; }
+  .btn { padding: 14px 22px; border-radius: 999px; font-weight: 700; font-size: 16px; }
+  .btn-plein { background: var(--dore); color: #fff; }
+  .btn-ligne { border: 2px solid var(--croute); }
+  .accroche-photo { background: url("../../photos/boulangerie-pain.jpg") center / cover; }
 
-  .vitrine { background: var(--nuit); display: grid; place-items: center; position: relative; overflow: hidden; }
-  .vitrine::before { content: ""; position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(217, 154, 43, .28), transparent 65%); }
-  .vitrine svg { position: relative; width: 82%; }
-
-  .infos { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--trait); }
-  .infos div { padding: 24px 56px; border-right: 1px solid var(--trait); }
-  .infos div:last-child { border-right: 0; }
-  .infos span { display: block; font-size: 14px; color: var(--pierre); margin-bottom: 4px; }
-  .infos strong { font-size: 18px; }
-  .ouvert { color: #2f7d4f; }
+  /* La bande du bas : l'ardoise des pains du jour et deux photos */
+  .bas { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 18px; height: 254px; padding: 18px 56px 0; }
+  .ardoise { background: var(--ardoise); color: var(--craie); border-radius: 14px; padding: 18px 26px; font-family: "Caveat", cursive; }
+  .ardoise h2 { font-weight: 700; font-size: 30px; color: #f2c46d; margin-bottom: 6px; }
+  .ardoise li { display: flex; justify-content: space-between; font-size: 24px; line-height: 1.38; list-style: none; border-bottom: 1px dashed rgba(243, 238, 230, .18); }
+  .carte { border-radius: 14px; overflow: hidden; position: relative; }
+  .carte-croissant { background: url("../../photos/boulangerie-croissants.jpg") 78% center / cover; }
+  .carte-vitrine { background: url("../../photos/boulangerie-vitrine.jpg") center / cover; }
+  .carte span { position: absolute; left: 14px; bottom: 14px; background: var(--farine); color: var(--croute); font-weight: 700; font-size: 15px; padding: 7px 13px; border-radius: 999px; }
 </style>
 </head>
 <body>
@@ -64,33 +68,21 @@
         <span class="btn btn-ligne">05 36 49 00 58</span>
       </div>
     </div>
-
-    <div class="vitrine" aria-hidden="true">
-      <!-- Une miche et une baguette dessinées en SVG -->
-      <svg viewBox="0 0 400 300">
-        <defs>
-          <linearGradient id="croute" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#f0b955"/>
-            <stop offset="1" stop-color="#a8641c"/>
-          </linearGradient>
-        </defs>
-        <rect x="40" y="70" width="320" height="46" rx="23" transform="rotate(-16 200 93)" fill="url(#croute)"/>
-        <g stroke="#ffe1a3" stroke-width="5" stroke-linecap="round" opacity=".85" transform="rotate(-16 200 93)">
-          <line x1="90" y1="86" x2="120" y2="100"/><line x1="150" y1="86" x2="180" y2="100"/>
-          <line x1="210" y1="86" x2="240" y2="100"/><line x1="270" y1="86" x2="300" y2="100"/>
-        </g>
-        <ellipse cx="205" cy="200" rx="150" ry="78" fill="url(#croute)"/>
-        <g stroke="#ffe1a3" stroke-width="7" stroke-linecap="round" fill="none" opacity=".9">
-          <path d="M125 225 l40 -55"/><path d="M185 240 l40 -70"/><path d="M245 230 l40 -60"/>
-        </g>
-      </svg>
-    </div>
+    <div class="accroche-photo" role="img" aria-label="Pains de campagne et baguettes sur une planche en bois"></div>
   </section>
 
-  <section class="infos">
-    <div><span>Aujourd'hui</span><strong class="ouvert">Ouvert, 6 h 30 – 19 h 30</strong></div>
-    <div><span>Adresse</span><strong>4 place de la Halle</strong></div>
-    <div><span>Commandes</span><strong>Pains spéciaux sur réservation</strong></div>
+  <section class="bas">
+    <div class="ardoise">
+      <h2>Aujourd'hui au fournil</h2>
+      <ul>
+        <li><span>Baguette tradition</span><span>1,30 €</span></li>
+        <li><span>Campagne au levain</span><span>4,20 €</span></li>
+        <li><span>Croissant pur beurre</span><span>1,40 €</span></li>
+        <li><span>Miche aux céréales</span><span>5,10 €</span></li>
+      </ul>
+    </div>
+    <div class="carte carte-croissant" role="img" aria-label="Croissant pur beurre"><span>Viennoiseries du jour</span></div>
+    <div class="carte carte-vitrine" role="img" aria-label="Baguettes en vitrine"><span>Ouvert dès 6 h 30</span></div>
   </section>
 </body>
 </html>
