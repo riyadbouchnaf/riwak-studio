@@ -16,7 +16,8 @@
   <script>
     try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
-  <link rel="stylesheet" href="style.css">
+  <!-- « ?v=2 » = numéro de version. Le changer oblige les navigateurs à recharger le fichier au lieu d'utiliser leur ancienne copie. -->
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -303,6 +304,6 @@
   <a href="mentions-legales.html" class="lien">Mentions légales</a>
 </footer>
 
-<script src="script.js"></script>
+<script src="script.js?v=2"></script>
 </body>
 </html>
