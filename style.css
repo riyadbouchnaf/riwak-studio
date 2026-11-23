@@ -347,6 +347,17 @@ a { color: inherit; }
 .etapes li::before { content: counter(etape); display: block; font: 700 44px/1 var(--titres); color: var(--violet-texte); margin-bottom: 16px; }
 .etapes p { color: var(--gris); }
 
+/* Étapes à gauche, vidéo à droite */
+.methode-grille { display: grid; grid-template-columns: 1fr minmax(260px, 340px); gap: clamp(32px, 6vw, 88px); align-items: center; }
+.methode-grille .etapes { grid-template-columns: 1fr; gap: 32px; }
+.methode-video { margin: 0; }
+.methode-video video {
+  display: block; width: 100%; height: auto; aspect-ratio: 9 / 16;
+  border: 10px solid var(--nuit); border-radius: 34px; background: var(--nuit);
+  box-shadow: 0 40px 80px -40px rgba(60, 35, 140, .45);
+}
+.methode-video figcaption { margin-top: 14px; text-align: center; font-size: .95rem; color: var(--gris); }
+
 /* ---- 8 bis. Questions fréquentes ---- */
 .questions { border-top: 1px solid var(--encre); }
 .questions details { border-bottom: 1px solid var(--trait); }
@@ -415,6 +426,8 @@ a { color: inherit; }
 @media (max-width: 820px) {
   .menu a:not(.bouton) { display: none; }      /* on ne garde que le bouton devis */
   .trois, .quatre, .etapes, .offre, .contact { grid-template-columns: 1fr; }
+  .methode-grille { grid-template-columns: 1fr; }
+  .methode-video { width: min(100%, 300px); margin-inline: auto; }
   .appareils { display: none; }               /* sur téléphone, l'aperçu est déjà en taille téléphone */
   .fenetre-ecran { height: min(78vh, 640px); }
   .accroche { grid-template-columns: 1fr; }

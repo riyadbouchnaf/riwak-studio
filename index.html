@@ -17,7 +17,7 @@
     try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
   </script>
   <!-- « ?v=2 » = numéro de version. Le changer oblige les navigateurs à recharger le fichier au lieu d'utiliser leur ancienne copie. -->
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -208,20 +208,35 @@
   <!-- ============ MÉTHODE ============ -->
   <section class="bloc" id="methode">
     <h2 class="titre">Comment ça se passe</h2>
-    <ol class="etapes">
-      <li>
-        <h3>Vous remplissez le formulaire</h3>
-        <p>Décrivez votre commerce en quelques lignes. Je vous recontacte sous 48&nbsp;heures, par e-mail ou par message.</p>
-      </li>
-      <li>
-        <h3>Je crée une première version</h3>
-        <p>Vous découvrez à quoi ressemblera votre site, avec vos textes et vos photos, sans rien avoir payé.</p>
-      </li>
-      <li>
-        <h3>Vous décidez</h3>
-        <p>Le site vous plaît : on ajuste les détails, vous réglez, et je le mets en ligne. Il ne vous plaît pas : on s'arrête là, sans frais.</p>
-      </li>
-    </ol>
+    <!-- Deux colonnes : les étapes à gauche, la vidéo à droite (l'une sous l'autre sur téléphone) -->
+    <div class="methode-grille">
+      <ol class="etapes">
+        <li>
+          <h3>Vous remplissez le formulaire</h3>
+          <p>Décrivez votre commerce en quelques lignes. Je vous recontacte sous 48&nbsp;heures, par e-mail ou par message.</p>
+        </li>
+        <li>
+          <h3>Je crée une première version</h3>
+          <p>Vous découvrez à quoi ressemblera votre site, avec vos textes et vos photos, sans rien avoir payé.</p>
+        </li>
+        <li>
+          <h3>Vous décidez</h3>
+          <p>Le site vous plaît : on ajuste les détails, vous réglez, et je le mets en ligne. Il ne vous plaît pas : on s'arrête là, sans frais.</p>
+        </li>
+      </ol>
+      <!-- La vidéo :
+           - preload="none" : elle ne se télécharge que si le visiteur appuie sur lecture
+             (le site reste rapide, et on ne consomme pas les données mobiles pour rien) ;
+           - poster : l'image affichée avant la lecture ;
+           - playsinline : sur iPhone, elle se lit dans la page au lieu de passer en plein écran ;
+           - muted : la vidéo n'a pas de son. -->
+      <figure class="methode-video">
+        <video controls playsinline muted preload="none" poster="videos/riwak-studio-apercu.jpg" width="720" height="1280">
+          <source src="videos/riwak-studio.mp4" type="video/mp4">
+        </video>
+        <figcaption>La méthode en 30 secondes.</figcaption>
+      </figure>
+    </div>
   </section>
 
   <!-- ============ QUESTIONS FRÉQUENTES ============
