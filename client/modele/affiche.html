@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Affiche vitrine · Riwak Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Format A5 (14,8 × 21 cm), sans marge : la page imprimée est exactement l'affiche. */
+    @page { size: A5 portrait; margin: 0; }
+    * { box-sizing: border-box; margin: 0; }
+    body { font-family: "Instrument Sans", system-ui, sans-serif; background: #e9e7ef; color: #17161c; }
+
+    /* Barre d'aide : visible à l'écran, jamais imprimée */
+    .aide { max-width: 148mm; margin: 24px auto 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; font-size: 15px; }
+    .aide button { padding: 12px 20px; border: 0; border-radius: 999px; background: #5a35c8; color: #fff; font: 600 15px "Instrument Sans", sans-serif; cursor: pointer; }
+
+    .affiche {
+      width: 148mm; height: 210mm; margin: 0 auto 32px; overflow: hidden;
+      background: var(--fond); color: var(--texte);
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      padding: 16mm 14mm 10mm; text-align: center;
+      box-shadow: 0 20px 50px -20px rgba(0,0,0,.35);
+    }
+    .nom { font: 700 13mm/1.02 "Bricolage Grotesque", system-ui, sans-serif; letter-spacing: -0.02em; color: var(--accent); }
+    .phrase { font-size: 5.2mm; line-height: 1.35; margin-top: 4mm; }
+    .cadre-qr { background: #fff; border: 1.2mm solid var(--accent); border-radius: 6mm; padding: 5mm; }
+    .cadre-qr svg { display: block; width: 72mm; height: 72mm; }
+    .consigne { font-size: 4.2mm; font-weight: 600; margin-top: 5mm; }
+    .adresse { font: 700 6mm "Bricolage Grotesque", system-ui, sans-serif; color: var(--accent); margin-top: 2mm; }
+    .signature { font-size: 2.8mm; opacity: .6; }
+
+    @media print {
+      body { background: none; }
+      .aide { display: none; }
+      .affiche { margin: 0; box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="aide">
+    <span>Pour le PDF : Imprimer, puis « Enregistrer au format PDF », format A5, marges : aucune.</span>
+    <button type="button" onclick="window.print()">Imprimer / PDF</button>
+  </div>
+
+  <main class="affiche" id="affiche">
+    <div>
+      <h1 class="nom" id="nom"></h1>
+      <p class="phrase" id="phrase"></p>
+    </div>
+    <div>
+      <div class="cadre-qr" id="qr" role="img"></div>
+      <p class="consigne">Scannez avec l’appareil photo de votre téléphone</p>
+      <p class="adresse" id="adresse"></p>
+    </div>
+    <p class="signature">Site réalisé par Riwak Studio · riwakstudio.fr</p>
+  </main>
+
+  <script src="../../outils/qrcode.js"></script>
+  <script>
+  /* =====================================================================
+     À MODIFIER POUR CHAQUE CLIENT : uniquement ce bloc.
+     Mets les couleurs du site du client, pour que l'affiche lui ressemble.
+     ===================================================================== */
+  const affiche = {
+    nom: 'Boulangerie Ferrand',
+    phrase: 'Nos horaires, notre pain du jour et nos nouveautés',
+    lien: 'https://riwakstudio.fr',   // l'adresse complète du site du client
+    adresseAffichee: 'boulangerie-ferrand.fr',
+    accent: '#5a3519',                // couleur principale du client
+    fond: '#faf6ef',                  // couleur de fond
+    texte: '#2b2724',                 // couleur du texte
+  };
+  /* ============================ fin du bloc ============================ */
+
+  const el = document.getElementById('affiche');
+  el.style.setProperty('--accent', affiche.accent);
+  el.style.setProperty('--fond', affiche.fond);
+  el.style.setProperty('--texte', affiche.texte);
+  document.getElementById('nom').textContent = affiche.nom;
+  document.getElementById('phrase').textContent = affiche.phrase;
+  document.getElementById('adresse').textContent = affiche.adresseAffichee;
+
+  // Dessin du QR code en SVG : net à n'importe quelle taille d'impression.
+  const qr = RiwakQR.creer(affiche.lien);
+  const n = qr.getModuleCount(), marge = 2, taille = n + marge * 2;
+  let chemin = '';
+  for (let l = 0; l < n; l++) for (let c = 0; c < n; c++) if (qr.isDark(l, c)) chemin += `M${c + marge} ${l + marge}h1v1h-1z`;
+  const zone = document.getElementById('qr');
+  zone.setAttribute('aria-label', 'QR code vers ' + affiche.adresseAffichee);
+  zone.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${taille} ${taille}" shape-rendering="crispEdges"><rect width="${taille}" height="${taille}" fill="#fff"/><path d="${chemin}" fill="#17161c"/></svg>`;
+  </script>
+</body>
+</html>

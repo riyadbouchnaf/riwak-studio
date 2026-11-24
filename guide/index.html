@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Votre site en 3 gestes · Riwak Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Page autonome : elle a son propre style, indépendant du site. */
+    :root {
+      --fond: #f4f3f8; --carte: #fff; --encre: #17161c; --gris: #5e5c6b; --trait: #dddbe6;
+      --violet: #5a35c8; --violet-fonce: #44259e; --lavande: #ece6ff; --vert: #2f8a57; --vert-clair: #e3f3ea;
+      --nuit: #17161c;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html, body { height: 100%; }
+    body { font-family: "Instrument Sans", system-ui, sans-serif; background: #e9e7ef; color: var(--encre); line-height: 1.5; font-size: 17px; overflow: hidden; }
+    h1, h2, h3 { font-family: "Bricolage Grotesque", system-ui, sans-serif; letter-spacing: -0.02em; line-height: 1.08; }
+    h1 { font-size: clamp(38px, 11vw, 52px); }
+    h2 { font-size: clamp(30px, 8.5vw, 38px); }
+    h3 { font-size: 21px; }
+    button { font: inherit; cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+
+    /* Le « téléphone » : plein écran sur mobile, centré sur ordinateur */
+    .guide { position: relative; height: 100%; max-width: 480px; margin: 0 auto; background: var(--fond); overflow: hidden; }
+    @media (min-width: 560px) { .guide { height: min(900px, calc(100% - 40px)); margin-top: 20px; border-radius: 36px; box-shadow: 0 40px 90px -40px rgba(30,20,80,.45); } }
+
+    /* Barre de progression façon story */
+    .progres { position: absolute; z-index: 5; top: 0; left: 0; right: 0; display: flex; gap: 5px; padding: calc(14px + env(safe-area-inset-top)) 16px 10px; background: linear-gradient(var(--fond) 70%, transparent); }
+    .progres span { flex: 1; height: 4px; border-radius: 2px; background: rgba(23,22,28,.12); overflow: hidden; }
+    .progres span i { display: block; height: 100%; width: 100%; background: var(--violet); transform: scaleX(0); transform-origin: 0 50%; transition: transform .35s ease; }
+    .progres span.vu i { transform: scaleX(1); }
+
+    /* Les écrans défilent horizontalement, un par un */
+    .ecrans { height: 100%; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+    .ecrans::-webkit-scrollbar { display: none; }
+    .ecran { flex: 0 0 100%; height: 100%; scroll-snap-align: start; overflow-y: auto; padding: calc(48px + env(safe-area-inset-top)) 24px 120px; display: flex; flex-direction: column; gap: 18px; }
+    .ecran.centre { justify-content: center; }
+    .ecran.sombre { background: var(--nuit); color: #f4f3f8; }
+    .ecran.violet { background: var(--violet); color: #f4f3f8; }
+    .surtitre { font-size: 15px; font-weight: 600; color: var(--violet); }
+    .sombre .surtitre, .violet .surtitre { color: #cbbcff; }
+    .doux { color: var(--gris); }
+    .sombre .doux { color: #c9c7d4; } .violet .doux { color: #e4dcff; }
+    .logo { font: 700 18px "Bricolage Grotesque", sans-serif; }
+
+    /* Navigation du bas */
+    .nav { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; display: flex; gap: 12px; padding: 16px 20px calc(18px + env(safe-area-inset-bottom)); background: linear-gradient(transparent, var(--fond) 35%); }
+    .nav.sur-sombre { background: linear-gradient(transparent, rgba(23,22,28,.9) 35%); }
+    .nav.sur-violet { background: linear-gradient(transparent, rgba(90,53,200,.95) 35%); }
+    .nav button { height: 54px; border-radius: 999px; border: 0; font-weight: 600; }
+    .nav .retour { width: 54px; flex: none; background: rgba(23,22,28,.08); color: var(--encre); font-size: 22px; }
+    .nav.sur-sombre .retour, .nav.sur-violet .retour { background: rgba(255,255,255,.14); color: #fff; }
+    .nav .suivant { flex: 1; background: var(--violet); color: #fff; font-size: 17px; }
+    .nav.sur-violet .suivant { background: #fff; color: var(--violet); }
+    .nav .retour[disabled] { opacity: .3; cursor: default; }
+
+    /* Éléments communs */
+    .carte { background: var(--carte); border: 1px solid var(--trait); border-radius: 22px; padding: 20px; }
+    .bouton { display: block; width: 100%; padding: 16px 20px; border-radius: 999px; border: 2px solid var(--violet); background: var(--violet); color: #fff; font-weight: 600; text-align: center; text-decoration: none; }
+    .bouton.secondaire { background: transparent; color: var(--violet); }
+    .bouton[disabled] { opacity: .5; cursor: default; }
+    .pastille { display: inline-block; padding: 6px 14px; border-radius: 999px; background: var(--lavande); color: #3d2390; font-size: 14px; font-weight: 600; }
+    .ok { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 16px; background: var(--vert-clair); color: #1f5e3b; font-weight: 600; animation: pop .45s cubic-bezier(.2,1.4,.4,1) both; }
+    .ok svg { flex: none; width: 26px; height: 26px; }
+    .simulation { font-size: 13px; color: var(--gris); text-align: center; }
+    @keyframes pop { from { opacity: 0; transform: scale(.85); } }
+    @keyframes monte { from { opacity: 0; transform: translateY(18px); } }
+    .ecran.actif .entre { animation: monte .55s cubic-bezier(.2,.7,.2,1) both; }
+    .ecran.actif .entre:nth-child(2) { animation-delay: .08s; } .ecran.actif .entre:nth-child(3) { animation-delay: .16s; }
+    .ecran.actif .entre:nth-child(4) { animation-delay: .24s; } .ecran.actif .entre:nth-child(5) { animation-delay: .32s; }
+    [hidden] { display: none !important; }
+
+    /* Cartes à retourner */
+    .retournables { display: grid; gap: 14px; }
+    .retourne { display: block; perspective: 900px; border: 0; background: none; padding: 0; text-align: left; width: 100%; color: inherit; }
+    .retourne .dedans { display: block; position: relative; height: 150px; transition: transform .6s cubic-bezier(.3,.7,.2,1); transform-style: preserve-3d; }
+    .retourne.vu .dedans { transform: rotateY(180deg); }
+    .face { position: absolute; inset: 0; border-radius: 22px; padding: 20px; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    .face.avant { background: var(--carte); border: 1px solid var(--trait); }
+    .face.arriere { background: var(--violet); color: #fff; transform: rotateY(180deg); }
+    .face .indice { font-size: 14px; color: var(--violet); font-weight: 600; }
+    .face.arriere p { font-size: 17px; }
+
+    /* Sélecteur à deux onglets */
+    .onglets { display: grid; grid-template-columns: 1fr 1fr; background: rgba(255,255,255,.14); border-radius: 999px; padding: 4px; }
+    .onglets button { border: 0; border-radius: 999px; padding: 12px 8px; background: transparent; color: #fff; font-weight: 600; font-size: 15px; }
+    .onglets button[aria-selected="true"] { background: #fff; color: var(--violet); }
+    .panneau { background: rgba(255,255,255,.1); border-radius: 22px; padding: 20px; animation: pop .35s ease both; }
+
+    /* Maquettes */
+    .mail .ligne { display: flex; justify-content: space-between; font-size: 14px; color: var(--gris); padding-bottom: 10px; border-bottom: 1px solid var(--trait); margin-bottom: 12px; }
+    .bulle { align-self: flex-end; background: var(--violet); color: #fff; padding: 12px 16px; border-radius: 18px 18px 4px 18px; font-weight: 500; animation: pop .4s cubic-bezier(.2,1.4,.4,1) both; }
+    .champ-carte { border: 2px solid var(--trait); border-radius: 14px; padding: 14px 16px; color: var(--gris); font-variant-numeric: tabular-nums; }
+    .chargement { width: 22px; height: 22px; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; display: inline-block; vertical-align: -5px; animation: tourne .8s linear infinite; }
+    @keyframes tourne { to { transform: rotate(360deg); } }
+    textarea, input[type="text"], input[type="email"] { width: 100%; padding: 14px; border: 2px solid var(--trait); border-radius: 14px; font: inherit; background: #fff; }
+    label { font-size: 14px; font-weight: 600; color: var(--gris); display: block; margin-bottom: 6px; }
+
+    /* Coûts : curseur et barres */
+    input[type="range"] { width: 100%; accent-color: var(--violet); height: 32px; }
+    .total { font: 700 56px/1 "Bricolage Grotesque", sans-serif; color: var(--violet); letter-spacing: -0.03em; }
+    .barres { display: flex; align-items: flex-end; gap: 8px; height: 140px; }
+    .barres div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; font-size: 13px; color: var(--gris); height: 100%; }
+    .barres i { display: block; width: 100%; border-radius: 10px 10px 4px 4px; background: var(--trait); transition: height .4s cubic-bezier(.2,.7,.2,1), background .3s; }
+    .barres .dans i { background: var(--violet); }
+
+    /* Liste qui se coche */
+    .coches { list-style: none; padding: 0; display: grid; gap: 12px; }
+    .coches li { display: flex; gap: 12px; align-items: flex-start; }
+    .coches .rond { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--trait); display: grid; place-items: center; color: #fff; transition: background .3s, border-color .3s; }
+    .coches li.coche .rond { background: var(--vert); border-color: var(--vert); }
+
+    /* Questions qui s'ouvrent */
+    details { background: var(--carte); border: 1px solid var(--trait); border-radius: 18px; padding: 16px 18px; }
+    summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--violet); font-size: 22px; line-height: 1; transition: transform .25s; }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p { margin-top: 10px; color: var(--gris); }
+
+    /* Discussion façon messagerie */
+    .fil { background: #efeaf9; border-radius: 22px; padding: 14px; height: min(54vh, 470px); overflow-y: auto; display: flex; flex-direction: column; gap: 8px; scroll-behavior: smooth; }
+    .fil .jour { align-self: center; font-size: 12px; font-weight: 600; color: var(--gris); background: rgba(255,255,255,.75); padding: 4px 12px; border-radius: 999px; margin: 6px 0; }
+    .fil .msg { max-width: 82%; padding: 10px 14px; border-radius: 18px; font-size: 15px; line-height: 1.4; animation: pop .3s ease both; }
+    .fil .msg.client { align-self: flex-start; background: #fff; border-bottom-left-radius: 4px; }
+    .fil .msg.moi { align-self: flex-end; background: var(--violet); color: #fff; border-bottom-right-radius: 4px; }
+    .fil .msg b.qui { display: block; font-size: 12px; opacity: .7; margin-bottom: 2px; }
+    .fil .ecrit { align-self: flex-start; background: #fff; padding: 12px 16px; border-radius: 18px; display: flex; gap: 4px; }
+    .fil .ecrit.moi { align-self: flex-end; background: var(--violet); }
+    .fil .ecrit i { width: 7px; height: 7px; border-radius: 50%; background: var(--gris); animation: point 1s infinite; }
+    .fil .ecrit.moi i { background: #fff; }
+    .fil .ecrit i:nth-child(2) { animation-delay: .15s; } .fil .ecrit i:nth-child(3) { animation-delay: .3s; }
+    @keyframes point { 0%, 60%, 100% { opacity: .3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+    .actions-fil { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .actions-fil .bouton { padding: 12px; font-size: 15px; }
+
+    /* Liste à cocher soi-même */
+    .a-cocher { list-style: none; padding: 0; display: grid; gap: 10px; }
+    .a-cocher button { width: 100%; display: flex; gap: 12px; align-items: center; text-align: left; padding: 14px; border: 2px solid var(--trait); border-radius: 16px; background: #fff; color: var(--encre); }
+    .a-cocher .rond { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--trait); display: grid; place-items: center; color: transparent; transition: background .25s, border-color .25s; }
+    .a-cocher button[aria-pressed="true"] { border-color: var(--vert); }
+    .a-cocher button[aria-pressed="true"] .rond { background: var(--vert); border-color: var(--vert); color: #fff; }
+
+    .confetti { position: fixed; z-index: 20; top: 0; left: 0; width: 10px; height: 14px; border-radius: 2px; pointer-events: none; }
+    .piege { position: absolute; left: -9999px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="guide">
+  <div class="progres" id="progres" aria-hidden="true"></div>
+
+  <main class="ecrans" id="ecrans">
+
+    <!-- 1. Accueil -->
+    <section class="ecran sombre centre" data-nav="sombre" aria-label="Accueil">
+      <p class="logo entre">Riwak Studio</p>
+      <h1 class="entre">Votre site,<br>en 4 gestes.</h1>
+      <p class="doux entre">Dire oui, réserver votre nom, valider, payer. Le reste, je m’en occupe. Faites défiler ou appuyez sur « Commencer ».</p>
+    </section>
+
+
+    <!-- 2. Domaine et hébergement : cartes à retourner -->
+    <section class="ecran" aria-label="Le nom et l’hébergement">
+      <p class="surtitre entre">Les deux choses à avoir</p>
+      <h2 class="entre">Un site, c’est comme une boutique.</h2>
+      <p class="doux entre">Touchez les cartes pour les retourner.</p>
+      <div class="retournables entre">
+        <button class="retourne" type="button" aria-label="Le nom de domaine : retourner la carte">
+          <span class="dedans">
+            <span class="face avant"><h3>Le nom de domaine</h3><span class="indice">Toucher pour découvrir ↻</span></span>
+            <span class="face arriere"><h3>L’adresse</h3><p>Ce que vos clients tapent pour vous trouver, par exemple boulangerie-ferrand.fr.</p></span>
+          </span>
+        </button>
+        <button class="retourne" type="button" aria-label="L’hébergement : retourner la carte">
+          <span class="dedans">
+            <span class="face avant"><h3>L’hébergement</h3><span class="indice">Toucher pour découvrir ↻</span></span>
+            <span class="face arriere"><h3>Le local</h3><p>L’endroit où votre site est rangé, pour qu’il reste visible jour et nuit.</p></span>
+          </span>
+        </button>
+      </div>
+      <p class="doux entre">L’hébergement est gratuit pour un site vitrine simple. Je règle les deux pour vous.</p>
+    </section>
+
+    <!-- 3. Propriété : onglets -->
+    <section class="ecran violet" data-nav="violet" aria-label="À qui appartient le site">
+      <p class="surtitre entre">Le plus important</p>
+      <h2 class="entre">Tout est à votre nom.</h2>
+      <div class="onglets entre" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-panneau="p-vous">Ce qui est à vous</button>
+        <button type="button" role="tab" aria-selected="false" data-panneau="p-moi">Ce que je fais</button>
+      </div>
+      <div class="panneau" id="p-vous" role="tabpanel"><p>Votre compte OVH, votre nom de domaine et votre site. C’est <b>vous</b> qui les payez, avec votre carte. Si nous arrêtons un jour de travailler ensemble, <b>rien ne change</b> : tout reste à vous.</p></div>
+      <div class="panneau" id="p-moi" role="tabpanel" hidden><p>J’ai seulement un <b>accès technique</b>, pour régler et mettre à jour votre site. Je ne peux ni changer le propriétaire, ni utiliser votre carte. Vous pouvez retirer cet accès quand vous voulez.</p></div>
+    </section>
+
+    <!-- 4. Geste 1 : dire oui -->
+    <section class="ecran" aria-label="Geste 1 : dire oui">
+      <p class="surtitre entre">Geste 1 sur 4</p>
+      <h2 class="entre">Dites oui au devis.</h2>
+      <p class="doux entre">Je vous l’envoie par e-mail. Essayez de répondre :</p>
+      <div class="carte mail entre" id="mail">
+        <div class="ligne"><span>De : Riwak Studio</span><span>Devis</span></div>
+        <p>Bonjour, voici le devis pour votre site : 300 €, et vous ne payez que s’il vous plaît.</p>
+      </div>
+      <button class="bouton entre" type="button" id="b-accord">Répondre « Bon pour accord »</button>
+      <p class="simulation">Simulation : rien n’est envoyé.</p>
+    </section>
+
+    <!-- Geste 2 : réserver son nom -->
+    <section class="ecran" aria-label="Geste 2 : réserver votre nom">
+      <p class="surtitre entre">Geste 2 sur 4</p>
+      <h2 class="entre">Réservez votre nom.</h2>
+      <p class="doux entre">Une seule fois, environ 15 minutes. Je vous envoie le nom choisi ensemble et je vous guide par message. Touchez chaque étape une fois faite :</p>
+      <ul class="a-cocher entre" id="a-cocher">
+        <li><button type="button" aria-pressed="false"><span class="rond">✓</span><span>Je crée mon compte OVH, avec mon e-mail</span></button></li>
+        <li><button type="button" aria-pressed="false"><span class="rond">✓</span><span>Je réserve mon nom : 1 an, renouvellement automatique</span></button></li>
+        <li><button type="button" aria-pressed="false"><span class="rond">✓</span><span>J’ajoute Riwak Studio comme contact technique</span></button></li>
+      </ul>
+      <p id="nom-ok" hidden></p>
+      <a class="bouton entre" href="ovh/">Voir le guide pas à pas, avec les écrans d’OVH</a>
+      <p class="simulation">Bloqué à une étape ? Écrivez-moi à <a href="mailto:riwakstudios@gmail.com">riwakstudios@gmail.com</a>.</p>
+    </section>
+
+    <!-- Geste 3 : valider -->
+    <section class="ecran" aria-label="Geste 3 : valider">
+      <p class="surtitre entre">Geste 3 sur 4</p>
+      <h2 class="entre">Validez votre site.</h2>
+      <p class="doux entre">Sous 7 jours, vous recevez un lien vers votre page de suivi, avec votre site à regarder. Ensuite, un seul bouton :</p>
+      <div class="carte entre" id="decision">
+        <p class="pastille" style="margin-bottom:14px">Première version prête</p>
+        <div style="display:grid; gap:10px">
+          <button class="bouton" type="button" id="b-plait">Ça me plaît</button>
+          <button class="bouton secondaire" type="button" id="b-changer">Je veux changer quelque chose</button>
+        </div>
+        <div id="z-changer" hidden style="margin-top:14px">
+          <textarea id="t-changer" rows="3" aria-label="Ce que vous voulez changer" placeholder="Par exemple : la photo du haut…"></textarea>
+          <button class="bouton" type="button" id="b-envoyer-changement" style="margin-top:10px">Envoyer</button>
+        </div>
+      </div>
+      <p class="simulation">Simulation : rien n’est envoyé. Deux séries de retouches sont incluses.</p>
+    </section>
+
+    <!-- 6. Geste 3 : payer -->
+    <section class="ecran" aria-label="Geste 4 : payer">
+      <p class="surtitre entre">Geste 4 sur 4</p>
+      <h2 class="entre">Payez en un clic.</h2>
+      <p class="doux entre">Vous recevez un lien de paiement. Vous tapez votre carte, et votre site est mis en ligne.</p>
+      <div class="carte entre" id="paiement" style="display:grid; gap:12px">
+        <div style="display:flex; justify-content:space-between; font-weight:600"><span>Riwak Studio</span><span>300 €</span></div>
+        <div class="champ-carte" id="champ-carte">Numéro de carte</div>
+        <button class="bouton" type="button" id="b-payer">Payer 300 €</button>
+      </div>
+      <p class="simulation">Simulation : aucune carte n’est demandée ni débitée. Le virement est possible aussi.</p>
+    </section>
+
+    <!-- 2. Discussion : comment ça se passe en vrai -->
+    <section class="ecran" aria-label="Comment ça se passe en vrai" data-fil>
+      <p class="surtitre entre">Et en vrai, ça donne quoi ?</p>
+      <h2 class="entre">Une semaine avec Julie, boulangère.</h2>
+      <div class="fil entre" id="fil" aria-live="polite"></div>
+      <div class="actions-fil">
+        <button class="bouton secondaire" type="button" id="b-tout">Tout afficher</button>
+        <button class="bouton secondaire" type="button" id="b-rejouer">Rejouer</button>
+      </div>
+      <p class="simulation">Exemple fictif.</p>
+    </section>
+
+    <!-- 7. Coûts : curseur -->
+    <section class="ecran" aria-label="Ce que ça coûte">
+      <p class="surtitre entre">Ce que ça coûte</p>
+      <h2 class="entre">Pas de surprise.</h2>
+      <p class="doux entre">300 € une seule fois pour votre site, payés à moi. Puis environ 10 € par an pour votre nom, payés directement à OVH.</p>
+      <div class="carte entre">
+        <label for="annees">Sur <span id="n-annees">3 ans</span>, vous payez au total, environ :</label>
+        <p class="total" id="total">330 €</p>
+        <p class="doux" id="par-mois" style="margin-top:6px"></p>
+        <input type="range" id="annees" min="1" max="5" value="3" aria-describedby="total">
+        <div class="barres" id="barres" aria-hidden="true"></div>
+      </div>
+      <p class="simulation">L’hébergement est gratuit pour un site vitrine simple. Si votre site demande plus, je vous le dis avant, dans le devis.</p>
+    </section>
+
+    <!-- 8. Ensuite : liste qui se coche -->
+    <section class="ecran" aria-label="Ensuite">
+      <p class="surtitre entre">Ensuite</p>
+      <h2 class="entre">Je m’occupe du reste.</h2>
+      <ul class="coches carte entre" id="coches">
+        <li><span class="rond">✓</span><span><b>Mise en ligne</b>, avec le cadenas de sécurité.</span></li>
+        <li><span class="rond">✓</span><span><b>Une affiche pour votre vitrine</b>, avec un QR code vers votre site. Offerte.</span></li>
+        <li><span class="rond">✓</span><span><b>Un récapitulatif écrit</b> : votre adresse, votre nom de domaine, sa date de renouvellement.</span></li>
+        <li><span class="rond">✓</span><span><b>Chaque année</b>, OVH renouvelle votre nom tout seul. Gardez juste une carte valide sur votre compte.</span></li>
+      </ul>
+    </section>
+
+    <!-- 9. Questions -->
+    <section class="ecran" aria-label="Questions fréquentes">
+      <p class="surtitre entre">Vos questions</p>
+      <h2 class="entre">Ce qu’on me demande souvent.</h2>
+      <details class="entre"><summary>Et si le site ne me plaît pas ?</summary><p>Vous me le dites, et vous ne payez rien. C’est écrit dans le devis.</p></details>
+      <details class="entre"><summary>Combien de temps ça prend ?</summary><p>La première version arrive sous 7 jours après votre accord. Je la prépare à partir de votre fiche Google : vous corrigez seulement ce qui ne va pas.</p></details>
+      <details class="entre"><summary>Pourquoi créer un compte chez OVH ?</summary><p>Pour que votre nom soit vraiment à vous, à votre nom et sur votre compte. C’est une seule fois, environ 15 minutes, et je vous guide par message.</p></details>
+      <details class="entre"><summary>Et si je veux changer quelque chose plus tard ?</summary><p>Écrivez-moi : je vous fais un petit devis à part pour les modifications après la mise en ligne.</p></details>
+      <details class="entre"><summary>Et si vous arrêtez ?</summary><p>Rien ne change pour vous : votre compte, votre nom et votre site sont déjà à votre nom. Votre site reste en ligne.</p></details>
+    </section>
+
+    <!-- 10. Je me lance : vrai formulaire -->
+    <section class="ecran sombre" data-nav="sombre" aria-label="Je me lance">
+      <p class="surtitre entre">C’est parti ?</p>
+      <h2 class="entre">Je me lance.</h2>
+      <p class="doux entre">Laissez votre nom et votre commerce. Je vous réponds sous 48 heures, sans engagement.</p>
+      <form class="entre" id="formulaire" novalidate style="display:grid; gap:12px">
+        <div><label for="f-nom" style="color:#c9c7d4">Votre nom</label><input type="text" id="f-nom" name="nom" autocomplete="name" required></div>
+        <div><label for="f-commerce" style="color:#c9c7d4">Votre commerce</label><input type="text" id="f-commerce" name="commerce" autocomplete="organization" required></div>
+        <div><label for="f-contact" style="color:#c9c7d4">E-mail ou téléphone</label><input type="text" id="f-contact" name="coordonnees" autocomplete="email" required></div>
+        <input type="checkbox" name="botcheck" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="bouton" type="submit" id="b-lancer" style="border-color:#fff">Envoyer ma demande</button>
+        <p id="f-message" role="status" hidden></p>
+      </form>
+    </section>
+  </main>
+
+  <nav class="nav" id="nav" aria-label="Navigation du guide">
+    <button class="retour" type="button" id="b-retour" aria-label="Écran précédent">←</button>
+    <button class="suivant" type="button" id="b-suivant">Suivant</button>
+  </nav>
+</div>
+
+<script>
+// Même clé Web3Forms que le site : la demande arrive sur riwakstudios@gmail.com.
+const CLE_WEB3FORMS = 'faf0bc2a-87b0-4a8e-ae54-42437f2df9a8';
+const $ = (id) => document.getElementById(id);
+const ecrans = [...document.querySelectorAll('.ecran')];
+const conteneur = $('ecrans');
+const coche = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+/* ---------- Navigation entre les écrans ---------- */
+ecrans.forEach(() => $('progres').insertAdjacentHTML('beforeend', '<span><i></i></span>'));
+let actuel = -1;
+function allerA(i) { conteneur.scrollTo({ left: i * conteneur.clientWidth }); }
+function miseAJour() {
+  const i = Math.round(conteneur.scrollLeft / conteneur.clientWidth);
+  if (i === actuel) return;
+  actuel = i;
+  ecrans.forEach((e, k) => e.classList.toggle('actif', k === i));
+  [...$('progres').children].forEach((s, k) => s.classList.toggle('vu', k <= i));
+  const nav = ecrans[i].dataset.nav;
+  $('nav').className = 'nav' + (nav ? ' sur-' + nav : '');
+  $('b-retour').disabled = i === 0;
+  $('b-suivant').textContent = i === 0 ? 'Commencer' : (i === ecrans.length - 1 ? 'Revoir depuis le début' : 'Suivant');
+  if (ecrans[i].querySelector('#coches')) cocherLaListe();
+  if (ecrans[i].hasAttribute('data-fil') && !filLance) { filLance = true; jouerDiscussion(); }
+}
+conteneur.addEventListener('scroll', () => requestAnimationFrame(miseAJour), { passive: true });
+$('b-suivant').addEventListener('click', () => allerA(actuel === ecrans.length - 1 ? 0 : actuel + 1));
+$('b-retour').addEventListener('click', () => allerA(Math.max(0, actuel - 1)));
+document.addEventListener('keydown', (e) => {
+  if (e.target.matches('input, textarea')) return;
+  if (e.key === 'ArrowRight') allerA(Math.min(ecrans.length - 1, actuel + 1));
+  if (e.key === 'ArrowLeft') allerA(Math.max(0, actuel - 1));
+});
+window.addEventListener('resize', () => { const i = actuel; actuel = -1; conteneur.style.scrollBehavior = 'auto'; allerA(i); conteneur.style.scrollBehavior = ''; miseAJour(); });
+miseAJour();
+
+/* ---------- Écran 2 : cartes à retourner ---------- */
+document.querySelectorAll('.retourne').forEach((b) => b.addEventListener('click', () => b.classList.toggle('vu')));
+
+/* ---------- Écran 3 : onglets ---------- */
+document.querySelectorAll('[role="tab"]').forEach((onglet) => onglet.addEventListener('click', () => {
+  document.querySelectorAll('[role="tab"]').forEach((o) => {
+    const choisi = o === onglet;
+    o.setAttribute('aria-selected', choisi);
+    $(o.dataset.panneau).hidden = !choisi;
+  });
+}));
+
+/* ---------- Geste 2 : liste à cocher ---------- */
+document.querySelectorAll('#a-cocher button').forEach((b) => b.addEventListener('click', () => {
+  b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true');
+  const toutes = [...document.querySelectorAll('#a-cocher button')].every((x) => x.getAttribute('aria-pressed') === 'true');
+  $('nom-ok').hidden = !toutes;
+  if (toutes) $('nom-ok').outerHTML = `<p class="ok" id="nom-ok">${coche}Votre nom est à vous. Je m’occupe du reste.</p>`;
+}));
+
+/* ---------- Discussion : comment ça se passe en vrai ---------- */
+const discussion = [
+  { jour: 'Jour 1' },
+  { client: 'Bonjour, j’ai rempli votre formulaire. Notre site date de 2011, il ne donne vraiment pas envie…' },
+  { moi: 'Bonjour Julie ! J’ai regardé votre fiche Google : j’ai déjà vos horaires, votre adresse et vos photos. Je vous envoie le devis : 300 €, et vous ne payez que si le site vous plaît.' },
+  { client: 'Bon pour accord !' },
+  { jour: 'Jour 2' },
+  { moi: 'Merci ! De votre côté, il reste une chose : réserver boulangerie-ferrand.fr à votre nom, chez OVH. Voici le guide, environ 15 minutes. Écrivez-moi si vous bloquez.' },
+  { client: 'C’est fait, le nom est à moi. J’ai ajouté votre identifiant comme contact technique.' },
+  { jour: 'Jour 6' },
+  { moi: 'Votre première version est prête ! Tout est sur votre page de suivi.' },
+  { client: 'Superbe. Juste une chose : on fait aussi des gâteaux sur commande, on peut l’ajouter ?' },
+  { moi: 'Bien sûr, c’est ajouté. Regardez la nouvelle page « Commandes ».' },
+  { client: 'Ça me plaît !' },
+  { moi: 'Merci ! Voici le lien de paiement.' },
+  { client: 'Payé.' },
+  { jour: 'Jour 7' },
+  { moi: 'Votre site est en ligne sur boulangerie-ferrand.fr. Je vous envoie aussi l’affiche pour votre vitrine.' },
+  { client: 'Merci ! Des clients m’en ont déjà parlé ce matin.' },
+];
+let lecture = 0;   // change à chaque relecture, pour arrêter l'ancienne
+function bulle(m) {
+  if (m.jour) return `<p class="jour">${m.jour}</p>`;
+  return m.client ? `<p class="msg client"><b class="qui">Julie</b>${m.client}</p>` : `<p class="msg moi"><b class="qui">Riwak Studio</b>${m.moi}</p>`;
+}
+const pause = (ms) => new Promise((r) => setTimeout(r, ms));
+async function jouerDiscussion() {
+  const id = ++lecture, fil = $('fil'); fil.innerHTML = '';
+  const rapide = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  for (const m of discussion) {
+    if (id !== lecture) return;
+    if (!m.jour && !rapide) {
+      fil.insertAdjacentHTML('beforeend', `<p class="ecrit${m.moi ? ' moi' : ''}" aria-hidden="true"><i></i><i></i><i></i></p>`);
+      fil.scrollTop = fil.scrollHeight;
+      await pause(Math.min(1600, 500 + (m.client || m.moi).length * 12));
+      if (id !== lecture) return;
+      fil.lastElementChild.remove();
+    } else if (!rapide) await pause(350);
+    fil.insertAdjacentHTML('beforeend', bulle(m));
+    fil.scrollTop = fil.scrollHeight;
+    await pause(rapide ? 0 : 250);
+  }
+}
+$('b-tout').addEventListener('click', () => { lecture++; $('fil').innerHTML = discussion.map(bulle).join(''); $('fil').scrollTop = $('fil').scrollHeight; });
+$('b-rejouer').addEventListener('click', jouerDiscussion);
+let filLance = false;
+
+/* ---------- Écran 4 : bon pour accord ---------- */
+$('b-accord').addEventListener('click', () => {
+  $('b-accord').disabled = true;
+  $('mail').insertAdjacentHTML('afterend', '<p class="bulle">Bon pour accord.</p>');
+  setTimeout(() => $('b-accord').outerHTML = `<p class="ok">${coche}Devis accepté. Je prépare votre site.</p>`, 600);
+});
+
+/* ---------- Écran 5 : validation ---------- */
+$('b-plait').addEventListener('click', (e) => {
+  confettis(e.clientX, e.clientY);
+  $('decision').innerHTML = `<p class="ok">${coche}Site validé ! Je vous envoie le lien de paiement.</p>`;
+});
+$('b-changer').addEventListener('click', () => { $('z-changer').hidden = false; $('t-changer').focus(); });
+$('b-envoyer-changement').addEventListener('click', () => {
+  $('decision').innerHTML = `<p class="ok">${coche}C’est noté. Je fais les changements et je vous préviens.</p>`;
+});
+
+/* ---------- Écran 6 : paiement simulé ---------- */
+$('b-payer').addEventListener('click', () => {
+  const b = $('b-payer'); b.disabled = true;
+  const chiffres = '4970 •••• •••• 1234'; let n = 0;
+  $('champ-carte').style.color = 'var(--encre)';
+  const t = setInterval(() => { n++; $('champ-carte').textContent = chiffres.slice(0, n); if (n >= chiffres.length) clearInterval(t); }, 35);
+  b.innerHTML = '<span class="chargement" aria-hidden="true"></span>&nbsp; Paiement…';
+  setTimeout(() => { $('paiement').innerHTML = `<p class="ok">${coche}Paiement accepté. Votre site part en ligne.</p>`; }, 1500);
+});
+
+/* ---------- Écran 7 : coût sur plusieurs années ---------- */
+const prix = (annees) => 300 + 10 * annees;
+for (let a = 1; a <= 5; a++) $('barres').insertAdjacentHTML('beforeend', `<div><i style="height:${prix(a) / prix(5) * 100}%"></i><span>${a} an${a > 1 ? 's' : ''}</span></div>`);
+function majCout() {
+  const a = Number($('annees').value);
+  $('n-annees').textContent = a === 1 ? '1 an' : `${a} ans`;
+  $('total').textContent = prix(a).toLocaleString('fr-FR') + ' €';
+  $('par-mois').textContent = `Dont ${10 * a} € versés directement à OVH pour votre nom.`;
+  [...$('barres').children].forEach((d, k) => d.classList.toggle('dans', k < a));
+}
+$('annees').addEventListener('input', majCout); majCout();
+
+/* ---------- Écran 8 : la liste se coche toute seule ---------- */
+function cocherLaListe() {
+  [...$('coches').children].forEach((li, k) => { li.classList.remove('coche'); setTimeout(() => li.classList.add('coche'), 500 + k * 450); });
+}
+
+/* ---------- Écran 10 : vrai formulaire ---------- */
+$('formulaire').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = $('f-message'); msg.hidden = false;
+  const champs = ['f-nom', 'f-commerce', 'f-contact'].map($);
+  const vide = champs.find((c) => !c.value.trim());
+  if (vide) { msg.className = ''; msg.style.color = '#ffb4b4'; msg.textContent = 'Il manque une information.'; vide.focus(); return; }
+  $('b-lancer').disabled = true; msg.style.color = '#c9c7d4'; msg.textContent = 'Envoi…';
+  const donnees = Object.fromEntries(new FormData(e.target));
+  if (donnees.coordonnees.includes('@')) donnees.email = donnees.coordonnees;
+  try {
+    const r = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ access_key: CLE_WEB3FORMS, subject: 'Nouvelle demande depuis le guide Riwak Studio', from_name: 'Guide Riwak Studio', ...donnees }),
+    });
+    if (!(await r.json()).success) throw new Error();
+    e.target.innerHTML = `<p class="ok">${coche}Merci ! Je vous réponds sous 48 heures.</p>`;
+  } catch {
+    $('b-lancer').disabled = false; msg.style.color = '#ffb4b4';
+    msg.textContent = "L'envoi n'a pas fonctionné. Écrivez-moi à riwakstudios@gmail.com.";
+  }
+});
+
+/* ---------- Confettis ---------- */
+function confettis(x, y) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const couleurs = ['#5a35c8', '#b39dff', '#2f8a57', '#f2b33d', '#e5484d'];
+  for (let i = 0; i < 40; i++) {
+    const c = document.createElement('span'); c.className = 'confetti';
+    c.style.background = couleurs[i % couleurs.length]; document.body.appendChild(c);
+    const angle = -Math.PI / 2 + (Math.random() - .5) * 2.2, vitesse = 500 + Math.random() * 500;
+    const anim = c.animate([
+      { transform: `translate(${x}px, ${y}px) rotate(0deg)`, opacity: 1 },
+      { transform: `translate(${x + Math.cos(angle) * vitesse}px, ${y + Math.sin(angle) * vitesse + 700}px) rotate(${Math.random() * 720}deg)`, opacity: 0 },
+    ], { duration: 1300 + Math.random() * 500, easing: 'cubic-bezier(.2,.6,.4,1)' });
+    anim.onfinish = () => c.remove();
+  }
+}
+</script>
+</body>
+</html>

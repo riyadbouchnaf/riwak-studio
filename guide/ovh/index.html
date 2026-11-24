@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Réserver votre nom chez OVH · Riwak Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --fond: #f4f3f8; --carte: #fff; --encre: #17161c; --gris: #5e5c6b; --trait: #dddbe6;
+      --violet: #5a35c8; --violet-fonce: #44259e; --lavande: #ece6ff; --vert: #2f8a57; --vert-clair: #e3f3ea;
+      --rouge: #e5484d; --nuit: #17161c;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html, body { height: 100%; }
+    body { font-family: "Instrument Sans", system-ui, sans-serif; background: #e9e7ef; color: var(--encre); line-height: 1.5; font-size: 17px; overflow: hidden; }
+    h1, h2, h3 { font-family: "Bricolage Grotesque", system-ui, sans-serif; letter-spacing: -0.02em; line-height: 1.08; }
+    h1 { font-size: clamp(36px, 10vw, 48px); }
+    h2 { font-size: clamp(26px, 7.4vw, 32px); }
+    button { font: inherit; cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+
+    .guide { position: relative; height: 100%; max-width: 480px; margin: 0 auto; background: var(--fond); overflow: hidden; }
+    @media (min-width: 560px) { .guide { height: min(920px, calc(100% - 40px)); margin-top: 20px; border-radius: 36px; box-shadow: 0 40px 90px -40px rgba(30,20,80,.45); } }
+
+    /* En-tête : partie en cours + progression */
+    .haut { position: absolute; z-index: 5; top: 0; left: 0; right: 0; padding: calc(12px + env(safe-area-inset-top)) 18px 10px; background: linear-gradient(var(--fond) 75%, transparent); }
+    .haut.sombre { background: linear-gradient(var(--nuit) 75%, transparent); color: #f4f3f8; }
+    .ligne-haut { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--gris); margin-bottom: 8px; }
+    .haut.sombre .ligne-haut { color: #c9c7d4; }
+    .barre { height: 6px; border-radius: 3px; background: rgba(23,22,28,.1); overflow: hidden; }
+    .haut.sombre .barre { background: rgba(255,255,255,.15); }
+    .barre i { display: block; height: 100%; background: var(--violet); border-radius: 3px; transition: width .4s ease; }
+
+    .ecrans { height: 100%; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+    .ecrans::-webkit-scrollbar { display: none; }
+    .ecran { flex: 0 0 100%; height: 100%; scroll-snap-align: start; overflow-y: auto; padding: calc(64px + env(safe-area-inset-top)) 22px 130px; display: flex; flex-direction: column; gap: 14px; }
+    .ecran.sombre { background: var(--nuit); color: #f4f3f8; justify-content: center; }
+    .ecran.sombre .doux { color: #c9c7d4; }
+    .surtitre { font-size: 14px; font-weight: 600; color: var(--violet); }
+    .sombre .surtitre { color: #cbbcff; }
+    .doux { color: var(--gris); }
+    .consigne { font-size: 18px; }
+    .consigne b { color: var(--violet); }
+
+    /* Capture d'écran d'OVH dans un cadre de téléphone, avec la zone à toucher entourée */
+    .capture { position: relative; align-self: center; width: min(64vw, 250px); border: 8px solid #1f1d26; border-radius: 30px; overflow: hidden; background: #fff; box-shadow: 0 30px 60px -30px rgba(30,20,80,.5); flex: none; }
+    .capture img { display: block; width: 100%; height: auto; }
+    .cible { position: absolute; border: 3px solid var(--rouge); border-radius: 12px; box-shadow: 0 0 0 4000px rgba(23,22,28,.28); animation: pulse 1.6s ease-in-out infinite; }
+    .cible::after { content: ""; position: absolute; inset: -9px; border: 3px solid var(--rouge); border-radius: 16px; opacity: 0; animation: onde 1.6s ease-out infinite; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+    @keyframes onde { 0% { opacity: .8; transform: scale(.92); } 100% { opacity: 0; transform: scale(1.15); } }
+    .ignorer { position: absolute; border: 2px dashed #8a889c; border-radius: 10px; background: rgba(244,243,248,.72); display: grid; place-items: center; }
+    .ignorer span { background: #17161c; color: #fff; font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 999px; }
+    .choix { display: grid; gap: 8px; }
+    .choix div { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: #fff; border: 1px solid var(--trait); font-size: 15px; }
+    .choix div.bon { border: 2px solid var(--vert); }
+    .choix b.signe { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 13px; }
+    .choix .bon b.signe { background: var(--vert); }
+    .choix .non b.signe { background: #8a889c; }
+    details.plus { background: #fff; border: 1px solid var(--trait); border-radius: 14px; padding: 12px 14px; font-size: 15px; }
+    details.plus summary { font-weight: 600; cursor: pointer; color: var(--violet); }
+    details.plus p { margin-top: 8px; color: var(--gris); }
+    .date-capture { font-size: 12px; color: var(--gris); text-align: center; }
+
+    .astuce { display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; background: var(--lavande); color: #3d2390; font-size: 15px; }
+    .astuce.attention { background: #fff1e0; color: #7a4300; }
+    .astuce strong { flex: none; }
+    .carte { background: var(--carte); border: 1px solid var(--trait); border-radius: 22px; padding: 18px; }
+    .liste { padding-left: 22px; display: grid; gap: 8px; }
+
+    /* Illustration dessinée (pour les écrans sans capture) */
+    .illu { background: #fff; border: 1px solid var(--trait); border-radius: 20px; padding: 16px; display: grid; gap: 10px; font-size: 15px; }
+    .illu .etiquette { font-size: 11px; font-weight: 600; color: var(--gris); text-transform: none; }
+    .illu .menu { display: grid; gap: 6px; }
+    .illu .menu span { padding: 9px 12px; border-radius: 10px; background: var(--fond); }
+    .illu .menu span.actif { outline: 3px solid var(--rouge); background: #fff; font-weight: 600; }
+    .illu .rangee { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 10px; background: var(--fond); }
+    .illu .points { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; outline: 3px solid var(--rouge); font-weight: 700; }
+    .illu .champ { border: 2px solid var(--trait); border-radius: 10px; padding: 10px 12px; color: var(--gris); }
+    .illu .champ.cible-champ { border-color: var(--rouge); color: var(--encre); font-weight: 600; }
+    .illu .bt { text-align: center; padding: 10px; border-radius: 999px; background: #2f56d1; color: #fff; font-weight: 600; }
+    .illu .bt.cible-bt { outline: 3px solid var(--rouge); outline-offset: 3px; }
+
+    .identifiant { display: flex; gap: 8px; align-items: center; }
+    .identifiant code { flex: 1; padding: 12px 14px; border-radius: 12px; background: #fff; border: 2px dashed var(--violet); font: 600 18px ui-monospace, monospace; color: var(--violet); }
+    .identifiant button { padding: 12px 14px; border-radius: 12px; border: 0; background: var(--violet); color: #fff; font-weight: 600; }
+
+    .bloque { align-self: center; border: 0; background: none; color: var(--gris); text-decoration: underline; font-size: 15px; padding: 6px; }
+    .zone-bloque { display: grid; gap: 8px; }
+    textarea { width: 100%; min-height: 80px; padding: 12px; border: 2px solid var(--trait); border-radius: 12px; font: inherit; }
+    .bouton { display: block; width: 100%; padding: 15px 18px; border-radius: 999px; border: 2px solid var(--violet); background: var(--violet); color: #fff; font-weight: 600; text-align: center; text-decoration: none; }
+    .bouton.clair { background: #fff; color: var(--violet); border-color: #fff; }
+    .ok { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; background: var(--vert-clair); color: #1f5e3b; font-weight: 600; animation: pop .4s ease both; }
+    .ok svg { flex: none; width: 24px; height: 24px; }
+    @keyframes pop { from { opacity: 0; transform: scale(.9); } }
+
+    .nav { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; display: flex; gap: 12px; padding: 16px 20px calc(18px + env(safe-area-inset-bottom)); background: linear-gradient(transparent, var(--fond) 35%); }
+    .nav.sombre { background: linear-gradient(transparent, rgba(23,22,28,.92) 35%); }
+    .nav button { height: 54px; border-radius: 999px; border: 0; font-weight: 600; }
+    .nav .retour { width: 54px; flex: none; background: rgba(23,22,28,.08); font-size: 22px; color: var(--encre); }
+    .nav.sombre .retour { background: rgba(255,255,255,.14); color: #fff; }
+    .nav .suivant { flex: 1; background: var(--violet); color: #fff; font-size: 17px; }
+    .nav .retour[disabled] { opacity: .3; cursor: default; }
+    .confetti { position: fixed; z-index: 20; top: 0; left: 0; width: 10px; height: 14px; border-radius: 2px; pointer-events: none; }
+
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+<div class="guide">
+  <header class="haut" id="haut" aria-hidden="true">
+    <div class="ligne-haut"><span id="partie"></span><span id="compteur"></span></div>
+    <div class="barre"><i id="barre"></i></div>
+  </header>
+  <main class="ecrans" id="ecrans"></main>
+  <nav class="nav" id="nav" aria-label="Navigation du guide">
+    <button class="retour" type="button" id="b-retour" aria-label="Étape précédente">←</button>
+    <button class="suivant" type="button" id="b-suivant">Suivant</button>
+  </nav>
+</div>
+
+<script>
+/* =====================================================================
+   RÉGLAGES : à vérifier une fois, puis tous les 6 mois (OVH change son site).
+   ===================================================================== */
+const reglages = {
+  identifiantRiwak: 'cp1809185-ovh',      // ton identifiant OVH, que le client met en contact technique
+  dateCaptures: '24 novembre 2026',
+};
+const CLE_WEB3FORMS = 'faf0bc2a-87b0-4a8e-ae54-42437f2df9a8';
+
+/* =====================================================================
+   LES ÉTAPES. zone = [gauche, haut, largeur, hauteur] en % de la capture :
+   c'est le cadre rouge autour de l'endroit où toucher.
+   ===================================================================== */
+const etapes = [
+  { type: 'accueil' },
+
+  { partie: 'Réserver votre nom', titre: 'Ouvrez le site d’OVH', image: '01-cookies.jpg', zone: [7, 11.6, 46, 3.6],
+    texte: 'Allez sur <b>ovhcloud.com/fr/domains</b>. Une fenêtre sur les cookies s’ouvre : touchez <b>« Poursuivre sans accepter »</b>, en haut.',
+    lien: 'https://www.ovhcloud.com/fr/domains/' },
+  { partie: 'Réserver votre nom', titre: 'Tapez votre nom', image: '02-recherche.jpg', zone: [5, 50.2, 90, 7.2],
+    texte: 'Dans la case de recherche, tapez <b>le nom que nous avons choisi ensemble</b>, puis touchez la loupe rouge.',
+    astuce: 'Ici, c’est l’exemple boulangerie-ferrand.fr : tapez le vôtre.' },
+  { partie: 'Réserver votre nom', titre: 'Lancez la recherche', image: '03-commande.jpg', zone: [56, 44, 34, 7],
+    texte: 'Une nouvelle page s’ouvre avec votre nom déjà écrit. Touchez <b>« Rechercher »</b>.' },
+  { partie: 'Réserver votre nom', titre: 'Choisissez la bonne ligne', image: '04-resultat.jpg', zone: [71, 54.8, 21, 5.2],
+    ignorer: [[6.5, 0.3, 87, 34.6, 'Pack : à ignorer'], [6.5, 75.3, 87, 11, 'Autres extensions : à ignorer']],
+    texte: 'OVH affiche plusieurs offres. <b>Une seule vous concerne</b> : votre nom exact, sous <b>« Résultats de la recherche »</b>.',
+    choix: true,
+    astuce: 'Si votre nom n’est pas « Disponible », ne prenez rien d’autre : écrivez-moi, on en trouve un ensemble.' },
+  { partie: 'Réserver votre nom', titre: 'Continuez la commande', image: '05-panier.jpg', zone: [3.5, 91, 93, 7.4],
+    texte: 'Le nom est dans votre panier. Touchez <b>« Poursuivre la commande »</b>, en bas.',
+    astuce: 'OVH propose 3 ans par défaut, avec 1 an offert : c’est le moins cher. Gardez ce choix.' },
+  { partie: 'Réserver votre nom', titre: 'Ajoutez l’hébergement gratuit', image: '06-options.jpg', zone: [65.5, 76.2, 20.5, 5],
+    texte: 'Sur « Liez un hébergement web », dans <b>« Hébergement gratuit »</b>, touchez <b>« Ajouter »</b>. Le total ne change pas.',
+    astuce: 'C’est là que votre site sera rangé. N’ajoutez pas les offres payantes des autres gammes.' },
+  { partie: 'Réserver votre nom', titre: 'Pas d’option en plus', image: '07-option-dns.jpg', zone: [3.5, 91, 93, 7.4],
+    texte: 'OVH propose des options, comme « DNS Anycast ». <b>N’ajoutez rien</b> : touchez directement <b>« Poursuivre la commande »</b>.',
+    attention: true },
+
+  { partie: 'Créer votre compte', titre: 'Créez votre compte', image: '08-connexion.jpg', zone: [48.5, 34.8, 29, 3.8],
+    texte: 'OVH demande de vous connecter. Vous n’avez pas encore de compte : touchez <b>« Créer un compte »</b>.' },
+  { partie: 'Créer votre compte', titre: 'Pays, devise, langue', image: '09-parametres-compte.jpg', zone: [3.5, 80.8, 93, 6],
+    texte: 'Choisissez <b>France</b>, <b>EUR - €</b> et <b>OVHcloud France (Français)</b>. Une autre fenêtre de cookies peut s’ouvrir : touchez « Continuer sans accepter ». Puis touchez <b>« Valider »</b>.' },
+  { partie: 'Créer votre compte', titre: 'Votre e-mail et un mot de passe', image: '10-identifiants.jpg', zone: [4, 30.6, 92, 15.4],
+    texte: 'Mettez <b>votre e-mail</b> et choisissez un <b>mot de passe</b>. Cochez la première case (conditions générales), puis touchez <b>« Créer un compte »</b>.',
+    astuce: 'Gardez ce mot de passe pour vous. Je n’en aurai jamais besoin, ne me le donnez pas.' },
+  { partie: 'Créer votre compte', titre: 'Vos coordonnées', illu: 'coordonnees',
+    texte: 'OVH vous envoie un <b>code par e-mail</b> pour confirmer votre adresse : recopiez-le. Remplissez ensuite <b>votre nom, votre adresse et votre téléphone</b>.',
+    astuce: 'Mettez vos vraies informations : c’est ce qui fait de vous le propriétaire officiel du nom.' },
+  { partie: 'Créer votre compte', titre: 'Vérifiez et payez', illu: 'paiement',
+    texte: 'Vous revenez à la commande. Vérifiez le récapitulatif, cochez les <b>conditions</b>, puis payez avec <b>votre carte</b>.',
+    astuce: 'Environ 19 € pour les 3 premières années, puis environ 10 € par an. Le renouvellement est automatique.' },
+  { partie: 'Créer votre compte', titre: 'Un e-mail à confirmer', illu: 'email',
+    texte: 'Dans les jours qui suivent, OVH vous envoie un e-mail pour <b>vérifier les coordonnées du propriétaire</b>. Ouvrez-le et confirmez.',
+    attention: true, astuce: 'Important : sans cette confirmation, OVH peut suspendre le nom. En cas de doute sur un e-mail, connectez-vous directement sur ovhcloud.com au lieu de cliquer.' },
+
+  { partie: 'Me donner l’accès', titre: 'Ouvrez « Contacts des services »', illu: 'menu',
+    texte: 'Connectez-vous sur <b>ovhcloud.com</b> (« Mon compte client »). Dans le menu, ouvrez <b>« Mon compte »</b>, puis <b>« Contacts des services »</b>.' },
+  { partie: 'Me donner l’accès', titre: 'Modifiez les contacts de votre nom', illu: 'modifier',
+    texte: 'Sur la ligne de votre nom de domaine, touchez les <b>trois points ⋮</b>, puis <b>« Modifier les contacts »</b>.' },
+  { partie: 'Me donner l’accès', titre: 'Ajoutez Riwak Studio', illu: 'contact',
+    texte: 'Dans la case <b>« Contact technique »</b> seulement, collez mon identifiant. Laissez les autres cases vides, puis touchez <b>« Envoyer la demande »</b>.',
+    identifiant: true },
+  { partie: 'Me donner l’accès', titre: 'Acceptez la demande', illu: 'accepter',
+    texte: 'Vous recevez un <b>e-mail avec un code</b>. Ouvrez l’onglet <b>« Mes demandes »</b>, touchez <b>⋮</b> puis <b>« Accepter la demande »</b>, et entrez le code. J’accepte aussi de mon côté.',
+    astuce: 'Cet accès me permet seulement de régler votre site. Je ne peux ni payer, ni changer le propriétaire, et vous pouvez le retirer quand vous voulez.' },
+
+  { type: 'fin' },
+];
+
+/* ---------- Étape 4 : quelle offre choisir ---------- */
+const choixExtension = `
+  <div class="choix">
+    <div class="bon"><b class="signe">✓</b><span><b>À prendre :</b> la ligne avec votre nom exact, par exemple <b>votre-nom.fr</b>, marquée « Disponible ». Touchez « Acheter » sur cette ligne.</span></div>
+    <div class="non"><b class="signe">✕</b><span><b>À ignorer :</b> le pack en haut (« .pro + .fr ») et la liste « Autres extensions » (.eu, .com, .net…). Vous n’en avez pas besoin.</span></div>
+  </div>
+  <details class="plus"><summary>.fr ou .com, c’est quoi la différence ?</summary>
+    <p>C’est la fin de l’adresse. Le <b>.fr</b> montre que vous êtes en France : c’est le meilleur choix pour un commerce ou un artisan d’ici. Le .com est plutôt pour une activité internationale. Nous avons choisi votre extension ensemble : prenez exactement celle-là.</p>
+  </details>`;
+
+/* ---------- Illustrations dessinées (écrans sans capture) ---------- */
+const illus = {
+  coordonnees: `<div class="illu" role="img" aria-label="Illustration du formulaire de coordonnées"><span class="etiquette">Illustration</span><div class="champ">Code reçu par e-mail</div><div class="champ cible-champ">Prénom et nom</div><div class="champ cible-champ">Adresse</div><div class="champ cible-champ">Téléphone</div></div>`,
+  paiement: `<div class="illu" role="img" aria-label="Illustration du paiement"><span class="etiquette">Illustration</span><div class="rangee"><span>Nom de domaine, 3 ans</span><b>≈ 19 €</b></div><div class="rangee"><span>Hébergement gratuit</span><b>0 €</b></div><div class="champ">☐ J’accepte les conditions</div><div class="bt cible-bt">Payer par carte</div></div>`,
+  email: `<div class="illu" role="img" aria-label="Illustration d’un e-mail de vérification"><span class="etiquette">Illustration</span><b>OVHcloud</b><span>Vérifiez les informations du titulaire de votre nom de domaine.</span><div class="bt cible-bt">Confirmer</div></div>`,
+  menu: `<div class="illu" role="img" aria-label="Illustration du menu Mon compte"><span class="etiquette">Illustration</span><div class="menu"><span>Accueil</span><span>Mon compte</span><span class="actif">Contacts des services</span><span>Factures</span></div></div>`,
+  modifier: `<div class="illu" role="img" aria-label="Illustration de la liste des services"><span class="etiquette">Illustration</span><div class="rangee"><span>votre-nom.fr</span><span class="points">⋮</span></div><div class="menu"><span class="actif">Modifier les contacts</span></div></div>`,
+  contact: `<div class="illu" role="img" aria-label="Illustration du formulaire de contacts"><span class="etiquette">Illustration</span><div class="champ">Contact administrateur</div><div class="champ cible-champ">Contact technique : ${reglages.identifiantRiwak}</div><div class="champ">Contact facturation</div><div class="bt cible-bt">Envoyer la demande</div></div>`,
+  accepter: `<div class="illu" role="img" aria-label="Illustration de l’onglet Mes demandes"><span class="etiquette">Illustration</span><div class="rangee"><span>Mes demandes : en attente</span><span class="points">⋮</span></div><div class="menu"><span class="actif">Accepter la demande</span></div><div class="champ cible-champ">Code de validation</div></div>`,
+};
+
+const coche = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const $ = (id) => document.getElementById(id);
+const nbEtapes = etapes.filter((e) => !e.type).length;
+
+/* ---------- Construction des écrans ---------- */
+let n = 0;
+$('ecrans').innerHTML = etapes.map((e) => {
+  if (e.type === 'accueil') return `
+    <section class="ecran sombre" data-sombre aria-label="Accueil">
+      <p class="surtitre">Riwak Studio · Guide pas à pas</p>
+      <h1>Réservez votre nom chez OVH.</h1>
+      <p class="doux">Environ 15 minutes, une seule fois. Chaque écran vous montre exactement où toucher, entouré en rouge.</p>
+      <div class="carte" style="background:#24222c;border-color:#33303d;color:#f4f3f8">
+        <p style="font-weight:600;margin-bottom:8px">Préparez :</p>
+        <ul class="liste doux"><li>le nom choisi ensemble</li><li>votre adresse e-mail</li><li>votre carte bancaire (environ 19 €)</li></ul>
+      </div>
+    </section>`;
+  if (e.type === 'fin') return `
+    <section class="ecran sombre" data-sombre aria-label="Terminé">
+      <p class="surtitre">C’est fini</p>
+      <h1>Bravo, votre nom est à vous.</h1>
+      <p class="doux">Prévenez-moi d’un geste : je m’occupe du reste et je vous écris dès que votre site est en ligne.</p>
+      <div id="zone-fin"><button class="bouton clair" type="button" id="b-fini">J’ai terminé, prévenir Riwak Studio</button></div>
+    </section>`;
+  n++;
+  const visuel = e.image
+    ? `<figure class="capture"><img src="images/${e.image}" alt="Capture d’écran d’OVH : ${e.titre}" loading="lazy" width="600" height="1299">${(e.ignorer || []).map((z) => `<span class="ignorer" style="left:${z[0]}%;top:${z[1]}%;width:${z[2]}%;height:${z[3]}%"><span>${z[4]}</span></span>`).join('')}<span class="cible" style="left:${e.zone[0]}%;top:${e.zone[1]}%;width:${e.zone[2]}%;height:${e.zone[3]}%"></span></figure><p class="date-capture">Capture du ${reglages.dateCaptures}. Les prix et bannières peuvent avoir changé.</p>`
+    : illus[e.illu];
+  return `
+    <section class="ecran" aria-label="Étape ${n} : ${e.titre}" data-partie="${e.partie}" data-numero="${n}">
+      <p class="surtitre">Étape ${n} sur ${nbEtapes}</p>
+      <h2>${e.titre}</h2>
+      <p class="consigne">${e.texte}</p>
+      ${e.choix ? choixExtension : ''}
+      ${e.identifiant ? `<div class="identifiant"><code id="id-riwak">${reglages.identifiantRiwak}</code><button type="button" data-copier>Copier</button></div>` : ''}
+      ${e.lien ? `<a class="bouton" href="${e.lien}" target="_blank" rel="noopener">Ouvrir OVH dans un nouvel onglet</a>` : ''}
+      ${visuel}
+      ${e.astuce ? `<p class="astuce${e.attention ? ' attention' : ''}"><strong>${e.attention ? '!' : 'i'}</strong><span>${e.astuce}</span></p>` : ''}
+      <button class="bloque" type="button" data-bloque="${n}">Je bloque à cette étape</button>
+      <div class="zone-bloque" hidden>
+        <textarea aria-label="Ce qui bloque" placeholder="Dites-moi ce que vous voyez à l’écran…"></textarea>
+        <button class="bouton" type="button" data-envoyer="${n}">M’envoyer le message</button>
+      </div>
+    </section>`;
+}).join('');
+
+/* ---------- Navigation ---------- */
+const ecrans = [...document.querySelectorAll('.ecran')];
+const conteneur = $('ecrans');
+let actuel = -1;
+function allerA(i) { conteneur.scrollTo({ left: i * conteneur.clientWidth }); }
+function miseAJour() {
+  const i = Math.round(conteneur.scrollLeft / conteneur.clientWidth);
+  if (i === actuel) return;
+  actuel = i;
+  const e = ecrans[i], sombre = e.hasAttribute('data-sombre');
+  $('haut').className = 'haut' + (sombre ? ' sombre' : '');
+  $('nav').className = 'nav' + (sombre ? ' sombre' : '');
+  $('partie').textContent = e.dataset.partie || 'Guide OVH';
+  $('compteur').textContent = e.dataset.numero ? `${e.dataset.numero} / ${nbEtapes}` : '';
+  $('barre').style.width = (i / (ecrans.length - 1) * 100) + '%';
+  $('b-retour').disabled = i === 0;
+  $('b-suivant').textContent = i === 0 ? 'C’est parti' : (i === ecrans.length - 1 ? 'Revoir depuis le début' : 'C’est fait, étape suivante');
+}
+conteneur.addEventListener('scroll', () => requestAnimationFrame(miseAJour), { passive: true });
+$('b-suivant').addEventListener('click', () => allerA(actuel === ecrans.length - 1 ? 0 : actuel + 1));
+$('b-retour').addEventListener('click', () => allerA(Math.max(0, actuel - 1)));
+document.addEventListener('keydown', (ev) => {
+  if (ev.target.matches('textarea')) return;
+  if (ev.key === 'ArrowRight') allerA(Math.min(ecrans.length - 1, actuel + 1));
+  if (ev.key === 'ArrowLeft') allerA(Math.max(0, actuel - 1));
+});
+window.addEventListener('resize', () => { const i = actuel; actuel = -1; conteneur.style.scrollBehavior = 'auto'; allerA(i); conteneur.style.scrollBehavior = ''; miseAJour(); });
+miseAJour();
+
+/* ---------- Copier l'identifiant ---------- */
+document.addEventListener('click', async (ev) => {
+  const b = ev.target.closest('[data-copier]');
+  if (!b) return;
+  try { await navigator.clipboard.writeText(reglages.identifiantRiwak); b.textContent = 'Copié ✓'; }
+  catch { b.textContent = 'Sélectionnez le texte'; }
+  setTimeout(() => (b.textContent = 'Copier'), 2000);
+});
+
+/* ---------- Envoi par Web3Forms ---------- */
+async function envoyer(sujet, message) {
+  const r = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ access_key: CLE_WEB3FORMS, subject: sujet, from_name: 'Guide OVH Riwak Studio', message }),
+  });
+  if (!(await r.json()).success) throw new Error();
+}
+document.addEventListener('click', async (ev) => {
+  const ouvrir = ev.target.closest('[data-bloque]');
+  if (ouvrir) { const z = ouvrir.nextElementSibling; z.hidden = false; z.querySelector('textarea').focus(); return; }
+  const b = ev.target.closest('[data-envoyer]');
+  if (!b) return;
+  const etape = b.dataset.envoyer, texte = b.previousElementSibling.value.trim() || '(pas de détail)';
+  b.disabled = true; b.textContent = 'Envoi…';
+  try {
+    await envoyer(`[Guide OVH] Un client bloque à l'étape ${etape}`, `Étape ${etape} : ${etapes.filter((e) => !e.type)[etape - 1].titre}\n\n${texte}`);
+    b.parentElement.outerHTML = `<p class="ok">${coche}Message envoyé. Je vous réponds au plus vite.</p>`;
+  } catch {
+    b.disabled = false; b.textContent = 'Réessayer';
+    b.insertAdjacentHTML('afterend', '<p class="doux">L’envoi n’a pas marché : écrivez-moi à riwakstudios@gmail.com.</p>');
+  }
+});
+$('b-fini').addEventListener('click', async (ev) => {
+  const b = ev.currentTarget; b.disabled = true; b.textContent = 'Envoi…';
+  try {
+    await envoyer('[Guide OVH] Un client a terminé', 'Le client a terminé le guide OVH : nom réservé et demande de contact technique envoyée. Pense à accepter la demande dans « Mes demandes ».');
+    $('zone-fin').innerHTML = `<p class="ok">${coche}C’est noté, merci ! Je prends le relais.</p>`;
+    confettis();
+  } catch {
+    b.disabled = false; b.textContent = 'Réessayer';
+    $('zone-fin').insertAdjacentHTML('beforeend', '<p class="doux" style="margin-top:8px">L’envoi n’a pas marché : écrivez-moi à riwakstudios@gmail.com.</p>');
+  }
+});
+
+function confettis() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const couleurs = ['#5a35c8', '#b39dff', '#2f8a57', '#f2b33d', '#e5484d'];
+  const x = innerWidth / 2, y = innerHeight * .6;
+  for (let i = 0; i < 50; i++) {
+    const c = document.createElement('span'); c.className = 'confetti'; c.style.background = couleurs[i % 5]; document.body.appendChild(c);
+    const a = -Math.PI / 2 + (Math.random() - .5) * 2.4, v = 500 + Math.random() * 500;
+    c.animate([{ transform: `translate(${x}px,${y}px)`, opacity: 1 }, { transform: `translate(${x + Math.cos(a) * v}px,${y + Math.sin(a) * v + 700}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }], { duration: 1400 + Math.random() * 500, easing: 'cubic-bezier(.2,.6,.4,1)' }).onfinish = () => c.remove();
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- noindex : Google ne référence pas cette page. Elle n'est faite que pour le client. -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Suivi de votre projet · Riwak Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Cette page a son propre style : elle ne dépend pas du style.css du site,
+       donc une modification du site ne peut pas la casser. */
+    :root {
+      --fond: #f4f3f8; --carte: #fff; --encre: #17161c; --gris: #5e5c6b; --trait: #dddbe6;
+      --violet: #5a35c8; --violet-fonce: #44259e; --lavande: #ece6ff; --vert: #2f8a57; --vert-clair: #e3f3ea;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body { font-family: "Instrument Sans", system-ui, sans-serif; background: var(--fond); color: var(--encre); line-height: 1.5; font-size: 17px; }
+    .page { max-width: 680px; margin: 0 auto; padding: 28px 20px 64px; }
+    h1, h2 { font-family: "Bricolage Grotesque", system-ui, sans-serif; letter-spacing: -0.02em; line-height: 1.1; }
+    h1 { font-size: clamp(30px, 7vw, 42px); }
+    h2 { font-size: 22px; margin-bottom: 12px; }
+    .logo { font: 700 18px "Bricolage Grotesque", sans-serif; letter-spacing: -0.02em; margin-bottom: 32px; display: block; color: var(--encre); text-decoration: none; }
+    .intro { color: var(--gris); margin-top: 10px; }
+    .carte { background: var(--carte); border: 1px solid var(--trait); border-radius: 22px; padding: 26px; margin-top: 20px; }
+
+    /* Avancement : une ligne par étape */
+    .etapes { list-style: none; padding: 0; display: grid; gap: 14px; }
+    .etapes li { display: flex; align-items: center; gap: 14px; color: var(--gris); }
+    .pastille { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 15px; background: var(--fond); border: 2px solid var(--trait); }
+    .etapes li.faite { color: var(--encre); }
+    .etapes li.faite .pastille { background: var(--vert); border-color: var(--vert); color: #fff; }
+    .etapes li.en-cours { color: var(--encre); font-weight: 600; }
+    .etapes li.en-cours .pastille { border-color: var(--violet); color: var(--violet); }
+
+    .bouton { display: block; width: 100%; text-align: center; padding: 16px 20px; border-radius: 999px; border: 2px solid var(--violet); background: var(--violet); color: #fff; font: 600 17px "Instrument Sans", sans-serif; text-decoration: none; cursor: pointer; }
+    .bouton:hover { background: var(--violet-fonce); border-color: var(--violet-fonce); }
+    .bouton.secondaire { background: transparent; color: var(--violet); }
+    .bouton.secondaire:hover { background: var(--lavande); }
+    .bouton:focus-visible, textarea:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+    .boutons { display: grid; gap: 12px; margin-top: 18px; }
+    textarea { width: 100%; min-height: 120px; margin-top: 14px; padding: 14px; border: 2px solid var(--trait); border-radius: 14px; font: inherit; resize: vertical; }
+    .note { font-size: 15px; color: var(--gris); margin-top: 12px; }
+    .message { margin-top: 14px; padding: 14px 16px; border-radius: 14px; background: var(--vert-clair); color: #1f5e3b; font-weight: 500; }
+    .message.erreur { background: #fde8e8; color: #8a1f1f; }
+    .documents { list-style: none; padding: 0; display: grid; gap: 10px; }
+    .documents a { color: var(--violet); font-weight: 600; }
+    .piege { position: absolute; left: -9999px; }
+    [hidden] { display: none !important; }
+    footer { margin-top: 36px; font-size: 15px; color: var(--gris); text-align: center; }
+    footer a { color: var(--violet); }
+  </style>
+</head>
+<body>
+<div class="page">
+  <a class="logo" href="https://riwakstudio.fr">Riwak Studio</a>
+
+  <h1>Votre projet, <span id="nom-client"></span></h1>
+  <p class="intro">Tout se passe sur cette page. Gardez ce lien : il est fait pour vous seul.</p>
+
+  <!-- 1. Avancement -->
+  <section class="carte" aria-labelledby="titre-avancement">
+    <h2 id="titre-avancement">Où en est votre site</h2>
+    <ol class="etapes" id="etapes"></ol>
+    <p class="note">Mis à jour le <span id="maj"></span>.</p>
+  </section>
+
+  <!-- 2. Voir le site (dès que la première version est prête) -->
+  <section class="carte" id="bloc-demo" hidden>
+    <h2>Votre site</h2>
+    <p>Regardez-le tranquillement, sur ordinateur et sur téléphone.</p>
+    <div class="boutons"><a class="bouton" id="lien-demo" target="_blank" rel="noopener">Voir mon site</a></div>
+  </section>
+
+  <!-- 3. Décision (pendant la validation) -->
+  <section class="carte" id="bloc-decision" hidden>
+    <h2>Il vous plaît ?</h2>
+    <p>Un clic suffit. Vous ne payez que si le site vous plaît.</p>
+    <div class="boutons">
+      <button class="bouton" id="bouton-oui" type="button">Ça me plaît</button>
+      <button class="bouton secondaire" id="bouton-changer" type="button">Je veux changer quelque chose</button>
+    </div>
+    <div id="zone-changement" hidden>
+      <label for="texte-changement" class="note">Dites-moi ce que vous voulez changer, avec vos mots :</label>
+      <textarea id="texte-changement" placeholder="Par exemple : la photo du haut, les horaires du samedi…"></textarea>
+      <div class="boutons"><button class="bouton" id="bouton-envoyer" type="button">Envoyer ma demande</button></div>
+    </div>
+    <p class="message" id="message-decision" role="status" hidden></p>
+  </section>
+
+  <!-- 4. Paiement (une fois le site validé) -->
+  <section class="carte" id="bloc-paiement" hidden>
+    <h2>Dernière étape : le paiement</h2>
+    <p>Votre site est validé. Dès le paiement reçu, je le mets en ligne.</p>
+    <div class="boutons"><a class="bouton" id="lien-paiement" target="_blank" rel="noopener">Payer <span id="montant"></span> par carte</a></div>
+    <p class="note">Vous préférez le virement ? Les coordonnées sont sur la facture que je vous ai envoyée par e-mail.</p>
+  </section>
+
+  <!-- 5. En ligne -->
+  <section class="carte" id="bloc-en-ligne" hidden>
+    <h2>Votre site est en ligne</h2>
+    <p>Il est visible par tout le monde, sur ordinateur et sur téléphone.</p>
+    <div class="boutons"><a class="bouton" id="lien-site" target="_blank" rel="noopener">Voir mon site en ligne</a></div>
+  </section>
+
+  <!-- 6. Documents -->
+  <section class="carte" id="bloc-documents" hidden>
+    <h2>Vos documents</h2>
+    <ul class="documents" id="documents"></ul>
+  </section>
+
+  <footer>Une question ? <a href="mailto:riwakstudios@gmail.com">riwakstudios@gmail.com</a>, je réponds sous 48 heures.</footer>
+</div>
+
+<script>
+/* =====================================================================
+   À MODIFIER POUR CHAQUE CLIENT : uniquement ce bloc.
+   etape = où en est le projet :
+     1 = demande reçue, je prépare la première version
+     2 = première version prête, le client la regarde et décide
+     3 = site validé, en attente du paiement
+     4 = site en ligne
+   Laisse un lien vide ('') tant que le document n'existe pas : le bloc reste caché.
+   ===================================================================== */
+const projet = {
+  client: 'Boulangerie Ferrand',
+  etape: 2,
+  misAJourLe: '23 novembre 2026',
+  lienDemo: '../../exemples/refonte/apres.html',
+  lienPaiement: '',           // le lien de paiement par carte, à l'étape 3
+  montant: '300 €',
+  lienSite: '',               // l'adresse du site une fois en ligne, à l'étape 4
+  // ATTENTION : ton dépôt GitHub est public. N'ajoute jamais ici un devis ou une facture
+  // (adresse, prix, SIRET du client) : envoie-les par e-mail. Seulement des documents publics.
+  documents: [
+    // { nom: 'Affiche pour votre vitrine', lien: 'affiche.html' },
+  ],
+};
+/* ============================ fin du bloc ============================ */
+
+// Même clé Web3Forms que le formulaire du site : les réponses arrivent sur riwakstudios@gmail.com.
+const CLE_WEB3FORMS = 'faf0bc2a-87b0-4a8e-ae54-42437f2df9a8';
+
+const $ = (id) => document.getElementById(id);
+$('nom-client').textContent = projet.client;
+$('maj').textContent = projet.misAJourLe;
+
+// Avancement : chaque étape est « faite », « en cours » ou à venir.
+const libelles = ['Demande reçue', 'Première version prête', 'Site validé', 'Site en ligne'];
+// Ce qui s'affiche à côté de la prochaine étape, pour dire qui doit agir.
+const suites = ['', ' · en préparation', ' · à vous de décider', ' · après le paiement'];
+libelles.forEach((texte, i) => {
+  const numero = i + 1;
+  const li = document.createElement('li');
+  const faite = numero <= projet.etape;
+  if (faite) li.className = 'faite';
+  else if (numero === projet.etape + 1) li.className = 'en-cours';
+  li.innerHTML = `<span class="pastille" aria-hidden="true">${faite ? '✓' : numero}</span><span>${texte}${numero === projet.etape + 1 ? suites[i] : ''}</span>`;
+  $('etapes').appendChild(li);
+});
+
+// On n'affiche que les blocs utiles à l'étape actuelle.
+if (projet.etape >= 2 && projet.etape < 4 && projet.lienDemo) { $('bloc-demo').hidden = false; $('lien-demo').href = projet.lienDemo; }
+if (projet.etape === 2) $('bloc-decision').hidden = false;
+if (projet.etape === 3 && projet.lienPaiement) { $('bloc-paiement').hidden = false; $('lien-paiement').href = projet.lienPaiement; $('montant').textContent = projet.montant; }
+if (projet.etape === 4 && projet.lienSite) { $('bloc-en-ligne').hidden = false; $('lien-site').href = projet.lienSite; }
+if (projet.documents.length) {
+  $('bloc-documents').hidden = false;
+  projet.documents.forEach((d) => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = d.lien; a.textContent = d.nom; a.target = '_blank'; a.rel = 'noopener';
+    li.appendChild(a); $('documents').appendChild(li);
+  });
+}
+
+// Envoi de la réponse du client par Web3Forms (comme le formulaire de contact).
+async function envoyer(sujet, message) {
+  const sortie = $('message-decision');
+  try {
+    const reponse = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ access_key: CLE_WEB3FORMS, subject: `[Suivi] ${projet.client} : ${sujet}`, from_name: 'Page de suivi Riwak Studio', client: projet.client, message }),
+    });
+    const resultat = await reponse.json();
+    if (!resultat.success) throw new Error(resultat.message);
+    return true;
+  } catch (e) {
+    sortie.hidden = false; sortie.className = 'message erreur';
+    sortie.textContent = "L'envoi n'a pas fonctionné. Écrivez-moi à riwakstudios@gmail.com.";
+    return false;
+  }
+}
+
+$('bouton-oui').addEventListener('click', async () => {
+  $('bouton-oui').disabled = true;
+  if (await envoyer('le site est validé', 'Le client a cliqué sur « Ça me plaît ».')) {
+    $('message-decision').hidden = false; $('message-decision').className = 'message';
+    $('message-decision').textContent = 'Merci ! Je vous envoie le lien de paiement très vite.';
+    $('bouton-changer').hidden = true; $('zone-changement').hidden = true; $('bouton-oui').hidden = true;
+  } else $('bouton-oui').disabled = false;
+});
+
+$('bouton-changer').addEventListener('click', () => { $('zone-changement').hidden = false; $('texte-changement').focus(); });
+
+$('bouton-envoyer').addEventListener('click', async () => {
+  const texte = $('texte-changement').value.trim();
+  if (!texte) { $('texte-changement').focus(); return; }
+  $('bouton-envoyer').disabled = true;
+  if (await envoyer('demande de changement', texte)) {
+    $('message-decision').hidden = false; $('message-decision').className = 'message';
+    $('message-decision').textContent = "C'est noté. Je fais les changements et je vous préviens dès qu'ils sont prêts.";
+    $('zone-changement').hidden = true;
+  } else $('bouton-envoyer').disabled = false;
+});
+</script>
+</body>
+</html>
