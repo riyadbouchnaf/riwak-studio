@@ -129,6 +129,41 @@ form .bouton { justify-content: center; border: 0; cursor: pointer; }
 form small { color: var(--gris); font-size: 13px; }
 @media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
 
+
+/* Tableau électrique dessiné */
+.tableau { position: relative; background: linear-gradient(160deg, #4a2163, #2e1240); border-radius: 22px; padding: 26px 24px 120px; color: #fff; box-shadow: 0 40px 80px -40px rgba(59,26,82,.8); }
+.tableau-tete { display: flex; justify-content: space-between; align-items: center; font-size: 13px; text-transform: none; letter-spacing: .02em; color: #d6c8e2; margin-bottom: 18px; }
+.voyant { width: 12px; height: 12px; border-radius: 50%; background: #6b5a78; box-shadow: none; animation: voyant .4s 2.2s forwards; }
+@keyframes voyant { to { background: #8ee06a; box-shadow: 0 0 14px 3px rgba(142,224,106,.7); } }
+.rangee { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: rgba(0,0,0,.22); border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+.dj { background: #f4f1f6; color: var(--encre); border-radius: 8px; padding: 10px 6px 12px; display: grid; justify-items: center; gap: 10px; }
+.dj b { font-size: 11px; font-weight: 600; text-align: center; line-height: 1.15; min-height: 26px; display: grid; place-items: center; }
+.dj i { width: 22px; height: 40px; border-radius: 5px; background: #d9d3de; position: relative; }
+.dj i::after { content: ""; position: absolute; left: 3px; right: 3px; height: 16px; border-radius: 3px; background: #6c6574; bottom: 3px; animation: leve .25s forwards; }
+.dj.diff { background: #e6edf7; } .dj.borne { background: var(--vert-clair); }
+.rangee:nth-of-type(2) .dj:nth-child(1) i::after { animation-delay: .5s } .rangee:nth-of-type(2) .dj:nth-child(2) i::after { animation-delay: .65s } .rangee:nth-of-type(2) .dj:nth-child(3) i::after { animation-delay: .8s } .rangee:nth-of-type(2) .dj:nth-child(4) i::after { animation-delay: .95s }
+.rangee:nth-of-type(3) .dj:nth-child(1) i::after { animation-delay: 1.2s } .rangee:nth-of-type(3) .dj:nth-child(2) i::after { animation-delay: 1.35s } .rangee:nth-of-type(3) .dj:nth-child(3) i::after { animation-delay: 1.5s } .rangee:nth-of-type(3) .dj:nth-child(4) i::after { animation-delay: 1.65s }
+@keyframes leve { to { bottom: 21px; background: var(--vert); } }
+@media (prefers-reduced-motion: reduce) { .dj i::after { animation-duration: 0s; animation-delay: 0s !important; } .voyant { animation-delay: 0s; animation-duration: 0s; } }
+.tableau .etiquette { position: absolute; left: 18px; bottom: 18px; right: 18px; background: #fff; color: var(--encre); border-radius: 14px; padding: 14px 16px; display: flex; gap: 12px; align-items: center; font-size: 15px; box-shadow: 0 20px 40px -20px rgba(0,0,0,.5); }
+.coche { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--vert-clair); color: var(--vert); display: grid; place-items: center; font-weight: 800; }
+@media (max-width: 520px) { .tableau { padding: 20px 14px 110px; } .rangee { gap: 6px; padding: 8px; } .dj b { font-size: 10px; } }
+
+/* Note géante des avis */
+.avis-tete { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
+.grosse-note { display: flex; align-items: center; gap: 18px; }
+.grosse-note b { font-size: 76px; line-height: .9; font-weight: 800; letter-spacing: -0.04em; color: var(--violet); font-variation-settings: "wdth" 80; }
+.grosse-note span { color: var(--gris); font-size: 15px; }
+
+/* Questions */
+.questions { max-width: 780px; }
+details { border-bottom: 1px solid var(--ligne); }
+summary { cursor: pointer; list-style: none; padding: 22px 0; font-weight: 700; font-size: 19px; display: flex; justify-content: space-between; gap: 20px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--violet); font-size: 26px; line-height: 1; transition: transform .2s; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { color: var(--gris); padding: 0 0 22px; max-width: 40em; }
+
 /* Pied */
 .pied { border-top: 1px solid var(--ligne); padding: 32px 0 110px; color: var(--gris); font-size: 14px; }
 .pied .conteneur { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
@@ -152,6 +187,7 @@ form small { color: var(--gris); font-size: 13px; }
       <a href="#services">Nos travaux</a>
       <a href="#methode">Comment on travaille</a>
       <a href="#avis">Avis clients</a>
+      <a href="#questions">Questions</a>
       <a href="#contact">Contact</a>
     </nav>
     <a class="appel" href="tel:+33241252461" aria-label="Appeler le 02 41 25 24 61"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span class="num">02 41 25 24 61</span></a>
@@ -170,12 +206,15 @@ form small { color: var(--gris); font-size: 13px; }
         <a class="bouton vide" href="tel:+33241252461">02 41 25 24 61</a>
       </div>
     </div>
-    <div class="photo" role="img" aria-label="Emplacement pour une photo de chantier">
-      <div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
-        <p>Votre plus beau chantier ici<small>Un tableau électrique, une maison neuve, une borne posée…</small></p>
+    <div class="tableau" aria-hidden="true">
+      <div class="tableau-tete"><span>Tableau électrique</span><span class="voyant"></span></div>
+      <div class="rangee">
+        <div class="dj diff"><b>30 mA</b><i></i></div><div class="dj"><b>Éclairage</b><i></i></div><div class="dj"><b>Prises salon</b><i></i></div><div class="dj"><b>Cuisine</b><i></i></div>
       </div>
-      <div class="etiquette"><i>✓</i><span><b>Visite sur place avant le devis</b><br>pour chiffrer au plus juste</span></div>
+      <div class="rangee">
+        <div class="dj diff"><b>30 mA</b><i></i></div><div class="dj"><b>Four</b><i></i></div><div class="dj"><b>Chauffe-eau</b><i></i></div><div class="dj borne"><b>Borne VE</b><i></i></div>
+      </div>
+      <div class="etiquette"><span class="coche">✓</span><span><b>Visite sur place avant le devis</b><br>pour chiffrer au plus juste</span></div>
     </div>
   </div>
 </section>
@@ -236,9 +275,9 @@ form small { color: var(--gris); font-size: 13px; }
 
 <section class="bloc" id="avis">
   <div class="conteneur">
-    <div class="titre-bloc">
+    <div class="avis-tete">
       <h2>Ils nous ont fait confiance</h2>
-      <p>4,7 sur 5 sur Google, à partir de 22 avis.</p>
+      <div class="grosse-note"><b>4,7</b><span><span class="etoiles">★★★★★</span><br>sur Google, 22 avis</span></div>
     </div>
     <div class="avis-grille">
       <blockquote>
@@ -258,6 +297,18 @@ form small { color: var(--gris); font-size: 13px; }
       </blockquote>
     </div>
     <a class="lien-avis" href="#">Voir tous les avis sur Google</a>
+  </div>
+</section>
+
+<section class="bloc" id="questions" style="padding-top:0">
+  <div class="conteneur">
+    <div class="titre-bloc"><h2>Vos questions</h2></div>
+    <div class="questions">
+      <details><summary>Le devis est-il gratuit ?</summary><p>Oui. Nous venons voir votre installation sur place, puis vous recevez un devis détaillé, sans engagement.</p></details>
+      <details><summary>Vous occupez-vous du Consuel pour une maison neuve ?</summary><p>Oui, nous préparons l'installation et les documents pour le passage du Consuel, l'attestation qui permet la mise en service par le fournisseur d'électricité.</p></details>
+      <details><summary>Ma maison est ancienne, faut-il tout refaire ?</summary><p>Pas forcément. Souvent, un nouveau tableau et la mise aux normes de certains circuits suffisent. On vous dit ce qui est nécessaire, et ce qui peut attendre.</p></details>
+      <details><summary>Installez-vous des bornes pour les entreprises ?</summary><p>Oui, pour les particuliers comme pour les professionnels, avec un chargé d'affaires qui suit votre projet du devis à la mise en service.</p></details>
+    </div>
   </div>
 </section>
 
