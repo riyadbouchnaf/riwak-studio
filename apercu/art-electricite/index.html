@@ -5,174 +5,186 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Art'Électricité · Électricien à Angers et alentours</title>
-<meta name="description" content="Art'Électricité, électricité générale à Angers et alentours : maisons neuves, rénovation, mise aux normes, tableaux électriques et bornes de recharge.">
+<meta name="description" content="Art'Électricité, électricité générale à Angers et alentours : maisons neuves, mise aux normes, tableaux électriques, bornes de recharge et dépannage.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --violet: #5b2a7a;
-  --violet-fonce: #3b1a52;
-  --vert: #5d8f4e;
-  --vert-clair: #e8f1e3;
-  --encre: #1c1a20;
-  --gris: #5f5b66;
-  --fond: #faf9fb;
-  --ligne: #e4e1e8;
+  --violet: #5b2a7a; --violet-fonce: #2e1240; --violet-nuit: #22102f;
+  --vert: #5d8f4e; --vert-vif: #8ee06a; --vert-clair: #e8f1e3;
+  --encre: #1c1a20; --gris: #5f5b66; --fond: #faf9fb; --ligne: #e4e1e8;
+  --ambre: #e3a21a;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body { font-family: "Archivo", system-ui, sans-serif; font-variation-settings: "wdth" 100; color: var(--encre); background: var(--fond); line-height: 1.55; font-size: 17px; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { font-family: "Archivo", system-ui, sans-serif; color: var(--encre); background: var(--fond); line-height: 1.55; font-size: 17px; }
 a { color: inherit; }
-:focus-visible { outline: 3px solid var(--vert); outline-offset: 3px; }
-.conteneur { width: min(1120px, 100% - 40px); margin: 0 auto; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--vert-vif); outline-offset: 3px; }
+.conteneur { width: min(1140px, 100% - 40px); margin: 0 auto; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; animation-delay: 0s !important; } }
 
-/* Bandeau aperçu */
 .apercu { background: var(--encre); color: #fff; font-size: 14px; text-align: center; padding: 10px 16px; }
 .apercu a { color: #c9b3dc; }
 
-/* En-tête */
-header { position: sticky; top: 0; z-index: 10; background: rgba(250,249,251,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--ligne); }
-.barre { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 20px; }
+header { position: sticky; top: 0; z-index: 30; background: rgba(250,249,251,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--ligne); }
+.barre { display: flex; align-items: center; justify-content: space-between; height: 70px; gap: 20px; }
 .logo { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; text-decoration: none; font-variation-settings: "wdth" 112; }
 .logo span { color: var(--violet); }
-nav { display: flex; gap: 28px; font-size: 15px; }
+nav { display: flex; gap: 26px; font-size: 15px; }
 nav a { text-decoration: none; color: var(--gris); }
 nav a:hover { color: var(--encre); }
 .appel { display: inline-flex; align-items: center; gap: 10px; background: var(--vert); color: #fff; text-decoration: none; font-weight: 700; padding: 12px 20px; border-radius: 10px; white-space: nowrap; }
 .appel:hover { background: #4e7a41; }
-.appel svg { width: 18px; height: 18px; }
-@media (max-width: 860px) { nav { display: none; } .appel .num { display: none; } }
+.appel svg, .appel-mobile svg { width: 18px; height: 18px; }
+@media (max-width: 900px) { nav { display: none; } .appel .num { display: none; } }
 
-/* Ouverture */
-.ouverture { padding: 72px 0 56px; }
-.ouverture-grille { display: grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items: center; }
-.note { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: var(--gris); margin-bottom: 22px; }
-.note b { color: var(--encre); }
-.etoiles { color: #e3a21a; letter-spacing: 2px; }
-h1 { font-size: clamp(40px, 6vw, 68px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; font-variation-settings: "wdth" 88; }
-h1 .trait { display: block; color: var(--violet); }
-.chapeau { font-size: 20px; color: var(--gris); margin: 24px 0 34px; max-width: 34em; }
+/* ===== Ouverture : le tableau sert de menu ===== */
+.ouverture { background: var(--violet-nuit); color: #fff; padding: 64px 0 72px; overflow: hidden; position: relative; }
+.ouverture::before { content: ""; position: absolute; inset: 0; background: radial-gradient(700px 500px at 80% 30%, rgba(91,42,122,.55), transparent 70%); pointer-events: none; }
+.ouverture-grille { position: relative; display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: center; }
+.note { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; color: #cdbfd8; margin-bottom: 22px; }
+.note b { color: #fff; }
+.etoiles { color: var(--ambre); letter-spacing: 2px; }
+h1 { font-size: clamp(42px, 6vw, 70px); line-height: 1; letter-spacing: -0.035em; font-weight: 800; font-variation-settings: "wdth" 86; }
+h1 .trait { display: block; color: var(--vert-vif); }
+.chapeau { font-size: 19px; color: #d9cfe0; margin: 24px 0 32px; max-width: 32em; }
 .actions { display: flex; flex-wrap: wrap; gap: 14px; }
-.bouton { display: inline-flex; align-items: center; gap: 10px; padding: 16px 26px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 17px; }
-.bouton.plein { background: var(--violet); color: #fff; }
-.bouton.plein:hover { background: var(--violet-fonce); }
-.bouton.vide { border: 2px solid var(--ligne); background: #fff; }
-.bouton.vide:hover { border-color: var(--encre); }
+.bouton { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 26px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: 17px; border: 0; }
+.bouton.plein { background: var(--vert); color: #fff; } .bouton.plein:hover { background: #4e7a41; }
+.bouton.violet { background: var(--violet); color: #fff; } .bouton.violet:hover { background: #4a2163; }
+.bouton.vide { border: 2px solid rgba(255,255,255,.3); color: #fff; } .bouton.vide:hover { border-color: #fff; }
+.indice { margin-top: 28px; font-size: 14px; color: #a996b8; display: flex; align-items: center; gap: 8px; }
+.indice svg { width: 18px; height: 18px; }
 
-/* Emplacement photo */
-.photo { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 5; background:
-  linear-gradient(135deg, rgba(91,42,122,.92), rgba(59,26,82,.96)),
-  repeating-linear-gradient(90deg, transparent 0 38px, rgba(255,255,255,.06) 38px 40px); display: grid; place-items: center; color: #fff; text-align: center; padding: 30px; }
-.photo svg { width: 64px; height: 64px; opacity: .9; margin-bottom: 14px; }
-.photo p { font-weight: 700; font-size: 20px; }
-.photo small { display: block; opacity: .75; font-size: 14px; margin-top: 6px; font-weight: 400; }
-.photo .etiquette { position: absolute; left: 18px; bottom: 18px; right: 18px; background: #fff; color: var(--encre); border-radius: 14px; padding: 14px 16px; display: flex; gap: 12px; align-items: center; text-align: left; font-size: 15px; box-shadow: 0 20px 40px -20px rgba(0,0,0,.5); }
-.photo .etiquette i { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--vert-clair); color: var(--vert); display: grid; place-items: center; font-style: normal; font-weight: 800; }
-@media (max-width: 860px) { .ouverture { padding: 44px 0 40px; } .ouverture-grille { grid-template-columns: 1fr; gap: 36px; } .photo { aspect-ratio: 16 / 11; } }
+.tableau { background: #ece9ef; border-radius: 22px; padding: 18px; color: var(--encre); box-shadow: 0 50px 90px -40px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.6); }
+.tableau-tete { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--gris); padding: 0 4px 12px; }
+.voyant { display: inline-flex; align-items: center; gap: 8px; }
+.voyant i { width: 11px; height: 11px; border-radius: 50%; background: #b8b0c0; transition: .3s; }
+.tableau.sous-tension .voyant i { background: var(--vert-vif); box-shadow: 0 0 12px 2px rgba(142,224,106,.8); }
+.rail { display: grid; grid-template-columns: .8fr repeat(4, 1fr); gap: 8px; background: #d8d3de; border-radius: 12px; padding: 10px; }
+.dj { background: #fff; border: 0; border-radius: 9px; padding: 12px 6px 14px; display: grid; justify-items: center; gap: 12px; box-shadow: 0 2px 0 #c7c0cf; transition: transform .15s; }
+.dj:hover { transform: translateY(-2px); }
+.dj .etq { font-size: 12px; font-weight: 700; line-height: 1.15; min-height: 28px; display: grid; place-items: center; text-align: center; }
+.levier { width: 26px; height: 50px; border-radius: 6px; background: #e3dee8; position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,.12); }
+.levier::after { content: ""; position: absolute; left: 3px; right: 3px; height: 20px; border-radius: 4px; background: #77707f; bottom: 3px; transition: bottom .18s cubic-bezier(.3,1.6,.6,1), background .18s; }
+.dj[aria-pressed="true"] .levier::after { bottom: 27px; background: var(--vert); }
+.dj[aria-pressed="true"] { box-shadow: 0 2px 0 var(--vert), 0 0 0 2px var(--vert); }
+.dj.diff { background: #e8eef7; cursor: default; }
+.dj.diff:hover { transform: none; }
+.tableau.sous-tension .dj.diff .levier::after { bottom: 27px; background: #3c6fb0; }
+.dj.diff .etq { color: #3c6fb0; }
 
-/* Bande de chiffres */
-.chiffres { border-top: 1px solid var(--ligne); border-bottom: 1px solid var(--ligne); background: #fff; }
+.fiche { margin-top: 14px; background: #fff; border-radius: 14px; padding: 22px 22px 20px; min-height: 196px; }
+.fiche h2 { font-size: 24px; letter-spacing: -0.02em; margin-bottom: 8px; font-variation-settings: "wdth" 92; }
+.fiche p { color: var(--gris); font-size: 16px; }
+.fiche ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+.fiche li { font-size: 13px; background: var(--vert-clair); color: #3d6532; border-radius: 20px; padding: 5px 12px; font-weight: 600; }
+.fiche .lien { display: inline-block; margin-top: 14px; font-weight: 700; color: var(--violet); }
+.fiche.vide { display: grid; place-items: center; text-align: center; color: var(--gris); }
+.fiche-anim { animation: entre .35s ease-out; }
+@keyframes entre { from { opacity: 0; transform: translateY(8px); } }
+@media (max-width: 900px) { .ouverture { padding: 44px 0 52px; } .ouverture-grille { grid-template-columns: 1fr; gap: 36px; } }
+@media (max-width: 520px) { .tableau { padding: 12px; } .rail { gap: 5px; padding: 7px; grid-template-columns: repeat(5, 1fr); } .dj .etq { font-size: 10px; } .levier { width: 22px; height: 44px; } .levier::after { height: 17px; } .dj[aria-pressed="true"] .levier::after, .tableau.sous-tension .dj.diff .levier::after { bottom: 24px; } }
+
+/* Bande */
+.chiffres { border-bottom: 1px solid var(--ligne); background: #fff; }
 .chiffres .conteneur { display: grid; grid-template-columns: repeat(3, 1fr); }
-.chiffres div div { padding: 26px 24px; border-left: 1px solid var(--ligne); }
-.chiffres div div:first-child { border-left: 0; padding-left: 0; }
-.chiffres b { display: block; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; font-variation-settings: "wdth" 90; }
+.chiffres .c { padding: 24px; border-left: 1px solid var(--ligne); }
+.chiffres .c:first-child { border-left: 0; padding-left: 0; }
+.chiffres b { display: block; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; font-variation-settings: "wdth" 90; }
 .chiffres span { color: var(--gris); font-size: 15px; }
-@media (max-width: 640px) { .chiffres .conteneur { grid-template-columns: 1fr; } .chiffres div div { border-left: 0; border-top: 1px solid var(--ligne); padding: 18px 0; } .chiffres div div:first-child { border-top: 0; } }
+@media (max-width: 640px) { .chiffres .conteneur { grid-template-columns: 1fr; } .chiffres .c { border-left: 0; border-top: 1px solid var(--ligne); padding: 16px 0; } .chiffres .c:first-child { border-top: 0; } }
 
-/* Sections */
-section.bloc { padding: 88px 0; }
-.titre-bloc { max-width: 40em; margin-bottom: 44px; }
-h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 800; font-variation-settings: "wdth" 90; }
+section.bloc { padding: 92px 0; }
+.titre-bloc { max-width: 40em; margin-bottom: 40px; }
+h2.grand { font-size: clamp(30px, 4vw, 46px); line-height: 1.06; letter-spacing: -0.03em; font-weight: 800; font-variation-settings: "wdth" 88; }
 .titre-bloc p { color: var(--gris); margin-top: 14px; font-size: 18px; }
 
-/* Services */
-.services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--ligne); border: 1px solid var(--ligne); border-radius: 20px; overflow: hidden; }
-.service { background: #fff; padding: 34px 32px; }
-.service svg { width: 34px; height: 34px; color: var(--violet); margin-bottom: 18px; }
-.service h3 { font-size: 22px; letter-spacing: -0.01em; margin-bottom: 8px; }
-.service p { color: var(--gris); }
-@media (max-width: 760px) { .services { grid-template-columns: 1fr; } }
+/* ===== Diagnostic ===== */
+.diag { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: start; }
+.diag-carte { background: #fff; border: 1px solid var(--ligne); border-radius: 22px; padding: 34px; box-shadow: 0 40px 70px -50px rgba(46,18,64,.45); }
+.diag-progres { display: flex; gap: 6px; margin-bottom: 26px; }
+.diag-progres i { flex: 1; height: 6px; border-radius: 3px; background: var(--ligne); transition: background .25s; }
+.diag-progres i.fait { background: var(--violet); }
+.diag-num { font-size: 14px; color: var(--gris); font-weight: 600; }
+.diag-q { font-size: 26px; font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin: 8px 0 10px; font-variation-settings: "wdth" 92; }
+.diag-aide { color: var(--gris); font-size: 16px; min-height: 50px; }
+.diag-rep { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 24px; }
+.diag-rep button { border: 2px solid var(--ligne); background: var(--fond); border-radius: 12px; padding: 15px 8px; font-weight: 700; }
+.diag-rep button:hover { border-color: var(--violet); background: #f3ecf8; }
+.res-badge { display: inline-flex; align-items: center; gap: 10px; border-radius: 30px; padding: 8px 16px; font-weight: 800; font-size: 15px; }
+.res-badge.ok { background: var(--vert-clair); color: #3d6532; }
+.res-badge.moyen { background: #fdf1d8; color: #8a5a00; }
+.res-badge.urgent { background: #fbe4e4; color: #a12d2d; }
+.res-titre { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin: 16px 0 10px; font-variation-settings: "wdth" 92; }
+.res-liste { margin: 10px 0 24px 18px; color: var(--gris); }
+.res-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.recommencer { background: none; border: 0; color: var(--gris); text-decoration: underline; font-size: 15px; }
+.diag-note { font-size: 13px; color: var(--gris); margin-top: 20px; }
+@media (max-width: 900px) { .diag { grid-template-columns: 1fr; gap: 0; } .diag-carte { padding: 24px; } .diag-q { font-size: 22px; } }
+
+/* ===== Avant / après ===== */
+.compare-fond { background: #f1eef4; }
+.compare-grille { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+.compare { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 5 / 4; background: #fff; box-shadow: 0 40px 70px -50px rgba(46,18,64,.5); user-select: none; }
+.compare svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.compare .apres { clip-path: inset(0 0 0 var(--pos, 50%)); }
+.compare .ligne-c { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 4px; margin-left: -2px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.1); pointer-events: none; }
+.compare .ligne-c::after { content: "‹ ›"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 52px; height: 52px; border-radius: 50%; background: #fff; display: grid; place-items: center; font-weight: 800; font-size: 20px; color: var(--violet); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+.compare input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.compare .tag { position: absolute; top: 16px; font-size: 13px; font-weight: 800; padding: 6px 12px; border-radius: 20px; pointer-events: none; }
+.compare .tag.av { left: 16px; background: rgba(0,0,0,.65); color: #fff; }
+.compare .tag.ap { right: 16px; background: var(--vert); color: #fff; }
+.points { display: grid; gap: 18px; margin-top: 26px; }
+.points div { display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.points b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--violet); color: #fff; font-size: 15px; }
+.points p { color: var(--gris); } .points strong { color: var(--encre); display: block; }
+@media (max-width: 900px) { .compare-grille { grid-template-columns: 1fr; gap: 30px; } }
 
 /* Méthode */
 .methode { background: var(--violet-fonce); color: #fff; }
 .methode .titre-bloc p { color: #cdbfd8; }
 .etapes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: e; }
 .etape { border-top: 2px solid rgba(255,255,255,.25); padding-top: 22px; }
-.etape::before { counter-increment: e; content: counter(e); display: block; font-size: 15px; font-weight: 800; color: #b5e09f; margin-bottom: 10px; }
+.etape::before { counter-increment: e; content: counter(e); display: block; font-size: 15px; font-weight: 800; color: var(--vert-vif); margin-bottom: 10px; }
 .etape h3 { font-size: 20px; margin-bottom: 8px; }
 .etape p { color: #d9cfe0; font-size: 16px; }
-@media (max-width: 860px) { .etapes { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 900px) { .etapes { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .etapes { grid-template-columns: 1fr; } }
 
 /* Avis */
+.avis-tete { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
+.grosse-note { display: flex; align-items: center; gap: 16px; }
+.grosse-note b { font-size: 80px; line-height: .9; font-weight: 800; letter-spacing: -0.04em; color: var(--violet); font-variation-settings: "wdth" 78; }
+.grosse-note span { color: var(--gris); font-size: 15px; }
 .avis-grille { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-blockquote { background: #fff; border: 1px solid var(--ligne); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 18px; }
-blockquote p { font-size: 17px; }
+blockquote { background: #fff; border: 1px solid var(--ligne); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
 blockquote footer { margin-top: auto; font-size: 14px; color: var(--gris); }
 blockquote .etoiles { font-size: 14px; }
-.lien-avis { display: inline-block; margin-top: 26px; font-weight: 700; color: var(--violet); }
-@media (max-width: 860px) { .avis-grille { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .avis-grille { grid-template-columns: 1fr; } }
 
-/* Zone + contact */
+/* Contact */
 .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-.zone-liste { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 32px; }
+.zone-liste { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 30px; }
 .zone-liste span { background: #fff; border: 1px solid var(--ligne); border-radius: 30px; padding: 8px 16px; font-size: 15px; }
-.coordonnees { display: grid; gap: 14px; font-size: 17px; }
+.coordonnees { display: grid; gap: 12px; }
 .coordonnees a { font-weight: 700; }
 form { background: #fff; border: 1px solid var(--ligne); border-radius: 20px; padding: 32px; display: grid; gap: 16px; }
+form h3 { font-size: 22px; }
 label { font-weight: 600; font-size: 15px; display: grid; gap: 6px; }
 input, textarea, select { font: inherit; padding: 13px 14px; border: 1.5px solid var(--ligne); border-radius: 10px; background: var(--fond); }
-textarea { min-height: 120px; resize: vertical; }
-form .bouton { justify-content: center; border: 0; cursor: pointer; }
+textarea { min-height: 130px; resize: vertical; }
 form small { color: var(--gris); font-size: 13px; }
-@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+.rempli { display: none; background: var(--vert-clair); color: #3d6532; font-size: 14px; font-weight: 600; padding: 10px 14px; border-radius: 10px; }
+@media (max-width: 900px) { .contact { grid-template-columns: 1fr; } }
 
-
-/* Tableau électrique dessiné */
-.tableau { position: relative; background: linear-gradient(160deg, #4a2163, #2e1240); border-radius: 22px; padding: 26px 24px 120px; color: #fff; box-shadow: 0 40px 80px -40px rgba(59,26,82,.8); }
-.tableau-tete { display: flex; justify-content: space-between; align-items: center; font-size: 13px; text-transform: none; letter-spacing: .02em; color: #d6c8e2; margin-bottom: 18px; }
-.voyant { width: 12px; height: 12px; border-radius: 50%; background: #6b5a78; box-shadow: none; animation: voyant .4s 2.2s forwards; }
-@keyframes voyant { to { background: #8ee06a; box-shadow: 0 0 14px 3px rgba(142,224,106,.7); } }
-.rangee { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: rgba(0,0,0,.22); border-radius: 12px; padding: 12px; margin-bottom: 12px; }
-.dj { background: #f4f1f6; color: var(--encre); border-radius: 8px; padding: 10px 6px 12px; display: grid; justify-items: center; gap: 10px; }
-.dj b { font-size: 11px; font-weight: 600; text-align: center; line-height: 1.15; min-height: 26px; display: grid; place-items: center; }
-.dj i { width: 22px; height: 40px; border-radius: 5px; background: #d9d3de; position: relative; }
-.dj i::after { content: ""; position: absolute; left: 3px; right: 3px; height: 16px; border-radius: 3px; background: #6c6574; bottom: 3px; animation: leve .25s forwards; }
-.dj.diff { background: #e6edf7; } .dj.borne { background: var(--vert-clair); }
-.rangee:nth-of-type(2) .dj:nth-child(1) i::after { animation-delay: .5s } .rangee:nth-of-type(2) .dj:nth-child(2) i::after { animation-delay: .65s } .rangee:nth-of-type(2) .dj:nth-child(3) i::after { animation-delay: .8s } .rangee:nth-of-type(2) .dj:nth-child(4) i::after { animation-delay: .95s }
-.rangee:nth-of-type(3) .dj:nth-child(1) i::after { animation-delay: 1.2s } .rangee:nth-of-type(3) .dj:nth-child(2) i::after { animation-delay: 1.35s } .rangee:nth-of-type(3) .dj:nth-child(3) i::after { animation-delay: 1.5s } .rangee:nth-of-type(3) .dj:nth-child(4) i::after { animation-delay: 1.65s }
-@keyframes leve { to { bottom: 21px; background: var(--vert); } }
-@media (prefers-reduced-motion: reduce) { .dj i::after { animation-duration: 0s; animation-delay: 0s !important; } .voyant { animation-delay: 0s; animation-duration: 0s; } }
-.tableau .etiquette { position: absolute; left: 18px; bottom: 18px; right: 18px; background: #fff; color: var(--encre); border-radius: 14px; padding: 14px 16px; display: flex; gap: 12px; align-items: center; font-size: 15px; box-shadow: 0 20px 40px -20px rgba(0,0,0,.5); }
-.coche { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--vert-clair); color: var(--vert); display: grid; place-items: center; font-weight: 800; }
-@media (max-width: 520px) { .tableau { padding: 20px 14px 110px; } .rangee { gap: 6px; padding: 8px; } .dj b { font-size: 10px; } }
-
-/* Note géante des avis */
-.avis-tete { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; flex-wrap: wrap; margin-bottom: 44px; }
-.grosse-note { display: flex; align-items: center; gap: 18px; }
-.grosse-note b { font-size: 76px; line-height: .9; font-weight: 800; letter-spacing: -0.04em; color: var(--violet); font-variation-settings: "wdth" 80; }
-.grosse-note span { color: var(--gris); font-size: 15px; }
-
-/* Questions */
-.questions { max-width: 780px; }
-details { border-bottom: 1px solid var(--ligne); }
-summary { cursor: pointer; list-style: none; padding: 22px 0; font-weight: 700; font-size: 19px; display: flex; justify-content: space-between; gap: 20px; }
-summary::-webkit-details-marker { display: none; }
-summary::after { content: "+"; color: var(--violet); font-size: 26px; line-height: 1; transition: transform .2s; }
-details[open] summary::after { transform: rotate(45deg); }
-details p { color: var(--gris); padding: 0 0 22px; max-width: 40em; }
-
-/* Pied */
-.pied { border-top: 1px solid var(--ligne); padding: 32px 0 110px; color: var(--gris); font-size: 14px; }
+.pied { border-top: 1px solid var(--ligne); padding: 30px 0 110px; color: var(--gris); font-size: 14px; }
 .pied .conteneur { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
-
-/* Bouton d'appel fixe sur téléphone */
 .appel-mobile { display: none; }
-@media (max-width: 860px) {
-  .appel-mobile { display: flex; position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 20; justify-content: center; align-items: center; gap: 10px; background: var(--vert); color: #fff; font-weight: 800; text-decoration: none; padding: 17px; border-radius: 14px; box-shadow: 0 16px 30px -12px rgba(0,0,0,.45); }
-  .appel-mobile svg { width: 20px; height: 20px; }
+@media (max-width: 900px) {
+  .appel-mobile { display: flex; position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 40; justify-content: center; align-items: center; gap: 10px; background: var(--vert); color: #fff; font-weight: 800; text-decoration: none; padding: 17px; border-radius: 14px; box-shadow: 0 16px 30px -12px rgba(0,0,0,.45); }
 }
 </style>
 </head>
@@ -184,10 +196,10 @@ details p { color: var(--gris); padding: 0 0 22px; max-width: 40em; }
   <div class="conteneur barre">
     <a class="logo" href="#">Art'<span>Électricité</span></a>
     <nav aria-label="Menu principal">
-      <a href="#services">Nos travaux</a>
-      <a href="#methode">Comment on travaille</a>
-      <a href="#avis">Avis clients</a>
-      <a href="#questions">Questions</a>
+      <a href="#travaux">Nos travaux</a>
+      <a href="#diagnostic">Diagnostic</a>
+      <a href="#avant-apres">Avant / après</a>
+      <a href="#avis">Avis</a>
       <a href="#contact">Contact</a>
     </nav>
     <a class="appel" href="tel:+33241252461" aria-label="Appeler le 02 41 25 24 61"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span class="num">02 41 25 24 61</span></a>
@@ -195,78 +207,110 @@ details p { color: var(--gris); padding: 0 0 22px; max-width: 40em; }
 </header>
 
 <main>
-<section class="ouverture">
+<section class="ouverture" id="travaux">
   <div class="conteneur ouverture-grille">
     <div>
       <p class="note"><span class="etoiles" aria-hidden="true">★★★★★</span><span><b>4,7 sur Google</b> · 22 avis</span></p>
       <h1>Électricien à Angers <span class="trait">et alentours.</span></h1>
-      <p class="chapeau">Maisons neuves, rénovation, mise aux normes et bornes de recharge. Une équipe qui vient voir votre chantier avant de chiffrer, laisse tout propre et revient vérifier après.</p>
+      <p class="chapeau">Maisons neuves, mise aux normes, bornes de recharge et dépannage. On vient voir votre chantier avant de chiffrer, on laisse tout propre, et on revient vérifier après.</p>
       <div class="actions">
-        <a class="bouton plein" href="#contact">Demander un devis gratuit</a>
-        <a class="bouton vide" href="tel:+33241252461">02 41 25 24 61</a>
+        <a class="bouton plein" href="#contact">Demander un devis</a>
+        <a class="bouton vide" href="#diagnostic">Tester mon installation</a>
       </div>
+      <p class="indice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5M13 10V8a2 2 0 0 1 4 0v4M17 11a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-5.6-2.8L4 14.5a2 2 0 0 1 3-2.6L9 14"/></svg>Enclenchez un disjoncteur pour voir nos travaux</p>
     </div>
-    <div class="tableau" aria-hidden="true">
-      <div class="tableau-tete"><span>Tableau électrique</span><span class="voyant"></span></div>
-      <div class="rangee">
-        <div class="dj diff"><b>30 mA</b><i></i></div><div class="dj"><b>Éclairage</b><i></i></div><div class="dj"><b>Prises salon</b><i></i></div><div class="dj"><b>Cuisine</b><i></i></div>
+
+    <div class="tableau" id="tableau">
+      <div class="tableau-tete"><span>Nos travaux</span><span class="voyant"><i></i><span id="etat">Hors tension</span></span></div>
+      <div class="rail" role="group" aria-label="Choisissez un type de travaux">
+        <span class="dj diff" aria-hidden="true"><span class="etq">30 mA</span><span class="levier"></span></span>
+        <button class="dj" type="button" data-s="neuf" aria-pressed="false"><span class="etq">Maison neuve</span><span class="levier"></span></button>
+        <button class="dj" type="button" data-s="normes" aria-pressed="false"><span class="etq">Mise aux normes</span><span class="levier"></span></button>
+        <button class="dj" type="button" data-s="borne" aria-pressed="false"><span class="etq">Borne de recharge</span><span class="levier"></span></button>
+        <button class="dj" type="button" data-s="depannage" aria-pressed="false"><span class="etq">Dépannage</span><span class="levier"></span></button>
       </div>
-      <div class="rangee">
-        <div class="dj diff"><b>30 mA</b><i></i></div><div class="dj"><b>Four</b><i></i></div><div class="dj"><b>Chauffe-eau</b><i></i></div><div class="dj borne"><b>Borne VE</b><i></i></div>
-      </div>
-      <div class="etiquette"><span class="coche">✓</span><span><b>Visite sur place avant le devis</b><br>pour chiffrer au plus juste</span></div>
+      <div class="fiche vide" id="fiche" aria-live="polite"><p>Enclenchez un disjoncteur ↑</p></div>
     </div>
   </div>
 </section>
 
 <div class="chiffres">
   <div class="conteneur">
-    <div><b>4,7 / 5</b><span>la note de nos clients sur Google</span></div>
-    <div><b>Toute l'équipe</b><span>chargé d'affaires et techniciens</span></div>
-    <div><b>Suivi</b><span>un passage de contrôle après les travaux</span></div>
+    <div class="c"><b>Visite sur place</b><span>avant chaque devis</span></div>
+    <div class="c"><b>Une équipe</b><span>chargé d'affaires et techniciens</span></div>
+    <div class="c"><b>Suivi</b><span>un passage de contrôle après les travaux</span></div>
   </div>
 </div>
 
-<section class="bloc" id="services">
-  <div class="conteneur">
+<section class="bloc" id="diagnostic">
+  <div class="conteneur diag">
     <div class="titre-bloc">
-      <h2>Ce qu'on fait pour vous</h2>
-      <p>De la prise qui ne marche plus à l'installation complète d'une maison neuve.</p>
+      <h2 class="grand">Votre installation est-elle encore sûre ?</h2>
+      <p>Quatre questions, trente secondes. Vous saurez si elle mérite un contrôle, et votre demande de visite sera déjà remplie.</p>
     </div>
-    <div class="services">
-      <article class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
-        <h3>Maisons neuves</h3>
-        <p>Toute l'installation électrique de votre maison, en lien avec les autres corps de métier, jusqu'au passage du Consuel.</p>
-      </article>
-      <article class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h4"/></svg>
-        <h3>Tableau et mise aux normes</h3>
-        <p>Remplacement de tableau électrique et remise aux normes de tout ou partie de l'installation, pour vendre, louer ou être tranquille.</p>
-      </article>
-      <article class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="10" height="20" rx="2"/><path d="M15 9h2a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2M9 8l-2 4h4l-2 4"/></svg>
-        <h3>Bornes de recharge</h3>
-        <p>Pose de bornes pour véhicules électriques à la maison ou en entreprise, avec un chargé d'affaires dédié.</p>
-      </article>
-      <article class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg>
-        <h3>Rénovation et dépannage</h3>
-        <p>Rénovation électrique d'un logement ancien, ajout de prises et de circuits, recherche de panne.</p>
-      </article>
+    <div class="diag-carte" id="diag"></div>
+  </div>
+</section>
+
+<section class="bloc compare-fond" id="avant-apres">
+  <div class="conteneur compare-grille">
+    <div class="compare" id="compare" style="--pos:50%">
+      <svg viewBox="0 0 500 400" aria-hidden="true">
+        <defs><pattern id="bois" width="40" height="8" patternUnits="userSpaceOnUse"><path d="M0 4 Q10 1 20 4 T40 4" stroke="#5d3b22" stroke-width="1" fill="none"/></pattern></defs>
+        <rect width="500" height="400" fill="#e9e1d6"/>
+        <rect x="95" y="40" width="310" height="320" rx="6" fill="#9a6b45"/>
+        <rect x="95" y="40" width="310" height="320" rx="6" fill="url(#bois)" opacity=".35"/>
+        <circle cx="250" cy="105" r="42" fill="#2b2b2b"/><circle cx="250" cy="105" r="33" fill="#d8d2c2"/><rect x="226" y="98" width="48" height="12" fill="#2b2b2b"/><text x="250" y="132" font-size="9" text-anchor="middle" fill="#2b2b2b" font-family="Archivo">kWh</text>
+        <g fill="#f3efe6" stroke="#b9b1a0" stroke-width="2">
+          <rect x="125" y="185" width="42" height="64" rx="6"/><rect x="180" y="185" width="42" height="64" rx="6"/><rect x="235" y="185" width="42" height="64" rx="6"/><rect x="290" y="185" width="42" height="64" rx="6"/><rect x="345" y="185" width="42" height="64" rx="6"/>
+        </g>
+        <g fill="#c9c1b0"><rect x="136" y="200" width="20" height="34" rx="3"/><rect x="191" y="200" width="20" height="34" rx="3"/><rect x="246" y="200" width="20" height="34" rx="3"/><rect x="301" y="200" width="20" height="34" rx="3"/><rect x="356" y="200" width="20" height="34" rx="3"/></g>
+        <g fill="none" stroke-width="4" stroke-linecap="round">
+          <path d="M146 249 C140 300 200 290 170 360" stroke="#2a2a2a"/><path d="M201 249 C230 310 120 300 150 360" stroke="#7a3b1e"/><path d="M256 249 C250 320 300 300 260 360" stroke="#2a2a2a"/><path d="M311 249 C340 290 230 320 300 360" stroke="#7a3b1e"/><path d="M366 249 C380 300 340 330 360 360" stroke="#2a2a2a"/><path d="M250 147 C200 160 170 170 146 185" stroke="#2a2a2a"/><path d="M250 147 C300 160 340 170 366 185" stroke="#7a3b1e"/>
+        </g>
+        <path d="M330 60 l18 24 l-10 6 l16 22" stroke="#5d3b22" stroke-width="2" fill="none"/>
+      </svg>
+      <svg class="apres" viewBox="0 0 500 400" aria-hidden="true">
+        <rect width="500" height="400" fill="#f4f2f6"/>
+        <rect x="70" y="30" width="360" height="340" rx="14" fill="#fff" stroke="#d6d1dc" stroke-width="3"/>
+        <rect x="90" y="50" width="320" height="28" rx="6" fill="#ece9ef"/><circle cx="392" cy="64" r="6" fill="#8ee06a"/>
+        <text x="104" y="69" font-size="13" font-family="Archivo" fill="#5f5b66">Tableau aux normes NF C 15-100</text>
+        <rect x="90" y="100" width="320" height="104" rx="8" fill="#e6e1eb"/>
+        <rect x="90" y="226" width="320" height="104" rx="8" fill="#e6e1eb"/>
+        <g fill="#e8eef7" stroke="#c7d3e6"><rect x="102" y="112" width="60" height="80" rx="6"/><rect x="102" y="238" width="60" height="80" rx="6"/></g>
+        <g fill="#fff" stroke="#d6d1dc">
+          <rect x="172" y="112" width="40" height="80" rx="5"/><rect x="220" y="112" width="40" height="80" rx="5"/><rect x="268" y="112" width="40" height="80" rx="5"/><rect x="316" y="112" width="40" height="80" rx="5"/><rect x="364" y="112" width="36" height="80" rx="5"/>
+          <rect x="172" y="238" width="40" height="80" rx="5"/><rect x="220" y="238" width="40" height="80" rx="5"/><rect x="268" y="238" width="40" height="80" rx="5"/><rect x="316" y="238" width="40" height="80" rx="5"/><rect x="364" y="238" width="36" height="80" rx="5"/>
+        </g>
+        <g fill="#5d8f4e"><rect x="184" y="130" width="16" height="22" rx="3"/><rect x="232" y="130" width="16" height="22" rx="3"/><rect x="280" y="130" width="16" height="22" rx="3"/><rect x="328" y="130" width="16" height="22" rx="3"/><rect x="374" y="130" width="16" height="22" rx="3"/><rect x="184" y="256" width="16" height="22" rx="3"/><rect x="232" y="256" width="16" height="22" rx="3"/><rect x="280" y="256" width="16" height="22" rx="3"/><rect x="328" y="256" width="16" height="22" rx="3"/><rect x="374" y="256" width="16" height="22" rx="3"/></g>
+        <g fill="#3c6fb0"><rect x="122" y="130" width="20" height="22" rx="3"/><rect x="122" y="256" width="20" height="22" rx="3"/></g>
+        <g font-family="Archivo" font-size="9" fill="#5f5b66" text-anchor="middle"><text x="192" y="180">Éclair.</text><text x="240" y="180">Prises</text><text x="288" y="180">Cuisine</text><text x="336" y="180">Four</text><text x="382" y="180">Lave</text><text x="192" y="306">Chauff.</text><text x="240" y="306">Ballon</text><text x="288" y="306">Plaque</text><text x="336" y="306">Borne</text><text x="382" y="306">Ext.</text><text x="132" y="180" fill="#3c6fb0">30 mA</text><text x="132" y="306" fill="#3c6fb0">30 mA</text></g>
+        <rect x="90" y="342" width="320" height="14" rx="4" fill="#d6d1dc"/>
+      </svg>
+      <span class="ligne-c"></span>
+      <span class="tag av">Avant</span><span class="tag ap">Après</span>
+      <input type="range" min="0" max="100" value="50" id="curseur" aria-label="Comparer le tableau avant et après les travaux">
+    </div>
+    <div>
+      <h2 class="grand">Un vieux tableau à fusibles ? On le remet aux normes.</h2>
+      <div class="points">
+        <div><b>1</b><p><strong>Des protections 30 mA</strong>Elles coupent le courant en cas de fuite, avant qu'il y ait un danger.</p></div>
+        <div><b>2</b><p><strong>Un circuit pour chaque usage</strong>Fini le disjoncteur qui saute quand le four et le lave-linge tournent ensemble.</p></div>
+        <div><b>3</b><p><strong>Tout est repéré</strong>Chaque disjoncteur est étiqueté : vous savez quoi couper, et quand.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="bloc methode" id="methode">
+<section class="bloc methode">
   <div class="conteneur">
     <div class="titre-bloc">
-      <h2>Comment on travaille</h2>
+      <h2 class="grand">Comment on travaille</h2>
       <p>Ce que nos clients remarquent le plus, d'après leurs avis.</p>
     </div>
     <div class="etapes">
       <div class="etape"><h3>On vient voir</h3><p>Une visite sur place pour étudier votre projet, avant tout devis.</p></div>
-      <div class="etape"><h3>Un devis clair</h3><p>Le prix juste, détaillé ligne par ligne, sans surprise.</p></div>
+      <div class="etape"><h3>Un devis clair</h3><p>Le prix juste, détaillé ligne par ligne.</p></div>
       <div class="etape"><h3>Un chantier propre</h3><p>Délais respectés, et nettoyage complet en fin de travaux.</p></div>
       <div class="etape"><h3>On revient vérifier</h3><p>Un passage après les travaux pour contrôler et régler.</p></div>
     </div>
@@ -276,38 +320,13 @@ details p { color: var(--gris); padding: 0 0 22px; max-width: 40em; }
 <section class="bloc" id="avis">
   <div class="conteneur">
     <div class="avis-tete">
-      <h2>Ils nous ont fait confiance</h2>
+      <h2 class="grand">Ils nous ont fait confiance</h2>
       <div class="grosse-note"><b>4,7</b><span><span class="etoiles">★★★★★</span><br>sur Google, 22 avis</span></div>
     </div>
     <div class="avis-grille">
-      <blockquote>
-        <span class="etoiles" aria-label="5 étoiles">★★★★★</span>
-        <p>« Un véritable professionnalisme face aux nombreuses complications du chantier. »</p>
-        <footer>Marie-Anaïs L., maison neuve</footer>
-      </blockquote>
-      <blockquote>
-        <span class="etoiles" aria-label="5 étoiles">★★★★★</span>
-        <p>« Étude de faisabilité précise avec une visite in situ, travail nickel avec nettoyage en fin de chantier. »</p>
-        <footer>Bertrand B., borne de recharge</footer>
-      </blockquote>
-      <blockquote>
-        <span class="etoiles" aria-label="5 étoiles">★★★★★</span>
-        <p>« Gentillesse et professionnalisme du personnel. Timing respecté et travail propre. »</p>
-        <footer>Mme B., tableau électrique</footer>
-      </blockquote>
-    </div>
-    <a class="lien-avis" href="#">Voir tous les avis sur Google</a>
-  </div>
-</section>
-
-<section class="bloc" id="questions" style="padding-top:0">
-  <div class="conteneur">
-    <div class="titre-bloc"><h2>Vos questions</h2></div>
-    <div class="questions">
-      <details><summary>Le devis est-il gratuit ?</summary><p>Oui. Nous venons voir votre installation sur place, puis vous recevez un devis détaillé, sans engagement.</p></details>
-      <details><summary>Vous occupez-vous du Consuel pour une maison neuve ?</summary><p>Oui, nous préparons l'installation et les documents pour le passage du Consuel, l'attestation qui permet la mise en service par le fournisseur d'électricité.</p></details>
-      <details><summary>Ma maison est ancienne, faut-il tout refaire ?</summary><p>Pas forcément. Souvent, un nouveau tableau et la mise aux normes de certains circuits suffisent. On vous dit ce qui est nécessaire, et ce qui peut attendre.</p></details>
-      <details><summary>Installez-vous des bornes pour les entreprises ?</summary><p>Oui, pour les particuliers comme pour les professionnels, avec un chargé d'affaires qui suit votre projet du devis à la mise en service.</p></details>
+      <blockquote><span class="etoiles" aria-label="5 étoiles">★★★★★</span><p>« Un véritable professionnalisme face aux nombreuses complications du chantier. »</p><footer>Marie-Anaïs L., maison neuve</footer></blockquote>
+      <blockquote><span class="etoiles" aria-label="5 étoiles">★★★★★</span><p>« Étude de faisabilité précise avec une visite in situ, travail nickel avec nettoyage en fin de chantier. »</p><footer>Bertrand B., borne de recharge</footer></blockquote>
+      <blockquote><span class="etoiles" aria-label="5 étoiles">★★★★★</span><p>« Gentillesse et professionnalisme du personnel. Timing respecté et travail propre. »</p><footer>Mme B., tableau électrique</footer></blockquote>
     </div>
   </div>
 </section>
@@ -315,25 +334,24 @@ details p { color: var(--gris); padding: 0 0 22px; max-width: 40em; }
 <section class="bloc" id="contact" style="padding-top:0">
   <div class="conteneur contact">
     <div>
-      <h2>On intervient près de chez vous</h2>
-      <div class="zone-liste">
-        <span>Angers</span><span>Le Plessis-Grammoire</span><span>Saint-Barthélemy-d'Anjou</span><span>Trélazé</span><span>Avrillé</span><span>Les Ponts-de-Cé</span><span>Et alentours</span>
-      </div>
+      <h2 class="grand">On intervient près de chez vous</h2>
+      <div class="zone-liste"><span>Angers</span><span>Le Plessis-Grammoire</span><span>Saint-Barthélemy-d'Anjou</span><span>Trélazé</span><span>Avrillé</span><span>Les Ponts-de-Cé</span><span>Et alentours</span></div>
       <div class="coordonnees">
         <p>3 rue Gustave Eiffel, 49124 Le Plessis-Grammoire</p>
         <p><a href="tel:+33241252461">02 41 25 24 61</a></p>
         <p>Du lundi au vendredi, à partir de 9 h</p>
       </div>
     </div>
-    <form onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Aperçu : le formulaire sera relié à votre e-mail';">
-      <h3 style="font-size:22px">Demander un devis</h3>
+    <form id="formulaire" onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Aperçu : le formulaire sera relié à votre e-mail';">
+      <h3>Demander un devis</h3>
+      <p class="rempli" id="rempli">✓ Votre diagnostic a été ajouté à la demande.</p>
       <label>Votre nom<input name="nom" autocomplete="name" required></label>
       <label>Votre téléphone<input name="tel" type="tel" autocomplete="tel" required></label>
       <label>Type de travaux
-        <select name="type"><option>Maison neuve</option><option>Tableau / mise aux normes</option><option>Borne de recharge</option><option>Rénovation / dépannage</option><option>Autre</option></select>
+        <select name="type" id="type"><option value="neuf">Maison neuve</option><option value="normes">Tableau / mise aux normes</option><option value="borne">Borne de recharge</option><option value="depannage">Dépannage / rénovation</option><option value="autre">Autre</option></select>
       </label>
-      <label>Votre projet en quelques mots<textarea name="message"></textarea></label>
-      <button class="bouton plein" type="submit">Envoyer ma demande</button>
+      <label>Votre projet en quelques mots<textarea name="message" id="message"></textarea></label>
+      <button class="bouton violet" type="submit">Envoyer ma demande</button>
       <small>Vos informations servent uniquement à vous recontacter.</small>
     </form>
   </div>
@@ -341,13 +359,79 @@ details p { color: var(--gris); padding: 0 0 22px; max-width: 40em; }
 </main>
 
 <footer class="pied">
-  <div class="conteneur">
-    <span>© Art'Électricité · Électricité générale à Angers</span>
-    <span>Mentions légales · Aperçu réalisé par Riwak Studio</span>
-  </div>
+  <div class="conteneur"><span>© Art'Électricité · Électricité générale à Angers</span><span>Mentions légales · Aperçu réalisé par Riwak Studio</span></div>
 </footer>
 
 <a class="appel-mobile" href="tel:+33241252461"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Appeler Art'Électricité</a>
 
+<script>
+/* ---- Tableau : chaque disjoncteur ouvre un service ---- */
+const services = {
+  neuf: { titre: "Maison neuve", texte: "Toute l'installation électrique de votre maison, en lien avec les autres corps de métier, jusqu'au passage du Consuel.", tags: ["Plans et implantation", "Consuel", "Domotique"] },
+  normes: { titre: "Tableau et mise aux normes", texte: "Remplacement de tableau et remise aux normes de tout ou partie de l'installation, pour vendre, louer ou dormir tranquille.", tags: ["Tableau neuf", "Protections 30 mA", "Mise à la terre"] },
+  borne: { titre: "Borne de recharge", texte: "Pose de bornes pour véhicules électriques, chez vous ou en entreprise, avec un chargé d'affaires qui suit le projet.", tags: ["Particuliers", "Entreprises", "Étude sur place"] },
+  depannage: { titre: "Dépannage et rénovation", texte: "Disjoncteur qui saute, prise qui ne marche plus, logement ancien à rénover : on trouve la panne et on la règle.", tags: ["Recherche de panne", "Prises et circuits", "Rénovation"] }
+};
+const tableau = document.getElementById('tableau'), fiche = document.getElementById('fiche'), etat = document.getElementById('etat');
+const boutons = [...tableau.querySelectorAll('.dj[data-s]')];
+function choisir(cle) {
+  tableau.classList.add('sous-tension'); etat.textContent = 'Sous tension';
+  boutons.forEach(b => b.setAttribute('aria-pressed', b.dataset.s === cle));
+  const s = services[cle];
+  fiche.className = 'fiche fiche-anim';
+  fiche.innerHTML = `<h2>${s.titre}</h2><p>${s.texte}</p><ul>${s.tags.map(t => `<li>${t}</li>`).join('')}</ul><a class="lien" href="#contact">Demander un devis pour ça</a>`;
+  fiche.querySelector('.lien').addEventListener('click', () => { document.getElementById('type').value = cle; });
+}
+boutons.forEach(b => b.addEventListener('click', () => choisir(b.dataset.s)));
+setTimeout(() => { if (!tableau.classList.contains('sous-tension')) choisir('neuf'); }, 1200);
+
+/* ---- Diagnostic ---- */
+const questions = [
+  { q: "Votre logement a-t-il plus de 25 ans ?", aide: "Les règles ont beaucoup changé depuis. Une installation d'avant 2000 n'a souvent pas toutes les protections actuelles.", poids: 1 },
+  { q: "Un disjoncteur saute-t-il de temps en temps ?", aide: "Quand le four et le lave-linge tournent ensemble, par exemple. C'est souvent le signe d'un circuit surchargé.", poids: 2 },
+  { q: "Avez-vous encore des prises sans terre ?", aide: "Ce sont les prises à deux trous, sans la petite broche métallique.", poids: 2 },
+  { q: "Votre tableau a-t-il encore des fusibles ?", aide: "Des petits cylindres en porcelaine, au lieu de disjoncteurs à levier.", poids: 3 }
+];
+const diag = document.getElementById('diag');
+let etape = 0, score = 0, reponses = [];
+function afficherQuestion(focus) {
+  const q = questions[etape];
+  diag.innerHTML = `<div class="diag-progres">${questions.map((_, i) => `<i class="${i < etape ? 'fait' : ''}"></i>`).join('')}</div>
+    <p class="diag-num">Question ${etape + 1} sur ${questions.length}</p>
+    <p class="diag-q">${q.q}</p><p class="diag-aide">${q.aide}</p>
+    <div class="diag-rep"><button type="button" data-r="oui">Oui</button><button type="button" data-r="non">Non</button><button type="button" data-r="nsp">Je ne sais pas</button></div>`;
+  diag.querySelectorAll('.diag-rep button').forEach(b => b.addEventListener('click', () => {
+    const r = b.dataset.r; reponses.push([q.q, r]);
+    if (r === 'oui') score += q.poids; if (r === 'nsp') score += q.poids / 2;
+    etape++; etape < questions.length ? afficherQuestion(true) : afficherResultat();
+  }));
+  if (focus) diag.querySelector('.diag-rep button').focus({ preventScroll: true });
+}
+function afficherResultat() {
+  let badge, cls, titre, conseils;
+  if (score >= 4) { badge = 'À remettre aux normes'; cls = 'urgent'; titre = "Votre installation mérite une vraie remise à niveau."; conseils = ["Un tableau neuf avec protections 30 mA", "La vérification de la mise à la terre", "Un devis précis après visite sur place"]; }
+  else if (score >= 1.5) { badge = 'À faire vérifier'; cls = 'moyen'; titre = "Quelques points méritent un contrôle."; conseils = ["Un contrôle du tableau et des circuits", "Les prises et la terre à vérifier", "Souvent, quelques travaux ciblés suffisent"]; }
+  else { badge = 'Plutôt sûre'; cls = 'ok'; titre = "Bonne nouvelle : rien d'alarmant à première vue."; conseils = ["Un contrôle tous les 10 ans reste conseillé", "Pensez-y avant d'ajouter une borne ou une plaque", "On reste joignable au moindre doute"]; }
+  diag.innerHTML = `<div class="diag-progres">${questions.map(() => '<i class="fait"></i>').join('')}</div>
+    <span class="res-badge ${cls}">${badge}</span>
+    <p class="res-titre">${titre}</p>
+    <p class="diag-aide">Ce que nous vous conseillerions :</p>
+    <ul class="res-liste">${conseils.map(c => `<li>${c}</li>`).join('')}</ul>
+    <div class="res-actions"><a class="bouton violet" href="#contact" id="versDevis">Demander une visite</a><button type="button" class="recommencer" id="recommencer">Recommencer</button></div>
+    <p class="diag-note">Ce test donne une première idée. Seule une visite sur place permet un vrai diagnostic.</p>`;
+  document.getElementById('recommencer').addEventListener('click', () => { etape = 0; score = 0; reponses = []; afficherQuestion(true); });
+  document.getElementById('versDevis').addEventListener('click', () => {
+    const lib = { oui: 'Oui', non: 'Non', nsp: 'Je ne sais pas' };
+    document.getElementById('type').value = score >= 1.5 ? 'normes' : 'autre';
+    document.getElementById('message').value = `Résultat du diagnostic en ligne : ${badge}\n` + reponses.map(([q, r]) => `- ${q} ${lib[r]}`).join('\n');
+    document.getElementById('rempli').style.display = 'block';
+  });
+}
+afficherQuestion(false);
+
+/* ---- Avant / après ---- */
+const compare = document.getElementById('compare'), curseur = document.getElementById('curseur');
+curseur.addEventListener('input', () => compare.style.setProperty('--pos', curseur.value + '%'));
+</script>
 </body>
 </html>
